@@ -99,7 +99,9 @@
       refreshProgress();
     });
     el('resetProgressBtn').addEventListener('click', () => {
-      window.Progress.resetProgress();
+      const resetState = window.Progress.resetProgress();
+      state.selectedDifficulty = resetState.selectedDifficulty;
+      renderDifficulty();
       refreshProgress();
       mountKeyLockGame();
     });

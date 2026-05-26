@@ -1,4 +1,4 @@
-# Manual Test Checklist — Commit 2 (Key Lock Playable)
+# Manual Test Checklist — Commit 2+ Hotfix (Key Lock + Reset State)
 
 ## Core startup
 - [ ] Open `index.html` directly in a browser.
@@ -29,6 +29,15 @@
 - [ ] Verify progress summary updates after stars/keys.
 - [ ] Verify cave status updates when enough keys are unlocked.
 - [ ] Verify reset progress clears stars/keys and relocks cave.
+
+## Reset hotfix checks
+- [ ] Unlock at least one realm key.
+- [ ] Click **Reset Progress**.
+- [ ] Confirm all realm keys are locked again.
+- [ ] Confirm stars reset to 0.
+- [ ] Confirm Treasure Cave returns to locked state.
+- [ ] Confirm selected difficulty and displayed highlighted difficulty match after reset.
+- [ ] Confirm newly mounted Key Lock rounds use reset/default difficulty.
 
 ## Layout and constraints
 - [ ] Verify mobile/tablet readability and touch-friendly button sizes.
