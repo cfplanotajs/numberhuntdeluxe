@@ -227,3 +227,14 @@
 - [ ] Confirm Key Lock still works after realm/difficulty changes and reset.
 - [ ] Confirm Treasure Merge still awards capped stars only.
 - [ ] Confirm Guardian Dash still awards no digital progress.
+
+
+## One active looped game at a time
+- [ ] Load page and confirm both looped games are idle.
+- [ ] Start Guardian Dash.
+- [ ] Then start Treasure Merge and confirm Guardian Dash stops/returns idle.
+- [ ] Start Guardian Dash again and confirm Treasure Merge stops/returns idle.
+- [ ] Repeat starts several times and confirm no duplicate canvases appear.
+- [ ] Confirm no background Dash timer continues after switching.
+- [ ] Reset progress and confirm both looped games return idle.
+- [ ] Confirm Key Lock still works.

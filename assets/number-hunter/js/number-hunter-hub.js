@@ -221,11 +221,22 @@
     state.isGuardianDashActive = true;
   }
 
+
+  function startTreasureMerge() {
+    cleanupGuardianDashToIdle();
+    mountTreasureMerge();
+  }
+
+  function startGuardianDash() {
+    cleanupTreasureMergeToIdle();
+    mountGuardianDash();
+  }
+
   function wireActions() {
     el('startQuestBtn').addEventListener('click', () => { renderProblem(); mountKeyLockGame(); refreshProgress(); });
     el('newProblemBtn').addEventListener('click', () => { renderProblem(); refreshProgress(); });
-    el('startTreasureMergeBtn').addEventListener('click', mountTreasureMerge);
-    el('startGuardianDashBtn').addEventListener('click', mountGuardianDash);
+    el('startTreasureMergeBtn').addEventListener('click', startTreasureMerge);
+    el('startGuardianDashBtn').addEventListener('click', startGuardianDash);
     el('questStyleSillyBtn').addEventListener('click', () => { state.questStyle = 'silly'; renderQuestStyleButtons(); });
     el('questStyleCalmBtn').addEventListener('click', () => { state.questStyle = 'calm'; renderQuestStyleButtons(); });
     el('resetProgressBtn').addEventListener('click', () => {
