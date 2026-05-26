@@ -74,7 +74,15 @@
       }
 
       const skill = pickSkill(realm.id, difficulty);
-      session.problem = window.MathEngine.generateProblem({ skill, difficulty, choices: difficulty === 'masterHunter' ? 4 : 3 });
+      try {
+        session.problem = window.MathEngine.generateProblem({ skill, difficulty, choices: difficulty === 'masterHunter' ? 4 : 3 });
+      } catch (err) {
+        feedbackEl.textContent = 'Lock setup issue. Try a different realm.';
+        choicesEl.innerHTML = '';
+        nextBtn.style.display = 'none';
+        restartBtn.style.display = 'inline-block';
+        return;
+      }
       session.attempt = 0;
 
       roundEl.textContent = `Lock ${session.round} of ${roundsToWin} • Correct ${session.correctCount}/${roundsToWin}`;

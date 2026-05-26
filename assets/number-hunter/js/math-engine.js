@@ -46,9 +46,27 @@
     return `Great work! ${prompt.replace('?', answer)}.`;
   }
 
+  const SUPPORTED_SKILLS = [
+    'additionWithin10',
+    'subtractionWithin10',
+    'additionWithin20',
+    'subtractionWithin20',
+    'evenOdd',
+    'make10',
+    'missingNumber'
+  ];
+  const SUPPORTED_SKILL_SET = new Set(SUPPORTED_SKILLS);
+
   const MathEngine = {
+    supportedSkills: SUPPORTED_SKILLS.slice(),
+    isSupportedSkill(skill) {
+      return SUPPORTED_SKILL_SET.has(skill);
+    },
     generateProblem(options) {
       const skill = options?.skill || 'additionWithin10';
+      if (!SUPPORTED_SKILL_SET.has(skill)) {
+        throw new Error(`Unsupported MathEngine skill: ${skill}`);
+      }
       const difficulty = options?.difficulty || 'littleHunter';
       const [min, max] = selectRangeByDifficulty(difficulty, skill);
       const choiceCount = options?.choices || (difficulty === 'masterHunter' ? 4 : 3);
@@ -92,11 +110,6 @@
         b = randInt(0, difficulty === 'littleHunter' ? 10 : 20 - answer);
         a = answer + b;
         prompt = `${a} - __ = ${b}`;
-      } else {
-        a = randInt(0, 10);
-        b = randInt(0, 10 - a);
-        answer = a + b;
-        prompt = `${a} + ${b} = ?`;
       }
 
       explanation = buildExplanation(skill, prompt, answer, a, b);

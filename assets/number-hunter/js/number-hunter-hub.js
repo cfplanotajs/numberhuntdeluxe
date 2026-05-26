@@ -100,12 +100,20 @@
 
   function renderProblem() {
     state.selectedSkill = chooseSkillForRealm(state.selectedRealmId);
-    const p = window.MathEngine.generateProblem({ skill: state.selectedSkill, difficulty: state.selectedDifficulty });
-    state.currentQuickQuest = { solved: false, answer: p.answer };
-
-    el('problemPrompt').textContent = p.prompt;
     const choices = el('problemChoices');
     choices.innerHTML = '';
+
+    let p;
+    try {
+      p = window.MathEngine.generateProblem({ skill: state.selectedSkill, difficulty: state.selectedDifficulty });
+    } catch (err) {
+      state.currentQuickQuest = { solved: true, answer: null };
+      el('problemPrompt').textContent = 'Quest setup issue. Pick a realm and try again.';
+      return;
+    }
+
+    state.currentQuickQuest = { solved: false, answer: p.answer };
+    el('problemPrompt').textContent = p.prompt;
 
     function disableAllChoices() {
       choices.querySelectorAll('button').forEach((btn) => {

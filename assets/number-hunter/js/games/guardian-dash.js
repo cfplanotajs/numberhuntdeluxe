@@ -90,11 +90,21 @@
       questionToken += 1;
       solved = false;
       wrongAttempts = 0;
-      currentProblem = window.MathEngine.generateProblem({
-        skill,
-        difficulty,
-        choices: difficulty === 'masterHunter' ? 4 : 3
-      });
+      try {
+        currentProblem = window.MathEngine.generateProblem({
+          skill,
+          difficulty,
+          choices: difficulty === 'masterHunter' ? 4 : 3
+        });
+      } catch (err) {
+        stopRunner();
+        clearNextTimer();
+        promptEl.textContent = 'Dash setup issue.';
+        feedbackEl.textContent = 'Pick another realm and try again!';
+        choicesEl.innerHTML = '';
+        playAgainEl.style.display = 'inline-block';
+        return;
+      }
       counterEl.textContent = `Question ${questionIndex + 1} / ${total}`;
       scoreEl.textContent = `Score: ${correct}`;
       promptEl.textContent = currentProblem.prompt;

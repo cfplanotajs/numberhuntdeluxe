@@ -238,3 +238,12 @@
 - [ ] Confirm no background Dash timer continues after switching.
 - [ ] Reset progress and confirm both looped games return idle.
 - [ ] Confirm Key Lock still works.
+
+
+## MathEngine contract hardening
+- [ ] Confirm active realms still generate valid Quick Quests.
+- [ ] Confirm Key Lock still works for every realm.
+- [ ] Confirm Guardian Dash still works for every realm.
+- [ ] Confirm Guardian Quest Generator still works for every realm.
+- [ ] Confirm unsupported skills are not silently converted to addition.
+- [ ] In browser console, run `MathEngine.generateProblem({ skill: "counting", difficulty: "littleHunter" })` and confirm it throws `Unsupported MathEngine skill`.
