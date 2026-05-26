@@ -57,3 +57,13 @@ h1 { margin: 0.25rem 0; }
 @media (min-width: 700px) {
   .button-grid, .realm-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+.key-lock-game { background: #fffdf2; border: 2px solid #f2d37f; border-radius: 12px; padding: 0.8rem; }
+.key-lock-realm { margin: 0; font-weight: 700; color: #6e5400; }
+.key-lock-title { margin: 0.3rem 0; }
+.key-lock-round, .key-lock-prompt, .key-lock-feedback { margin: 0.45rem 0; }
+.key-lock-prompt { font-size: 1.2rem; font-weight: 700; }
+.key-lock-choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+.key-lock-choice { min-height: 52px; font-size: 1rem; }
+.key-lock-controls { margin-top: 0.5rem; }
+.key-lock-wrong { outline: 3px solid #ff8a8a; }

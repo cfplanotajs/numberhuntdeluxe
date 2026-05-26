@@ -1,30 +1,107 @@
 (function () {
-  function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
-  function shuffled(arr) { return arr.slice().sort(() => Math.random() - 0.5); }
-  function choiceSet(answer, spread, count) {
+  function randInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function shuffle(items) {
+    const arr = items.slice();
+    for (let i = arr.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function addNumberChoices(answer, count, min, max) {
     const set = new Set([answer]);
-    while (set.size < count) set.add(answer + randInt(-spread, spread || 1));
-    return shuffled(Array.from(set));
+    let guard = 0;
+    while (set.size < count && guard < 100) {
+      guard += 1;
+      const delta = randInt(1, 4);
+      const candidate = Math.max(min, Math.min(max, answer + (Math.random() > 0.5 ? delta : -delta)));
+      set.add(candidate);
+    }
+    while (set.size < count) {
+      set.add(randInt(min, max));
+    }
+    return shuffle(Array.from(set));
+  }
+
+  function selectRangeByDifficulty(difficulty, forSkill) {
+    if (difficulty === 'littleHunter') return forSkill.includes('20') ? [0, 10] : [0, 10];
+    if (difficulty === 'numberAdventurer') return [0, 20];
+    return [0, 20];
   }
 
   const MathEngine = {
     generateProblem(options) {
-      const skill = options.skill || 'additionWithin10';
-      const difficulty = options.difficulty || 'littleHunter';
-      let a = 0, b = 0, answer = 0, prompt = '', explanation = '';
+      const skill = options?.skill || 'additionWithin10';
+      const difficulty = options?.difficulty || 'littleHunter';
+      const [min, max] = selectRangeByDifficulty(difficulty, skill);
+      const choiceCount = options?.choices || (difficulty === 'masterHunter' ? 4 : 3);
 
-      if (skill === 'additionWithin10') { a = randInt(0, 10); b = randInt(0, 10 - a); answer = a + b; prompt = `${a} + ${b} = ?`; }
-      else if (skill === 'subtractionWithin10') { a = randInt(1, 10); b = randInt(0, a); answer = a - b; prompt = `${a} - ${b} = ?`; }
-      else if (skill === 'additionWithin20') { a = randInt(0, 20); b = randInt(0, 20 - a); answer = a + b; prompt = `${a} + ${b} = ?`; }
-      else if (skill === 'subtractionWithin20') { a = randInt(1, 20); b = randInt(0, a); answer = a - b; prompt = `${a} - ${b} = ?`; }
-      else if (skill === 'evenOdd') { a = randInt(1, 20); answer = a % 2 === 0 ? 'Even' : 'Odd'; prompt = `${a} is ...`; }
-      else if (skill === 'make10') { a = randInt(0, 10); answer = 10 - a; prompt = `${a} + __ = 10`; }
-      else if (skill === 'missingNumber') { b = randInt(0, 10); answer = randInt(1, 10); a = answer + b; prompt = `${a} - __ = ${b}`; }
+      let a = 0;
+      let b = 0;
+      let answer;
+      let prompt = '';
+      let explanation = '';
 
-      explanation = `Great work! The answer is ${answer}.`;
-      const choices = typeof answer === 'string' ? shuffled(['Even', 'Odd']) : choiceSet(answer, 4, 3);
+      if (skill === 'additionWithin10' || (skill === 'additionWithin20' && difficulty === 'littleHunter')) {
+        a = randInt(min, Math.min(10, max));
+        b = randInt(min, Math.min(10, max - a));
+        answer = a + b;
+        prompt = `${a} + ${b} = ?`;
+      } else if (skill === 'additionWithin20') {
+        a = randInt(min, max);
+        b = randInt(min, max - a);
+        answer = a + b;
+        prompt = `${a} + ${b} = ?`;
+      } else if (skill === 'subtractionWithin10' || (skill === 'subtractionWithin20' && difficulty === 'littleHunter')) {
+        a = randInt(1, Math.min(10, max));
+        b = randInt(0, a);
+        answer = a - b;
+        prompt = `${a} - ${b} = ?`;
+      } else if (skill === 'subtractionWithin20') {
+        a = randInt(Math.max(1, min), max);
+        b = randInt(min, a);
+        answer = a - b;
+        prompt = `${a} - ${b} = ?`;
+      } else if (skill === 'evenOdd') {
+        a = randInt(Math.max(1, min), max || 20);
+        answer = a % 2 === 0 ? 'Even' : 'Odd';
+        prompt = `${a} is ...`;
+      } else if (skill === 'make10') {
+        a = randInt(0, 10);
+        answer = 10 - a;
+        prompt = `${a} + __ = 10`;
+      } else if (skill === 'missingNumber') {
+        answer = randInt(difficulty === 'masterHunter' ? 2 : 1, difficulty === 'littleHunter' ? 10 : 20);
+        b = randInt(0, difficulty === 'littleHunter' ? 10 : 20 - answer);
+        a = answer + b;
+        prompt = `${a} - __ = ${b}`;
+      } else {
+        a = randInt(0, 10);
+        b = randInt(0, 10 - a);
+        answer = a + b;
+        prompt = `${a} + ${b} = ?`;
+      }
 
-      return { prompt, answer, choices, explanation, skill, difficulty };
+      explanation = typeof answer === 'string'
+        ? `${a} is ${answer.toLowerCase()} because it can${answer === 'Even' ? '' : 'not'} be split into pairs.`
+        : `Great work! ${prompt.replace('?', answer)}.`;
+
+      const choices = typeof answer === 'string'
+        ? shuffle(['Even', 'Odd'])
+        : addNumberChoices(answer, choiceCount, 0, Math.max(20, answer + 5));
+
+      return {
+        prompt,
+        answer,
+        choices,
+        explanation,
+        skill,
+        difficulty
+      };
     }
   };
 

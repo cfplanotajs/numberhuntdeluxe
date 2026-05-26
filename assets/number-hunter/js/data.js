@@ -13,6 +13,14 @@
       { id: 'desert', name: 'Desert', reward: 'Desert Key', skillFocus: ['missingNumber'] },
       { id: 'volcano', name: 'Volcano', reward: 'Volcano Key', skillFocus: ['additionWithin20', 'subtractionWithin20'] }
     ],
+    realmSkillMap: {
+      jungle: ['additionWithin10'],
+      frozen: ['subtractionWithin10'],
+      ocean: ['evenOdd'],
+      rainbow: ['make10'],
+      desert: ['missingNumber'],
+      volcano: ['additionWithin20', 'subtractionWithin20']
+    },
     rewards: { caveKeyTarget: 3, starLabel: 'Star', keyLabel: 'Realm Key' },
     questTemplates: [
       'Solve {{prompt}}. Then {{action}}. If correct, {{reward}}!',
