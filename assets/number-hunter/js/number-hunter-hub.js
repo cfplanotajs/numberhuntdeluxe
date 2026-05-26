@@ -7,7 +7,8 @@
     currentQuickQuest: null,
     treasureMergeSession: null,
     realmSkillIndex: {},
-    questStyle: 'silly'
+    questStyle: 'silly',
+    guardianDashSession: null
   };
 
   function el(id) { return document.getElementById(id); }
@@ -63,6 +64,7 @@
         renderProblem();
         mountKeyLockGame();
         mountTreasureMerge();
+        mountGuardianDash();
         refreshProgress();
       });
       mount.appendChild(b);
@@ -87,6 +89,7 @@
         renderProblem();
         mountKeyLockGame();
         mountTreasureMerge();
+        mountGuardianDash();
         refreshProgress();
       });
       mount.appendChild(b);
@@ -174,10 +177,23 @@
     });
   }
 
+
+  function mountGuardianDash() {
+    if (state.guardianDashSession && typeof state.guardianDashSession.cleanup === 'function') state.guardianDashSession.cleanup();
+    state.selectedSkill = chooseSkillForRealm(state.selectedRealmId);
+    state.guardianDashSession = window.initGuardianDashGame(el('guardianDashMount'), {
+      realm: getSelectedRealm(),
+      difficulty: state.selectedDifficulty,
+      skill: state.selectedSkill,
+      onRunComplete: () => {}
+    });
+  }
+
   function wireActions() {
     el('startQuestBtn').addEventListener('click', () => { renderProblem(); mountKeyLockGame(); mountTreasureMerge(); refreshProgress(); });
     el('newProblemBtn').addEventListener('click', () => { renderProblem(); refreshProgress(); });
     el('startTreasureMergeBtn').addEventListener('click', mountTreasureMerge);
+    el('startGuardianDashBtn').addEventListener('click', mountGuardianDash);
     el('questStyleSillyBtn').addEventListener('click', () => { state.questStyle = 'silly'; renderQuestStyleButtons(); });
     el('questStyleCalmBtn').addEventListener('click', () => { state.questStyle = 'calm'; renderQuestStyleButtons(); });
     el('resetProgressBtn').addEventListener('click', () => {
@@ -187,6 +203,7 @@
       renderProblem();
       mountKeyLockGame();
       mountTreasureMerge();
+      mountGuardianDash();
       refreshProgress();
     });
 
@@ -240,6 +257,7 @@
     wireActions();
     mountKeyLockGame();
     mountTreasureMerge();
+    mountGuardianDash();
     refreshProgress();
   }
 

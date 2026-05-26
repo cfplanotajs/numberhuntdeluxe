@@ -179,6 +179,23 @@
 - [ ] Confirm choices still include the correct answer.
 - [ ] Confirm explanations still render clearly.
 
+
+## Guardian Dash MVP
+- [ ] Start Guardian Dash from hub.
+- [ ] Confirm selected realm appears in Guardian Dash.
+- [ ] Confirm selected difficulty affects problem generation.
+- [ ] Confirm answer gates display with tap-friendly size.
+- [ ] Confirm correct answer advances and increments local score once.
+- [ ] Confirm repeated taps after correct do not increment score again.
+- [ ] Confirm incorrect answer shows feedback and no score increase.
+- [ ] Confirm repeated wrong answers show explanation hint.
+- [ ] Confirm run ends after 5 questions.
+- [ ] Confirm Play Again starts a fresh run.
+- [ ] Confirm switching realm/difficulty cleans active run.
+- [ ] Confirm Treasure Merge still works afterward.
+- [ ] Confirm Key Lock still works afterward.
+- [ ] Confirm Guardian Dash awards no digital stars/keys.
+
 ## Layout and constraints
 - [ ] Verify mobile/tablet readability and touch-friendly button sizes.
 - [ ] Confirm no framework/build artifacts were added.
