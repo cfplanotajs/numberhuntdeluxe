@@ -1,0 +1,100 @@
+:root {
+  --bg: #f6fbff;
+  --text: #1f2a44;
+  --card: #ffffff;
+  --primary: #ff7a30;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+.hub { padding: 1rem; max-width: 900px; margin: 0 auto; }
+.card, .hero {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid #d9e6f7;
+}
+.hero { background: linear-gradient(135deg, #fff5d6, #e5f4ff); text-align: center; }
+.eyebrow { font-weight: 700; margin: 0; }
+h1 { margin: 0.25rem 0; }
+.btn {
+  min-height: 48px;
+  border: 0;
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: #dce9ff;
+  margin: 0.25rem;
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-ghost { background: #f1f3f8; }
+.button-grid, .realm-grid { display: grid; gap: 0.5rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.realm-card {
+  min-height: 70px;
+  text-align: left;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  padding: 0.65rem;
+  font-weight: 700;
+}
+.realm-card.selected { border-color: #1f2a44; }
+.realm-jungle { background: #d7f7dc; }
+.realm-frozen { background: #def4ff; }
+.realm-ocean { background: #d8ecff; }
+.realm-rainbow { background: #f2e3ff; }
+.realm-desert { background: #ffeccb; }
+.realm-volcano { background: #ffd9d0; }
+.quest-card { background: #f9fbff; border: 1px dashed #a8bddf; border-radius: 10px; padding: 0.75rem; min-height: 80px; }
+.choice-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
+.parent-zone { border-color: #b4a7ff; background: #f8f3ff; }
+.cave-zone { border-color: #ffc34d; background: #fff6dc; }
+@media (min-width: 700px) {
+  .button-grid, .realm-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.key-lock-game { background: #fffdf2; border: 2px solid #f2d37f; border-radius: 12px; padding: 0.8rem; }
+.key-lock-realm { margin: 0; font-weight: 700; color: #6e5400; }
+.key-lock-title { margin: 0.3rem 0; }
+.key-lock-round, .key-lock-prompt, .key-lock-feedback { margin: 0.45rem 0; }
+.key-lock-prompt { font-size: 1.2rem; font-weight: 700; }
+.key-lock-choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+.key-lock-choice { min-height: 52px; font-size: 1rem; }
+.key-lock-controls { margin-top: 0.5rem; }
+.key-lock-wrong { outline: 3px solid #ff8a8a; }
+
+
+.merge-wrap { border: 2px solid #bfd3f5; border-radius: 12px; padding: 0.75rem; background: #f7fbff; }
+.merge-realm, .merge-tip, .merge-math, .merge-next { margin: 0.35rem 0; }
+.merge-stats { display: flex; justify-content: space-between; gap: 0.5rem; font-weight: 700; flex-wrap: wrap; }
+.merge-board { min-height: 360px; border: 2px solid #d5e3ff; border-radius: 10px; overflow: hidden; background: #eef6ff; margin: 0.5rem 0; }
+.merge-controls { display: grid; gap: 0.4rem; }
+.merge-controls input[type="range"] { width: 100%; min-height: 40px; }
+.merge-fallback { padding: 0.75rem; background: #fff4e8; border: 2px dashed #ffb070; border-radius: 10px; }
+
+.merge-wrap { max-width: 440px; margin: 0 auto; }
+.merge-realm { font-weight: 700; }
+.merge-tip { font-weight: 700; color: #26456f; }
+.merge-stats span { background: #ffffff; padding: 0.3rem 0.5rem; border-radius: 8px; border: 1px solid #cddcf6; }
+.merge-next { font-size: 1.05rem; font-weight: 700; }
+.merge-board { position: relative; width: 100%; touch-action: manipulation; }
+.merge-board canvas { width: 100% !important; height: 100% !important; display: block; }
+.merge-drop-marker {
+  position: absolute;
+  top: 6px;
+  transform: translateX(-50%);
+  background: #1f2a44;
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  pointer-events: none;
+}
+.merge-controls label { font-weight: 700; }
+.merge-controls .btn { width: 100%; }
