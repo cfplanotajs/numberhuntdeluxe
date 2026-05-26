@@ -76,3 +76,25 @@ h1 { margin: 0.25rem 0; }
 .merge-controls { display: grid; gap: 0.4rem; }
 .merge-controls input[type="range"] { width: 100%; min-height: 40px; }
 .merge-fallback { padding: 0.75rem; background: #fff4e8; border: 2px dashed #ffb070; border-radius: 10px; }
+
+.merge-wrap { max-width: 440px; margin: 0 auto; }
+.merge-realm { font-weight: 700; }
+.merge-tip { font-weight: 700; color: #26456f; }
+.merge-stats span { background: #ffffff; padding: 0.3rem 0.5rem; border-radius: 8px; border: 1px solid #cddcf6; }
+.merge-next { font-size: 1.05rem; font-weight: 700; }
+.merge-board { position: relative; width: 100%; touch-action: manipulation; }
+.merge-board canvas { width: 100% !important; height: 100% !important; display: block; }
+.merge-drop-marker {
+  position: absolute;
+  top: 6px;
+  transform: translateX(-50%);
+  background: #1f2a44;
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  pointer-events: none;
+}
+.merge-controls label { font-weight: 700; }
+.merge-controls .btn { width: 100%; }

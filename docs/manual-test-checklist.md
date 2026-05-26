@@ -95,6 +95,20 @@
 - [ ] Confirm score increases only once per valid merge.
 - [ ] Confirm Key Lock still works after Treasure Merge restarts/switches.
 
+
+## Treasure Merge mobile UX
+- [ ] Play on a narrow mobile viewport.
+- [ ] Play on a tablet-width viewport.
+- [ ] Tap the play area/top area to set drop position.
+- [ ] Confirm Drop button works reliably.
+- [ ] Confirm rapid taps do not create accidental multi-drops.
+- [ ] Confirm moving number labels stay readable.
+- [ ] Confirm selected realm skin styling appears.
+- [ ] Confirm difficulty changes starting values/spawn feel.
+- [ ] Confirm Play Again still works repeatedly.
+- [ ] Confirm realm/difficulty switching does not duplicate canvases.
+- [ ] Confirm Key Lock still works after Treasure Merge.
+
 ## Layout and constraints
 - [ ] Verify mobile/tablet readability and touch-friendly button sizes.
 - [ ] Confirm no framework/build artifacts were added.
