@@ -134,7 +134,12 @@
     }
     state.treasureMergeSession = window.initTreasureMergeGame(el('treasureMergeMount'), {
       realm: getSelectedRealm(),
-      difficulty: state.selectedDifficulty
+      difficulty: state.selectedDifficulty,
+      onRewardEarned: (payload) => {
+        if (payload?.type !== 'star') return;
+        window.Progress.awardStar();
+        refreshProgress();
+      }
     });
   }
 

@@ -122,6 +122,18 @@
 - [ ] Generate several Bonus Guardian Quests and confirm both addition and subtraction prompts appear.
 - [ ] Confirm other realms still use their intended skill identity.
 
+
+## Treasure Merge reward cap
+- [ ] Start Treasure Merge.
+- [ ] Reach the star threshold for the selected difficulty.
+- [ ] Confirm exactly 1 star is awarded.
+- [ ] Continue merging after threshold and confirm no extra stars are awarded in the same session.
+- [ ] Click Play Again.
+- [ ] Reach threshold again and confirm 1 new star can be awarded in the new session.
+- [ ] Switch realm/difficulty after earning a star and confirm old session does not emit extra rewards.
+- [ ] Reset progress and confirm stars reset.
+- [ ] Confirm no Earn Star / Earn Realm Key bypass controls exist.
+
 ## Layout and constraints
 - [ ] Verify mobile/tablet readability and touch-friendly button sizes.
 - [ ] Confirm no framework/build artifacts were added.

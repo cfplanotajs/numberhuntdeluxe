@@ -8,6 +8,12 @@
     volcano: { label: 'Lava Rock', color: '#ff8e7c', stroke: '#a04335' }
   };
 
+  const STAR_GOALS = {
+    littleHunter: 16,
+    numberAdventurer: 32,
+    masterHunter: 64
+  };
+
   function pickNextValue(difficulty) {
     const roll = Math.random();
     if (difficulty === 'littleHunter') return roll < 0.6 ? 1 : roll < 0.9 ? 2 : 4;
@@ -27,7 +33,9 @@
     const difficulty = options?.difficulty || 'littleHunter';
     const onScoreChange = typeof options?.onScoreChange === 'function' ? options.onScoreChange : function () {};
     const onGameEnd = typeof options?.onGameEnd === 'function' ? options.onGameEnd : function () {};
+    const onRewardEarned = typeof options?.onRewardEarned === 'function' ? options.onRewardEarned : function () {};
     const skin = REALM_SKINS[realm.id] || REALM_SKINS.jungle;
+    const starGoal = STAR_GOALS[difficulty] || 32;
 
     let score = 0;
     let bestMerge = 0;
@@ -36,9 +44,11 @@
     let isCleanedUp = false;
     let lastDropAt = 0;
     let dropX = 150;
+    let starAwardedThisSession = false;
 
     let engine; let render; let runner; let collisionHandler; let afterRenderHandler;
     let boardEl; let scoreEl; let bestEl; let mathEl; let nextEl; let laneEl; let dropEl; let restartEl; let markerEl;
+    let starGoalEl; let starProgressEl; let starStatusEl;
     let laneInputHandler;
     let width = 300; let height = 380;
 
@@ -60,6 +70,13 @@
       return b;
     }
 
+    function maybeAwardStar() {
+      if (isCleanedUp || !active || starAwardedThisSession || score < starGoal) return;
+      starAwardedThisSession = true;
+      if (starStatusEl) starStatusEl.textContent = 'You earned a star!';
+      onRewardEarned({ type: 'star', source: 'treasureMerge', score, realmId: realm.id, difficulty });
+    }
+
     function updateMarker() {
       if (!markerEl) return;
       markerEl.style.left = `${dropX}px`;
@@ -72,7 +89,11 @@
       bestEl.textContent = `Best Merge: ${bestMerge}`;
       if (msg) mathEl.textContent = msg;
       nextEl.textContent = `Next ${skin.label}: ${nextValue}`;
+      if (starGoalEl) starGoalEl.textContent = `Star Goal: ${starGoal}`;
+      if (starProgressEl) starProgressEl.textContent = `Score: ${Math.min(score, starGoal)} / ${starGoal}`;
+      if (starStatusEl && !starAwardedThisSession) starStatusEl.textContent = 'Keep merging!';
       updateMarker();
+      maybeAwardStar();
       onScoreChange(score);
     }
 
@@ -121,6 +142,11 @@
           </div>
           <p id="mergeMath" class="merge-math">Drop a treasure!</p>
           <p id="mergeNext" class="merge-next">Next ${skin.label}: ${nextValue}</p>
+          <div class="merge-star-row">
+            <span id="mergeStarGoal">Star Goal: ${starGoal}</span>
+            <span id="mergeStarProgress">Score: 0 / ${starGoal}</span>
+          </div>
+          <p id="mergeStarStatus" class="merge-star-status">Keep merging!</p>
           <div id="mergeBoard" class="merge-board" aria-label="Treasure Merge board">
             <div id="mergeDropMarker" class="merge-drop-marker">↓ ${nextValue}</div>
           </div>
@@ -141,6 +167,9 @@
       laneEl = mountEl.querySelector('#mergeX');
       dropEl = mountEl.querySelector('#mergeDrop');
       restartEl = mountEl.querySelector('#mergeRestart');
+      starGoalEl = mountEl.querySelector('#mergeStarGoal');
+      starProgressEl = mountEl.querySelector('#mergeStarProgress');
+      starStatusEl = mountEl.querySelector('#mergeStarStatus');
       boardEl.style.height = `${height}px`;
       updateMarker();
     }
@@ -219,12 +248,14 @@
 
       engine = null; render = null; runner = null; collisionHandler = null; afterRenderHandler = null;
       boardEl = null; scoreEl = null; bestEl = null; mathEl = null; nextEl = null; laneEl = null; dropEl = null; restartEl = null; markerEl = null; laneInputHandler = null;
+      starGoalEl = null; starProgressEl = null; starStatusEl = null;
       if (clearMount) mountEl.innerHTML = '';
     }
 
     function resetGame() {
       if (isCleanedUp) return;
       score = 0; bestMerge = 0; active = true; lastDropAt = 0;
+      starAwardedThisSession = false;
       nextValue = pickNextValue(difficulty);
       tearDownWorld(false);
       renderShell();
