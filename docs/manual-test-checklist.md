@@ -196,6 +196,20 @@
 - [ ] Confirm Key Lock still works afterward.
 - [ ] Confirm Guardian Dash awards no digital stars/keys.
 
+
+## Timer cleanup regressions (Key Lock + Dash)
+- [ ] Complete Key Lock or trigger a round transition.
+- [ ] Immediately switch realm/difficulty/reset.
+- [ ] Confirm stale Key Lock completion UI does not overwrite the new session.
+- [ ] Confirm newly selected realm/difficulty remains visible.
+- [ ] Confirm keys/stars still award normally through Key Lock.
+- [ ] Start Guardian Dash and do not answer until runner reaches the end.
+- [ ] Confirm the question is treated as missed with no score award.
+- [ ] Confirm miss feedback appears and next question loads.
+- [ ] Confirm final run still ends after 5 questions.
+- [ ] Answer correctly before runner reaches end and confirm score increments once.
+- [ ] Confirm repeated taps do not increase score.
+
 ## Layout and constraints
 - [ ] Verify mobile/tablet readability and touch-friendly button sizes.
 - [ ] Confirm no framework/build artifacts were added.

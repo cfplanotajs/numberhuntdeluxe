@@ -16,6 +16,8 @@
     let wrongAttempts = 0;
     let runnerTimer = null;
     let runnerStep = 0;
+    let nextTimer = null;
+    let questionToken = 0;
 
     mountEl.innerHTML = `
       <div class="dash-wrap">
@@ -38,15 +40,19 @@
     const playAgainEl = mountEl.querySelector('#dashPlayAgain');
     const runnerEl = mountEl.querySelector('#dashRunner');
 
-    function startRunner() {
-      stopRunner();
-      runnerStep = 0;
-      runnerEl.style.left = '0%';
-      runnerTimer = setInterval(() => {
-        if (isCleaned || solved) return;
-        runnerStep = Math.min(100, runnerStep + 4);
-        runnerEl.style.left = `${runnerStep}%`;
-      }, 350);
+    function clearNextTimer() {
+      if (nextTimer) clearTimeout(nextTimer);
+      nextTimer = null;
+    }
+
+    function queueNextQuestion(delay) {
+      clearNextTimer();
+      const tokenAtSchedule = questionToken;
+      nextTimer = setTimeout(() => {
+        nextTimer = null;
+        if (isCleaned || tokenAtSchedule !== questionToken) return;
+        nextQuestion();
+      }, delay);
     }
 
     function stopRunner() {
@@ -54,7 +60,34 @@
       runnerTimer = null;
     }
 
+    function disableChoices() {
+      choicesEl.querySelectorAll('button').forEach((b) => { b.disabled = true; });
+    }
+
+    function handleMiss() {
+      if (isCleaned || solved) return;
+      solved = true;
+      stopRunner();
+      disableChoices();
+      feedbackEl.textContent = `Gate missed! Try the next one. ${currentProblem.explanation}`;
+      queueNextQuestion(700);
+    }
+
+    function startRunner() {
+      stopRunner();
+      runnerStep = 0;
+      runnerEl.style.left = '0%';
+      const tokenAtStart = questionToken;
+      runnerTimer = setInterval(() => {
+        if (isCleaned || solved || tokenAtStart !== questionToken) return;
+        runnerStep = Math.min(100, runnerStep + 4);
+        runnerEl.style.left = `${runnerStep}%`;
+        if (runnerStep >= 100) handleMiss();
+      }, 350);
+    }
+
     function buildQuestion() {
+      questionToken += 1;
       solved = false;
       wrongAttempts = 0;
       currentProblem = window.MathEngine.generateProblem({
@@ -81,22 +114,19 @@
             feedbackEl.textContent = 'Great job!';
             stopRunner();
             disableChoices();
-            setTimeout(nextQuestion, 500);
+            queueNextQuestion(500);
           } else {
             wrongAttempts += 1;
             feedbackEl.textContent = wrongAttempts >= 2 ? `Try again! ${currentProblem.explanation}` : 'Try again!';
             gate.classList.add('dash-wrong');
-            setTimeout(() => gate.classList.remove('dash-wrong'), 250);
+            const gateRef = gate;
+            setTimeout(() => { if (!isCleaned) gateRef.classList.remove('dash-wrong'); }, 250);
           }
         });
         choicesEl.appendChild(gate);
       });
 
       startRunner();
-    }
-
-    function disableChoices() {
-      choicesEl.querySelectorAll('button').forEach((b) => { b.disabled = true; });
     }
 
     function nextQuestion() {
@@ -111,6 +141,7 @@
 
     function runComplete() {
       stopRunner();
+      clearNextTimer();
       disableChoices();
       promptEl.textContent = 'Run Complete!';
       scoreEl.textContent = `Score: ${correct} / ${total}`;
@@ -123,6 +154,8 @@
 
     function resetRun() {
       if (isCleaned) return;
+      stopRunner();
+      clearNextTimer();
       questionIndex = 0;
       correct = 0;
       playAgainEl.style.display = 'none';
@@ -136,6 +169,7 @@
       if (isCleaned) return;
       isCleaned = true;
       stopRunner();
+      clearNextTimer();
       mountEl.innerHTML = '';
     }
 

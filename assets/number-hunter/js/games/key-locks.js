@@ -9,12 +9,14 @@
   }
 
   function initKeyLocksGame(mountEl, options) {
-    if (!mountEl) return { restart() {} };
+    if (!mountEl) return { cleanup() {}, restart() {} };
 
     const realm = options?.realm || window.NH_DATA.realms[0];
     const difficulty = options?.difficulty || 'littleHunter';
     const onProgress = typeof options?.onProgress === 'function' ? options.onProgress : function () {};
     const roundsToWin = 3;
+    const pendingTimers = new Set();
+    let isCleaned = false;
 
     const session = {
       correctCount: 0,
@@ -24,7 +26,18 @@
       problem: null
     };
 
+    function safeTimeout(fn, ms) {
+      const id = setTimeout(() => {
+        pendingTimers.delete(id);
+        if (isCleaned) return;
+        fn();
+      }, ms);
+      pendingTimers.add(id);
+      return id;
+    }
+
     function renderShell() {
+      if (isCleaned) return;
       mountEl.innerHTML = `
         <div class="key-lock-game">
           <p class="key-lock-realm">${realm.name} Lock</p>
@@ -41,12 +54,14 @@
     }
 
     function renderRound() {
+      if (isCleaned) return;
       const roundEl = mountEl.querySelector('#keyLockRound');
       const promptEl = mountEl.querySelector('#keyLockPrompt');
       const choicesEl = mountEl.querySelector('#keyLockChoices');
       const feedbackEl = mountEl.querySelector('#keyLockFeedback');
       const nextBtn = mountEl.querySelector('#keyLockNextBtn');
       const restartBtn = mountEl.querySelector('#keyLockRestartBtn');
+      if (!roundEl || !promptEl || !choicesEl || !feedbackEl || !nextBtn || !restartBtn) return;
 
       if (session.complete) {
         roundEl.textContent = `Success! ${roundsToWin}/${roundsToWin} locks opened`;
@@ -69,13 +84,17 @@
       nextBtn.style.display = 'none';
       restartBtn.style.display = 'none';
 
+      function disableChoices() {
+        choicesEl.querySelectorAll('button').forEach((button) => { button.disabled = true; });
+      }
+
       session.problem.choices.forEach((choice) => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'btn key-lock-choice';
         btn.textContent = choice;
         btn.addEventListener('click', function () {
-          if (session.complete) return;
+          if (isCleaned || session.complete) return;
           if (choice === session.problem.answer) {
             session.correctCount += 1;
             session.round += 1;
@@ -88,7 +107,7 @@
               window.Progress.unlockRealmKey(realm.id);
               onProgress(window.Progress.getProgress());
               session.complete = true;
-              setTimeout(renderRound, 450);
+              safeTimeout(renderRound, 450);
             } else {
               nextBtn.style.display = 'inline-block';
             }
@@ -96,20 +115,21 @@
             session.attempt += 1;
             feedbackEl.textContent = session.attempt >= 2 ? `Try Again! ${session.problem.explanation}` : 'Try Again!';
             btn.classList.add('key-lock-wrong');
-            setTimeout(() => btn.classList.remove('key-lock-wrong'), 280);
+            safeTimeout(() => btn.classList.remove('key-lock-wrong'), 280);
           }
         });
         choicesEl.appendChild(btn);
       });
-
-      function disableChoices() {
-        choicesEl.querySelectorAll('button').forEach((button) => { button.disabled = true; });
-      }
     }
 
     function wire() {
-      mountEl.querySelector('#keyLockNextBtn').addEventListener('click', renderRound);
-      mountEl.querySelector('#keyLockRestartBtn').addEventListener('click', function () {
+      if (isCleaned) return;
+      const nextBtn = mountEl.querySelector('#keyLockNextBtn');
+      const restartBtn = mountEl.querySelector('#keyLockRestartBtn');
+      if (!nextBtn || !restartBtn) return;
+      nextBtn.addEventListener('click', renderRound);
+      restartBtn.addEventListener('click', function () {
+        if (isCleaned) return;
         session.correctCount = 0;
         session.round = 1;
         session.attempt = 0;
@@ -118,11 +138,19 @@
       });
     }
 
+    function cleanup() {
+      if (isCleaned) return;
+      isCleaned = true;
+      pendingTimers.forEach((id) => clearTimeout(id));
+      pendingTimers.clear();
+      mountEl.innerHTML = '';
+    }
+
     renderShell();
     wire();
     renderRound();
 
-    return { restart: renderRound };
+    return { restart: renderRound, cleanup };
   }
 
   window.initKeyLocksGame = initKeyLocksGame;

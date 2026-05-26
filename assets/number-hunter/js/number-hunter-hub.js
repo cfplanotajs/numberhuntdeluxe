@@ -157,6 +157,7 @@
 
   function mountKeyLockGame() {
     const realm = getSelectedRealm();
+    if (state.keyLockSession && typeof state.keyLockSession.cleanup === 'function') state.keyLockSession.cleanup();
     state.keyLockSession = window.initKeyLocksGame(el('keyLocksMount'), {
       realm,
       difficulty: state.selectedDifficulty,
