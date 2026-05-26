@@ -5,13 +5,29 @@
     selectedSkill: 'additionWithin10',
     keyLockSession: null,
     currentQuickQuest: null,
-    treasureMergeSession: null
+    treasureMergeSession: null,
+    realmSkillIndex: {}
   };
 
   function el(id) { return document.getElementById(id); }
 
   function getSelectedRealm() {
     return window.NH_DATA.realms.find((r) => r.id === state.selectedRealmId) || window.NH_DATA.realms[0];
+  }
+
+
+  function getSkillsForRealm(realmId) {
+    const realm = window.NH_DATA.realms.find((r) => r.id === realmId);
+    return (window.NH_DATA.realmSkillMap[realmId] || realm?.skillFocus || ['additionWithin10']).slice();
+  }
+
+  function chooseSkillForRealm(realmId) {
+    const skills = getSkillsForRealm(realmId);
+    if (skills.length <= 1) return skills[0];
+    const currentIndex = state.realmSkillIndex[realmId] || 0;
+    const nextSkill = skills[currentIndex % skills.length];
+    state.realmSkillIndex[realmId] = (currentIndex + 1) % skills.length;
+    return nextSkill;
   }
 
   function renderDifficulty() {
@@ -44,7 +60,7 @@
       b.textContent = realm.name;
       b.addEventListener('click', () => {
         state.selectedRealmId = realm.id;
-        state.selectedSkill = (window.NH_DATA.realmSkillMap[realm.id] || realm.skillFocus)[0];
+        state.selectedSkill = chooseSkillForRealm(realm.id);
         el('selectedRealmLabel').textContent = `Realm: ${realm.name}`;
         renderRealms();
         renderProblem();
@@ -56,6 +72,7 @@
   }
 
   function renderProblem() {
+    state.selectedSkill = chooseSkillForRealm(state.selectedRealmId);
     const p = window.MathEngine.generateProblem({ skill: state.selectedSkill, difficulty: state.selectedDifficulty });
     state.currentQuickQuest = {
       solved: false,
@@ -103,7 +120,6 @@
 
   function mountKeyLockGame() {
     const realm = getSelectedRealm();
-    state.selectedSkill = (window.NH_DATA.realmSkillMap[realm.id] || realm.skillFocus)[0];
     state.keyLockSession = window.initKeyLocksGame(el('keyLocksMount'), {
       realm,
       difficulty: state.selectedDifficulty,
@@ -130,11 +146,6 @@
     });
     el('newProblemBtn').addEventListener('click', renderProblem);
     el('startTreasureMergeBtn').addEventListener('click', mountTreasureMerge);
-    el('awardStarBtn').addEventListener('click', () => { window.Progress.awardStar(); refreshProgress(); });
-    el('earnKeyBtn').addEventListener('click', () => {
-      window.Progress.unlockRealmKey(state.selectedRealmId);
-      refreshProgress();
-    });
     el('resetProgressBtn').addEventListener('click', () => {
       const resetState = window.Progress.resetProgress();
       state.selectedDifficulty = resetState.selectedDifficulty;
@@ -147,6 +158,7 @@
 
     el('generateQuestBtn').addEventListener('click', () => {
       const realm = getSelectedRealm();
+      state.selectedSkill = chooseSkillForRealm(state.selectedRealmId);
       const text = window.generateGuardianQuest({ realm, difficulty: state.selectedDifficulty, skill: state.selectedSkill, style: 'silly' });
       el('generatedQuest').textContent = text;
     });
@@ -166,7 +178,7 @@
     const progress = window.Progress.getProgress();
     state.selectedDifficulty = progress.selectedDifficulty || state.selectedDifficulty;
     state.selectedRealmId = window.NH_DATA.realms[0].id;
-    state.selectedSkill = window.NH_DATA.realms[0].skillFocus[0];
+    state.selectedSkill = chooseSkillForRealm(state.selectedRealmId);
     el('selectedRealmLabel').textContent = `Realm: ${getSelectedRealm().name}`;
 
     renderDifficulty();

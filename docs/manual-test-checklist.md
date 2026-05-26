@@ -109,6 +109,19 @@
 - [ ] Confirm realm/difficulty switching does not duplicate canvases.
 - [ ] Confirm Key Lock still works after Treasure Merge.
 
+
+## Progression integrity (no bypass controls)
+- [ ] Confirm there are no visible **Earn Star** or **Earn Realm Key** buttons.
+- [ ] Confirm stars cannot be directly farmed from child UI bypass controls.
+- [ ] Confirm keys unlock through Key Lock completion.
+- [ ] Confirm Cave progress remains tied to real gameplay.
+
+## Volcano mixed skills
+- [ ] Select **Volcano**.
+- [ ] Generate several Quick Quests and confirm both additionWithin20 and subtractionWithin20 appear.
+- [ ] Generate several Bonus Guardian Quests and confirm both addition and subtraction prompts appear.
+- [ ] Confirm other realms still use their intended skill identity.
+
 ## Layout and constraints
 - [ ] Verify mobile/tablet readability and touch-friendly button sizes.
 - [ ] Confirm no framework/build artifacts were added.
