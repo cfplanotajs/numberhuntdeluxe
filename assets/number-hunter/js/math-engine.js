@@ -60,8 +60,8 @@
       let explanation = '';
 
       if (skill === 'additionWithin10' || (skill === 'additionWithin20' && difficulty === 'littleHunter')) {
-        a = randInt(min, Math.min(10, max));
-        b = randInt(min, Math.min(10, max - a));
+        a = randInt(0, 10);
+        b = randInt(0, 10 - a);
         answer = a + b;
         prompt = `${a} + ${b} = ?`;
       } else if (skill === 'additionWithin20') {

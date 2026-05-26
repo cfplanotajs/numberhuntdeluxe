@@ -170,6 +170,15 @@
 - [ ] Confirm Cave progress does not change from generated quests.
 - [ ] Confirm reward bypass controls remain absent.
 
+
+## MathEngine bounds (additionWithin10)
+- [ ] Generate/play Jungle Quick Quests on Little Hunter.
+- [ ] Generate/play Jungle Quick Quests on Number Adventurer.
+- [ ] Generate/play Jungle Quick Quests on Master Hunter.
+- [ ] Confirm additionWithin10 sums stay at 10 or below.
+- [ ] Confirm choices still include the correct answer.
+- [ ] Confirm explanations still render clearly.
+
 ## Layout and constraints
 - [ ] Verify mobile/tablet readability and touch-friendly button sizes.
 - [ ] Confirm no framework/build artifacts were added.
