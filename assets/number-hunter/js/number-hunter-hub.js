@@ -192,10 +192,27 @@
 
     el('generateQuestBtn').addEventListener('click', () => {
       const realm = getSelectedRealm();
-      state.selectedSkill = chooseSkillForRealm(state.selectedRealmId);
-      const text = window.generateGuardianQuest({ realm, difficulty: state.selectedDifficulty, skill: state.selectedSkill, style: state.questStyle });
-      el('generatedQuest').textContent = text;
+      const packSize = Number(el('questPackSize')?.value || 1);
+      const cards = [];
+      for (let i = 0; i < packSize; i += 1) {
+        state.selectedSkill = chooseSkillForRealm(state.selectedRealmId);
+        cards.push(window.generateGuardianQuest({ realm, difficulty: state.selectedDifficulty, skill: state.selectedSkill, style: state.questStyle }));
+      }
+      el('generatedQuest').innerHTML = cards.map((card) => `
+        <article class="guardian-card">
+          <h3>${card.title}</h3>
+          <p><strong>Difficulty:</strong> ${card.difficulty}</p>
+          <p><strong>Skill:</strong> ${card.skillLabel}</p>
+          <p><strong>Solve:</strong> ${card.mathPrompt}</p>
+          <p><strong>Action:</strong> ${card.action}</p>
+          <p><strong>Board Reward:</strong> ${card.boardReward}</p>
+          <p class="guardian-answer"><strong>Answer:</strong> ${card.answer}</p>
+          <p class="guardian-tip"><strong>Parent Tip:</strong> ${card.parentTip}</p>
+        </article>
+      `).join('');
     });
+
+    el('printQuestBtn').addEventListener('click', () => { window.print(); });
   }
 
   function renderParentResources() {

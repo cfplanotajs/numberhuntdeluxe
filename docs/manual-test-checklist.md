@@ -157,6 +157,19 @@
 - [ ] Confirm correct Quick Quest answer still awards only one star.
 - [ ] Confirm repeated taps after a correct answer do not award extra stars.
 
+
+## Guardian Quest Generator polish
+- [ ] Generate a silly quest and confirm active/silly action wording.
+- [ ] Generate a calm quest and confirm calmer action wording.
+- [ ] Confirm style difference is clearly visible.
+- [ ] Generate a quest for each realm and confirm realm flavor appears.
+- [ ] Generate quests at each difficulty and confirm math challenge changes by difficulty.
+- [ ] Generate a 3-quest pack and confirm three readable quest cards render.
+- [ ] Confirm generating quests does not award digital stars.
+- [ ] Confirm generating quests does not unlock digital keys.
+- [ ] Confirm Cave progress does not change from generated quests.
+- [ ] Confirm reward bypass controls remain absent.
+
 ## Layout and constraints
 - [ ] Verify mobile/tablet readability and touch-friendly button sizes.
 - [ ] Confirm no framework/build artifacts were added.

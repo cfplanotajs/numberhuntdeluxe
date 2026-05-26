@@ -112,3 +112,10 @@ h1 { margin: 0.25rem 0; }
 .quest-style-row { display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap; margin-bottom:0.4rem; }
 .quest-style-row span { font-weight:700; }
 .quick-wrong { outline:3px solid #ff8a8a; }
+.quest-pack-row { display:flex; align-items:center; gap:0.5rem; margin-bottom:0.4rem; }
+.quest-pack-row select { min-height:40px; border-radius:8px; border:1px solid #bcd; padding:0.2rem 0.4rem; }
+.guardian-card { background:#fff; border:2px solid #d7e5ff; border-radius:10px; padding:0.65rem; margin-top:0.6rem; }
+.guardian-card h3 { margin:0 0 0.35rem; }
+.guardian-card p { margin:0.2rem 0; }
+.guardian-answer { font-size:0.95rem; color:#304a70; }
+.guardian-tip { font-size:0.92rem; color:#455b7b; }
