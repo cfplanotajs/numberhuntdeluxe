@@ -134,6 +134,19 @@
 - [ ] Reset progress and confirm stars reset.
 - [ ] Confirm no Earn Star / Earn Realm Key bypass controls exist.
 
+
+## Map and Cave progression
+- [ ] Reset progress and confirm 0 / 6 keys.
+- [ ] Confirm Treasure Cave shows locked state.
+- [ ] Complete Key Lock in one realm.
+- [ ] Confirm that realm card shows Key Earned.
+- [ ] Confirm key count updates in Cave/progress summary.
+- [ ] Confirm Cave remains locked until all 6 keys are earned.
+- [ ] Earn a Treasure Merge star and confirm stars increase.
+- [ ] Confirm stars alone do not unlock the Cave.
+- [ ] Unlock all 6 realm keys and confirm Cave unlocks.
+- [ ] Reset again and confirm Cave relocks and realm cards clear.
+
 ## Layout and constraints
 - [ ] Verify mobile/tablet readability and touch-friendly button sizes.
 - [ ] Confirm no framework/build artifacts were added.

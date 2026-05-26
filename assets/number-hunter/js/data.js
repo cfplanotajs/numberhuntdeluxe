@@ -21,7 +21,7 @@
       desert: ['missingNumber'],
       volcano: ['additionWithin20', 'subtractionWithin20']
     },
-    rewards: { caveKeyTarget: 3, starLabel: 'Star', keyLabel: 'Realm Key' },
+    rewards: { caveKeyTarget: 6, starLabel: 'Star', keyLabel: 'Realm Key' },
     questTemplates: [
       'Solve {{prompt}}. Then {{action}}. If correct, {{reward}}!',
       '{{realm}} Guardian Quest: Answer {{prompt}}. Next, {{action}}. Then {{reward}}.'
