@@ -46,7 +46,11 @@
 
   function saveProgress(progress) {
     const normalized = normalizeProgress(progress);
-    localStorage.setItem(KEY, JSON.stringify(normalized));
+    try {
+      localStorage.setItem(KEY, JSON.stringify(normalized));
+    } catch (error) {
+      console.warn('Number Hunter progress was not saved to localStorage.', error);
+    }
     return normalized;
   }
 

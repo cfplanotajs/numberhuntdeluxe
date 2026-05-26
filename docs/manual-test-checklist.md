@@ -47,6 +47,18 @@
 - [ ] Generate/start a new Quick Quest problem.
 - [ ] Confirm a new correct answer awards one new star.
 
+
+## Storage-restricted behavior
+- [ ] In a browser mode or setting that blocks localStorage (if available), attempt to solve a Quick Quest.
+- [ ] Confirm interaction does not crash even if progress cannot persist.
+- [ ] Confirm this scenario is treated as non-persistent progress after refresh.
+
+## Reset difficulty sync regression
+- [ ] Start from **Master Hunter** (or Number Adventurer), then click **Reset Progress**.
+- [ ] Confirm displayed selected difficulty matches reset/default difficulty.
+- [ ] Confirm Key Lock rounds use the reset/default difficulty.
+- [ ] Confirm Quick Quest prompt/choices regenerate and match reset/default difficulty.
+
 ## Layout and constraints
 - [ ] Verify mobile/tablet readability and touch-friendly button sizes.
 - [ ] Confirm no framework/build artifacts were added.

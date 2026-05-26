@@ -125,6 +125,7 @@
       renderDifficulty();
       refreshProgress();
       mountKeyLockGame();
+      renderProblem();
     });
 
     el('generateQuestBtn').addEventListener('click', () => {
