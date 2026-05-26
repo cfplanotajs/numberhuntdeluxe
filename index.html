@@ -63,17 +63,20 @@
         <ul id="parentResources"></ul>
       </section>
 
-      <section class="card" aria-label="Future game mount">
-        <h2>Game Mount</h2>
-        <p>Treasure Merge will mount here in a future commit.</p>
-        <div id="gameMountPlaceholder"></div>
+      <section class="card child-zone" aria-label="Treasure merge game">
+        <h2>Treasure Merge</h2>
+        <p>Drop matching numbers and merge them!</p>
+        <button id="startTreasureMergeBtn" class="btn btn-primary" type="button">Start Treasure Merge</button>
+        <div id="treasureMergeMount"></div>
       </section>
     </main>
 
     <script src="assets/number-hunter/js/data.js"></script>
     <script src="assets/number-hunter/js/math-engine.js"></script>
     <script src="assets/number-hunter/js/progress.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
     <script src="assets/number-hunter/js/games/key-locks.js"></script>
+    <script src="assets/number-hunter/js/games/treasure-merge.js"></script>
     <script src="assets/number-hunter/js/games/quest-generator.js"></script>
     <script src="assets/number-hunter/js/number-hunter-hub.js"></script>
   </body>

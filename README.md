@@ -21,7 +21,7 @@ Current commit includes:
 - Guardian Quest generator placeholder module
 - Parent Zone content section
 
-Planned MVP additions include fully playable Treasure Merge and richer puzzle interactions.
+Current prototype now includes a foundational Treasure Merge game using in-browser Matter.js (CDN script include only, no npm/build tools).
 
 ## Tech Constraints
 

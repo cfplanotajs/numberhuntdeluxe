@@ -67,3 +67,12 @@ h1 { margin: 0.25rem 0; }
 .key-lock-choice { min-height: 52px; font-size: 1rem; }
 .key-lock-controls { margin-top: 0.5rem; }
 .key-lock-wrong { outline: 3px solid #ff8a8a; }
+
+
+.merge-wrap { border: 2px solid #bfd3f5; border-radius: 12px; padding: 0.75rem; background: #f7fbff; }
+.merge-realm, .merge-tip, .merge-math, .merge-next { margin: 0.35rem 0; }
+.merge-stats { display: flex; justify-content: space-between; gap: 0.5rem; font-weight: 700; flex-wrap: wrap; }
+.merge-board { min-height: 360px; border: 2px solid #d5e3ff; border-radius: 10px; overflow: hidden; background: #eef6ff; margin: 0.5rem 0; }
+.merge-controls { display: grid; gap: 0.4rem; }
+.merge-controls input[type="range"] { width: 100%; min-height: 40px; }
+.merge-fallback { padding: 0.75rem; background: #fff4e8; border: 2px dashed #ffb070; border-radius: 10px; }

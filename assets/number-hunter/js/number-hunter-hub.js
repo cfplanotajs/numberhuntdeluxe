@@ -4,7 +4,8 @@
     selectedDifficulty: 'littleHunter',
     selectedSkill: 'additionWithin10',
     keyLockSession: null,
-    currentQuickQuest: null
+    currentQuickQuest: null,
+    treasureMergeSession: null
   };
 
   function el(id) { return document.getElementById(id); }
@@ -28,6 +29,7 @@
         renderDifficulty();
         renderProblem();
         mountKeyLockGame();
+        mountTreasureMerge();
       });
       mount.appendChild(b);
     });
@@ -47,6 +49,7 @@
         renderRealms();
         renderProblem();
         mountKeyLockGame();
+        mountTreasureMerge();
       });
       mount.appendChild(b);
     });
@@ -108,12 +111,25 @@
     });
   }
 
+
+  function mountTreasureMerge() {
+    if (state.treasureMergeSession && typeof state.treasureMergeSession.cleanup === 'function') {
+      state.treasureMergeSession.cleanup();
+    }
+    state.treasureMergeSession = window.initTreasureMergeGame(el('treasureMergeMount'), {
+      realm: getSelectedRealm(),
+      difficulty: state.selectedDifficulty
+    });
+  }
+
   function wireActions() {
     el('startQuestBtn').addEventListener('click', () => {
       renderProblem();
       mountKeyLockGame();
+      mountTreasureMerge();
     });
     el('newProblemBtn').addEventListener('click', renderProblem);
+    el('startTreasureMergeBtn').addEventListener('click', mountTreasureMerge);
     el('awardStarBtn').addEventListener('click', () => { window.Progress.awardStar(); refreshProgress(); });
     el('earnKeyBtn').addEventListener('click', () => {
       window.Progress.unlockRealmKey(state.selectedRealmId);
@@ -125,6 +141,7 @@
       renderDifficulty();
       refreshProgress();
       mountKeyLockGame();
+      mountTreasureMerge();
       renderProblem();
     });
 
@@ -159,6 +176,7 @@
     renderParentResources();
     wireActions();
     mountKeyLockGame();
+    mountTreasureMerge();
   }
 
   document.addEventListener('DOMContentLoaded', init);

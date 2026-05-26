@@ -68,6 +68,20 @@
 - [ ] Answer a Key Lock puzzle incorrectly twice.
 - [ ] Confirm the hint reveals the missing number for missing-number prompts.
 
+
+## Treasure Merge foundation
+- [ ] Confirm Matter.js loads and Treasure Merge starts from the hub.
+- [ ] Confirm selected realm name appears in Treasure Merge.
+- [ ] Confirm selected difficulty changes starting drop values.
+- [ ] Drop objects and confirm collisions occur in bounded play area.
+- [ ] Confirm matching numbers merge into doubled value.
+- [ ] Confirm merge math message appears (example: 4 + 4 = 8).
+- [ ] Confirm score increases on merges.
+- [ ] Confirm Play Again restarts the game.
+- [ ] Confirm switching realm/difficulty and restarting does not leave duplicate canvases.
+- [ ] Confirm game-over state appears when pile is full.
+- [ ] Confirm Key Lock still works after playing Treasure Merge.
+
 ## Layout and constraints
 - [ ] Verify mobile/tablet readability and touch-friendly button sizes.
 - [ ] Confirm no framework/build artifacts were added.
