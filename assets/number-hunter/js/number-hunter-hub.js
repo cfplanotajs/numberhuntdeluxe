@@ -6,7 +6,8 @@
     keyLockSession: null,
     currentQuickQuest: null,
     treasureMergeSession: null,
-    realmSkillIndex: {}
+    realmSkillIndex: {},
+    questStyle: 'silly'
   };
 
   function el(id) { return document.getElementById(id); }
@@ -35,6 +36,15 @@
       make10: 'Make 10', missingNumber: 'Missing Number', additionWithin20: 'Add to 20', subtractionWithin20: 'Subtract to 20'
     };
     return labels[skill] || 'Math Quest';
+  }
+
+
+  function renderQuestStyleButtons() {
+    const silly = el('questStyleSillyBtn');
+    const calm = el('questStyleCalmBtn');
+    if (!silly || !calm) return;
+    silly.classList.toggle('btn-primary', state.questStyle === 'silly');
+    calm.classList.toggle('btn-primary', state.questStyle === 'calm');
   }
 
   function renderDifficulty() {
@@ -99,6 +109,8 @@
       });
     }
 
+    let wrongAttempts = 0;
+
     p.choices.forEach((c) => {
       const b = document.createElement('button');
       b.className = 'btn';
@@ -113,6 +125,11 @@
           b.classList.add('btn-primary');
           el('problemPrompt').textContent = `${p.prompt} ✓ Great Job!`;
           refreshProgress();
+        } else {
+          wrongAttempts += 1;
+          el('problemPrompt').textContent = wrongAttempts >= 2 ? `Try again! ${p.explanation}` : 'Try again!';
+          b.classList.add('quick-wrong');
+          setTimeout(() => b.classList.remove('quick-wrong'), 260);
         }
       });
       choices.appendChild(b);
@@ -161,6 +178,8 @@
     el('startQuestBtn').addEventListener('click', () => { renderProblem(); mountKeyLockGame(); mountTreasureMerge(); refreshProgress(); });
     el('newProblemBtn').addEventListener('click', () => { renderProblem(); refreshProgress(); });
     el('startTreasureMergeBtn').addEventListener('click', mountTreasureMerge);
+    el('questStyleSillyBtn').addEventListener('click', () => { state.questStyle = 'silly'; renderQuestStyleButtons(); });
+    el('questStyleCalmBtn').addEventListener('click', () => { state.questStyle = 'calm'; renderQuestStyleButtons(); });
     el('resetProgressBtn').addEventListener('click', () => {
       const resetState = window.Progress.resetProgress();
       state.selectedDifficulty = resetState.selectedDifficulty;
@@ -174,7 +193,7 @@
     el('generateQuestBtn').addEventListener('click', () => {
       const realm = getSelectedRealm();
       state.selectedSkill = chooseSkillForRealm(state.selectedRealmId);
-      const text = window.generateGuardianQuest({ realm, difficulty: state.selectedDifficulty, skill: state.selectedSkill, style: 'silly' });
+      const text = window.generateGuardianQuest({ realm, difficulty: state.selectedDifficulty, skill: state.selectedSkill, style: state.questStyle });
       el('generatedQuest').textContent = text;
     });
   }
@@ -200,6 +219,7 @@
     renderRealms();
     renderProblem();
     renderParentResources();
+    renderQuestStyleButtons();
     wireActions();
     mountKeyLockGame();
     mountTreasureMerge();

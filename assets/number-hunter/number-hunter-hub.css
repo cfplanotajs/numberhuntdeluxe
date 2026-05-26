@@ -108,3 +108,7 @@ h1 { margin: 0.25rem 0; }
 .cave-zone { border-width:3px; }
 #caveStatus { font-weight:800; font-size:1.1rem; }
 #caveDetails, #nextHint { font-weight:700; }
+
+.quest-style-row { display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap; margin-bottom:0.4rem; }
+.quest-style-row span { font-weight:700; }
+.quick-wrong { outline:3px solid #ff8a8a; }

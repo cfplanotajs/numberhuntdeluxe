@@ -147,6 +147,16 @@
 - [ ] Unlock all 6 realm keys and confirm Cave unlocks.
 - [ ] Reset again and confirm Cave relocks and realm cards clear.
 
+
+## Quest style + quick answer feedback
+- [ ] Confirm Guardian Quest style selector appears with Silly and Calm options.
+- [ ] Confirm Silly style generates silly/active action prompts.
+- [ ] Confirm Calm style generates calmer action prompts.
+- [ ] Confirm wrong Quick Quest answers show immediate feedback.
+- [ ] Confirm wrong Quick Quest answers do not award stars.
+- [ ] Confirm correct Quick Quest answer still awards only one star.
+- [ ] Confirm repeated taps after a correct answer do not award extra stars.
+
 ## Layout and constraints
 - [ ] Verify mobile/tablet readability and touch-friendly button sizes.
 - [ ] Confirm no framework/build artifacts were added.
