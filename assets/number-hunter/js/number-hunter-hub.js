@@ -161,13 +161,13 @@
   function renderTreasureMergeIdle() {
     const mount = el('treasureMergeMount');
     if (!mount) return;
-    mount.innerHTML = '<div class="game-idle"><p>Ready to merge treasures?</p><p>Pick a realm, then press Start.</p></div>';
+    mount.innerHTML = `<div class="game-idle"><p>Ready to merge treasures?</p><p>Pick a realm, then press Start.</p></div>`;
   }
 
   function renderGuardianDashIdle() {
     const mount = el('guardianDashMount');
     if (!mount) return;
-    mount.innerHTML = '<div class="game-idle"><p>Ready to dash through answer gates?</p><p>Press Start when you're ready.</p></div>';
+    mount.innerHTML = `<div class="game-idle"><p>Ready to dash through answer gates?</p><p>Press Start when you're ready.</p></div>`;
   }
 
   function cleanupTreasureMergeToIdle() {
