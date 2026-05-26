@@ -82,6 +82,19 @@
 - [ ] Confirm game-over state appears when pile is full.
 - [ ] Confirm Key Lock still works after playing Treasure Merge.
 
+
+## Treasure Merge runtime stability
+- [ ] Start Treasure Merge and perform several drops.
+- [ ] Confirm game speed feels normal (no double-speed stepping).
+- [ ] Click Play Again several times.
+- [ ] Confirm only one Treasure Merge canvas/game is active at a time.
+- [ ] After Play Again, switch realm/difficulty.
+- [ ] Confirm the old session is cleaned and only the latest session remains active.
+- [ ] Create a stack where three same-value bodies interact (if possible).
+- [ ] Confirm one source body does not merge/score twice in the same collision cycle.
+- [ ] Confirm score increases only once per valid merge.
+- [ ] Confirm Key Lock still works after Treasure Merge restarts/switches.
+
 ## Layout and constraints
 - [ ] Verify mobile/tablet readability and touch-friendly button sizes.
 - [ ] Confirm no framework/build artifacts were added.
