@@ -3,7 +3,8 @@
     selectedRealmId: 'jungle',
     selectedDifficulty: 'littleHunter',
     selectedSkill: 'additionWithin10',
-    keyLockSession: null
+    keyLockSession: null,
+    currentQuickQuest: null
   };
 
   function el(id) { return document.getElementById(id); }
@@ -53,17 +54,37 @@
 
   function renderProblem() {
     const p = window.MathEngine.generateProblem({ skill: state.selectedSkill, difficulty: state.selectedDifficulty });
+    state.currentQuickQuest = {
+      solved: false,
+      answer: p.answer
+    };
+
     el('problemPrompt').textContent = p.prompt;
     const choices = el('problemChoices');
     choices.innerHTML = '';
+
+    function disableAllChoices() {
+      choices.querySelectorAll('button').forEach((btn) => {
+        btn.disabled = true;
+        btn.classList.add('btn-ghost');
+      });
+    }
+
     p.choices.forEach((c) => {
       const b = document.createElement('button');
       b.className = 'btn';
       b.textContent = c;
       b.addEventListener('click', () => {
+        if (!state.currentQuickQuest || state.currentQuickQuest.solved) return;
+
         if (c === p.answer) {
+          state.currentQuickQuest.solved = true;
           window.Progress.awardStar();
           refreshProgress();
+          disableAllChoices();
+          b.classList.remove('btn-ghost');
+          b.classList.add('btn-primary');
+          el('problemPrompt').textContent = `${p.prompt} ✓ Great Job!`;
         }
       });
       choices.appendChild(b);

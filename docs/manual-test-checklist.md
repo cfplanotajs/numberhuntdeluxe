@@ -39,6 +39,14 @@
 - [ ] Confirm selected difficulty and displayed highlighted difficulty match after reset.
 - [ ] Confirm newly mounted Key Lock rounds use reset/default difficulty.
 
+
+## Quick Quest reward regression
+- [ ] Answer a Quick Quest correctly.
+- [ ] Tap the same correct Quick Quest answer multiple times.
+- [ ] Confirm stars increase only once for that solved problem.
+- [ ] Generate/start a new Quick Quest problem.
+- [ ] Confirm a new correct answer awards one new star.
+
 ## Layout and constraints
 - [ ] Verify mobile/tablet readability and touch-friendly button sizes.
 - [ ] Confirm no framework/build artifacts were added.
