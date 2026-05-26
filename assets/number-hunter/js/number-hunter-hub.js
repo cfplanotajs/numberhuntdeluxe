@@ -1,0 +1,200 @@
+(function () {
+  const state = {
+    selectedRealmId: 'jungle',
+    selectedDifficulty: 'littleHunter',
+    selectedSkill: 'additionWithin10',
+    keyLockSession: null,
+    currentQuickQuest: null,
+    treasureMergeSession: null,
+    realmSkillIndex: {}
+  };
+
+  function el(id) { return document.getElementById(id); }
+
+  function getSelectedRealm() {
+    return window.NH_DATA.realms.find((r) => r.id === state.selectedRealmId) || window.NH_DATA.realms[0];
+  }
+
+
+  function getSkillsForRealm(realmId) {
+    const realm = window.NH_DATA.realms.find((r) => r.id === realmId);
+    return (window.NH_DATA.realmSkillMap[realmId] || realm?.skillFocus || ['additionWithin10']).slice();
+  }
+
+  function chooseSkillForRealm(realmId) {
+    const skills = getSkillsForRealm(realmId);
+    if (skills.length <= 1) return skills[0];
+    const currentIndex = state.realmSkillIndex[realmId] || 0;
+    const nextSkill = skills[currentIndex % skills.length];
+    state.realmSkillIndex[realmId] = (currentIndex + 1) % skills.length;
+    return nextSkill;
+  }
+
+  function renderDifficulty() {
+    const mount = el('difficultyOptions');
+    mount.innerHTML = '';
+    window.NH_DATA.difficulties.forEach((d) => {
+      const b = document.createElement('button');
+      b.className = `btn ${state.selectedDifficulty === d.id ? 'btn-primary' : ''}`;
+      b.textContent = d.name;
+      b.addEventListener('click', () => {
+        state.selectedDifficulty = d.id;
+        const p = window.Progress.getProgress();
+        p.selectedDifficulty = d.id;
+        window.Progress.saveProgress(p);
+        renderDifficulty();
+        renderProblem();
+        mountKeyLockGame();
+        mountTreasureMerge();
+      });
+      mount.appendChild(b);
+    });
+  }
+
+  function renderRealms() {
+    const mount = el('realmGrid');
+    mount.innerHTML = '';
+    window.NH_DATA.realms.forEach((realm) => {
+      const b = document.createElement('button');
+      b.className = `realm-card realm-${realm.id} ${state.selectedRealmId === realm.id ? 'selected' : ''}`;
+      b.textContent = realm.name;
+      b.addEventListener('click', () => {
+        state.selectedRealmId = realm.id;
+        state.selectedSkill = chooseSkillForRealm(realm.id);
+        el('selectedRealmLabel').textContent = `Realm: ${realm.name}`;
+        renderRealms();
+        renderProblem();
+        mountKeyLockGame();
+        mountTreasureMerge();
+      });
+      mount.appendChild(b);
+    });
+  }
+
+  function renderProblem() {
+    state.selectedSkill = chooseSkillForRealm(state.selectedRealmId);
+    const p = window.MathEngine.generateProblem({ skill: state.selectedSkill, difficulty: state.selectedDifficulty });
+    state.currentQuickQuest = {
+      solved: false,
+      answer: p.answer
+    };
+
+    el('problemPrompt').textContent = p.prompt;
+    const choices = el('problemChoices');
+    choices.innerHTML = '';
+
+    function disableAllChoices() {
+      choices.querySelectorAll('button').forEach((btn) => {
+        btn.disabled = true;
+        btn.classList.add('btn-ghost');
+      });
+    }
+
+    p.choices.forEach((c) => {
+      const b = document.createElement('button');
+      b.className = 'btn';
+      b.textContent = c;
+      b.addEventListener('click', () => {
+        if (!state.currentQuickQuest || state.currentQuickQuest.solved) return;
+
+        if (c === p.answer) {
+          state.currentQuickQuest.solved = true;
+          window.Progress.awardStar();
+          refreshProgress();
+          disableAllChoices();
+          b.classList.remove('btn-ghost');
+          b.classList.add('btn-primary');
+          el('problemPrompt').textContent = `${p.prompt} ✓ Great Job!`;
+        }
+      });
+      choices.appendChild(b);
+    });
+  }
+
+  function refreshProgress() {
+    const p = window.Progress.getProgress();
+    const keys = Object.values(p.realmKeys).filter(Boolean).length;
+    el('progressSummary').textContent = `Stars: ${p.stars} • Keys: ${keys} • Level: ${p.selectedDifficulty}`;
+    el('caveStatus').textContent = p.caveUnlocked ? 'Unlocked! Treasure Cave is open!' : 'Locked: Earn 3 keys to unlock!';
+  }
+
+  function mountKeyLockGame() {
+    const realm = getSelectedRealm();
+    state.keyLockSession = window.initKeyLocksGame(el('keyLocksMount'), {
+      realm,
+      difficulty: state.selectedDifficulty,
+      onProgress: refreshProgress
+    });
+  }
+
+
+  function mountTreasureMerge() {
+    if (state.treasureMergeSession && typeof state.treasureMergeSession.cleanup === 'function') {
+      state.treasureMergeSession.cleanup();
+    }
+    state.treasureMergeSession = window.initTreasureMergeGame(el('treasureMergeMount'), {
+      realm: getSelectedRealm(),
+      difficulty: state.selectedDifficulty,
+      onRewardEarned: (payload) => {
+        if (payload?.type !== 'star') return;
+        window.Progress.awardStar();
+        refreshProgress();
+      }
+    });
+  }
+
+  function wireActions() {
+    el('startQuestBtn').addEventListener('click', () => {
+      renderProblem();
+      mountKeyLockGame();
+      mountTreasureMerge();
+    });
+    el('newProblemBtn').addEventListener('click', renderProblem);
+    el('startTreasureMergeBtn').addEventListener('click', mountTreasureMerge);
+    el('resetProgressBtn').addEventListener('click', () => {
+      const resetState = window.Progress.resetProgress();
+      state.selectedDifficulty = resetState.selectedDifficulty;
+      renderDifficulty();
+      refreshProgress();
+      mountKeyLockGame();
+      mountTreasureMerge();
+      renderProblem();
+    });
+
+    el('generateQuestBtn').addEventListener('click', () => {
+      const realm = getSelectedRealm();
+      state.selectedSkill = chooseSkillForRealm(state.selectedRealmId);
+      const text = window.generateGuardianQuest({ realm, difficulty: state.selectedDifficulty, skill: state.selectedSkill, style: 'silly' });
+      el('generatedQuest').textContent = text;
+    });
+  }
+
+  function renderParentResources() {
+    const list = el('parentResources');
+    list.innerHTML = '';
+    window.NH_DATA.parentResources.forEach((item) => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      list.appendChild(li);
+    });
+  }
+
+  function init() {
+    const progress = window.Progress.getProgress();
+    state.selectedDifficulty = progress.selectedDifficulty || state.selectedDifficulty;
+    state.selectedRealmId = window.NH_DATA.realms[0].id;
+    state.selectedSkill = chooseSkillForRealm(state.selectedRealmId);
+    el('selectedRealmLabel').textContent = `Realm: ${getSelectedRealm().name}`;
+
+    renderDifficulty();
+    renderRealms();
+    renderProblem();
+    refreshProgress();
+    renderParentResources();
+    wireActions();
+    mountKeyLockGame();
+    mountTreasureMerge();
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+})();
