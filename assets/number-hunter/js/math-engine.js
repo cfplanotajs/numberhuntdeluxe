@@ -33,6 +33,19 @@
     return [0, 20];
   }
 
+  function buildExplanation(skill, prompt, answer, a, b) {
+    if (skill === 'evenOdd') {
+      return `${a} is ${answer.toLowerCase()} because it can${answer === 'Even' ? '' : 'not'} be split into pairs.`;
+    }
+    if (skill === 'make10') {
+      return `${prompt}. The missing number is ${answer} because ${a} + ${answer} = 10.`;
+    }
+    if (skill === 'missingNumber') {
+      return `${prompt}. The missing number is ${answer} because ${a} - ${answer} = ${b}.`;
+    }
+    return `Great work! ${prompt.replace('?', answer)}.`;
+  }
+
   const MathEngine = {
     generateProblem(options) {
       const skill = options?.skill || 'additionWithin10';
@@ -86,9 +99,7 @@
         prompt = `${a} + ${b} = ?`;
       }
 
-      explanation = typeof answer === 'string'
-        ? `${a} is ${answer.toLowerCase()} because it can${answer === 'Even' ? '' : 'not'} be split into pairs.`
-        : `Great work! ${prompt.replace('?', answer)}.`;
+      explanation = buildExplanation(skill, prompt, answer, a, b);
 
       const choices = typeof answer === 'string'
         ? shuffle(['Even', 'Odd'])

@@ -59,6 +59,15 @@
 - [ ] Confirm Key Lock rounds use the reset/default difficulty.
 - [ ] Confirm Quick Quest prompt/choices regenerate and match reset/default difficulty.
 
+
+## Missing-value hint clarity
+- [ ] Choose **Rainbow Mountains**.
+- [ ] Answer a Key Lock puzzle incorrectly twice.
+- [ ] Confirm the hint reveals the missing number for make-10 prompts.
+- [ ] Choose **Desert**.
+- [ ] Answer a Key Lock puzzle incorrectly twice.
+- [ ] Confirm the hint reveals the missing number for missing-number prompts.
+
 ## Layout and constraints
 - [ ] Verify mobile/tablet readability and touch-friendly button sizes.
 - [ ] Confirm no framework/build artifacts were added.
