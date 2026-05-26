@@ -213,3 +213,17 @@
 ## Layout and constraints
 - [ ] Verify mobile/tablet readability and touch-friendly button sizes.
 - [ ] Confirm no framework/build artifacts were added.
+
+
+## Lazy-start active game sessions
+- [ ] Load the page fresh.
+- [ ] Confirm Treasure Merge mount is idle and no merge game is visibly running.
+- [ ] Confirm Guardian Dash mount is idle and no dash timer is visibly running.
+- [ ] Click **Start Treasure Merge** and confirm it starts only then.
+- [ ] Click **Start Guardian Dash** and confirm it starts only then.
+- [ ] Switch realm/difficulty during active Treasure Merge and confirm it stops and returns to idle placeholder.
+- [ ] Switch realm/difficulty during active Guardian Dash and confirm it stops and returns to idle placeholder.
+- [ ] Reset progress during active Treasure Merge/Guardian Dash and confirm both stop and return to idle placeholders.
+- [ ] Confirm Key Lock still works after realm/difficulty changes and reset.
+- [ ] Confirm Treasure Merge still awards capped stars only.
+- [ ] Confirm Guardian Dash still awards no digital progress.

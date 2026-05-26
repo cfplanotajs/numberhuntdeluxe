@@ -128,3 +128,6 @@ h1 { margin: 0.25rem 0; }
 .dash-choices { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0.5rem; }
 .dash-gate { min-height:56px; }
 .dash-wrong { outline:3px solid #ff8a8a; }
+
+.game-idle { background:#f7fbff; border:2px dashed #bfd3f5; border-radius:10px; padding:0.9rem; text-align:center; font-weight:700; color:#2f4b73; }
+.game-idle p { margin:0.25rem 0; }

@@ -8,7 +8,9 @@
     treasureMergeSession: null,
     realmSkillIndex: {},
     questStyle: 'silly',
-    guardianDashSession: null
+    guardianDashSession: null,
+    isTreasureMergeActive: false,
+    isGuardianDashActive: false
   };
 
   function el(id) { return document.getElementById(id); }
@@ -63,8 +65,8 @@
         renderDifficulty();
         renderProblem();
         mountKeyLockGame();
-        mountTreasureMerge();
-        mountGuardianDash();
+        cleanupTreasureMergeToIdle();
+        cleanupGuardianDashToIdle();
         refreshProgress();
       });
       mount.appendChild(b);
@@ -88,8 +90,8 @@
         renderRealms();
         renderProblem();
         mountKeyLockGame();
-        mountTreasureMerge();
-        mountGuardianDash();
+        cleanupTreasureMergeToIdle();
+        cleanupGuardianDashToIdle();
         refreshProgress();
       });
       mount.appendChild(b);
@@ -155,6 +157,33 @@
     renderRealms();
   }
 
+
+  function renderTreasureMergeIdle() {
+    const mount = el('treasureMergeMount');
+    if (!mount) return;
+    mount.innerHTML = '<div class="game-idle"><p>Ready to merge treasures?</p><p>Pick a realm, then press Start.</p></div>';
+  }
+
+  function renderGuardianDashIdle() {
+    const mount = el('guardianDashMount');
+    if (!mount) return;
+    mount.innerHTML = '<div class="game-idle"><p>Ready to dash through answer gates?</p><p>Press Start when you're ready.</p></div>';
+  }
+
+  function cleanupTreasureMergeToIdle() {
+    if (state.treasureMergeSession && typeof state.treasureMergeSession.cleanup === 'function') state.treasureMergeSession.cleanup();
+    state.treasureMergeSession = null;
+    state.isTreasureMergeActive = false;
+    renderTreasureMergeIdle();
+  }
+
+  function cleanupGuardianDashToIdle() {
+    if (state.guardianDashSession && typeof state.guardianDashSession.cleanup === 'function') state.guardianDashSession.cleanup();
+    state.guardianDashSession = null;
+    state.isGuardianDashActive = false;
+    renderGuardianDashIdle();
+  }
+
   function mountKeyLockGame() {
     const realm = getSelectedRealm();
     if (state.keyLockSession && typeof state.keyLockSession.cleanup === 'function') state.keyLockSession.cleanup();
@@ -176,6 +205,7 @@
         refreshProgress();
       }
     });
+    state.isTreasureMergeActive = true;
   }
 
 
@@ -188,10 +218,11 @@
       skill: state.selectedSkill,
       onRunComplete: () => {}
     });
+    state.isGuardianDashActive = true;
   }
 
   function wireActions() {
-    el('startQuestBtn').addEventListener('click', () => { renderProblem(); mountKeyLockGame(); mountTreasureMerge(); refreshProgress(); });
+    el('startQuestBtn').addEventListener('click', () => { renderProblem(); mountKeyLockGame(); refreshProgress(); });
     el('newProblemBtn').addEventListener('click', () => { renderProblem(); refreshProgress(); });
     el('startTreasureMergeBtn').addEventListener('click', mountTreasureMerge);
     el('startGuardianDashBtn').addEventListener('click', mountGuardianDash);
@@ -203,8 +234,8 @@
       renderDifficulty();
       renderProblem();
       mountKeyLockGame();
-      mountTreasureMerge();
-      mountGuardianDash();
+      cleanupTreasureMergeToIdle();
+      cleanupGuardianDashToIdle();
       refreshProgress();
     });
 
@@ -257,8 +288,8 @@
     renderQuestStyleButtons();
     wireActions();
     mountKeyLockGame();
-    mountTreasureMerge();
-    mountGuardianDash();
+    renderTreasureMergeIdle();
+    renderGuardianDashIdle();
     refreshProgress();
   }
 
