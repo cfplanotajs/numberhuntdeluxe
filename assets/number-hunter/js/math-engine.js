@@ -106,9 +106,15 @@
         answer = 10 - a;
         prompt = `${a} + __ = 10`;
       } else if (skill === 'missingNumber') {
-        answer = randInt(difficulty === 'masterHunter' ? 2 : 1, difficulty === 'littleHunter' ? 10 : 20);
-        b = randInt(0, difficulty === 'littleHunter' ? 10 : 20 - answer);
-        a = answer + b;
+        if (difficulty === 'littleHunter') {
+          a = randInt(1, 10);
+          answer = randInt(1, a);
+          b = a - answer;
+        } else {
+          answer = randInt(difficulty === 'masterHunter' ? 2 : 1, 20);
+          b = randInt(0, 20 - answer);
+          a = answer + b;
+        }
         prompt = `${a} - __ = ${b}`;
       }
 

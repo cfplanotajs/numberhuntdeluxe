@@ -312,3 +312,12 @@
 - [ ] Confirm certificate/reward message appears.
 - [ ] Confirm Cave does not award any digital progress.
 - [ ] Reset again and confirm Cave relocks.
+
+
+## Little Hunter missing-number bounds
+- [ ] Choose **Little Hunter** difficulty.
+- [ ] Choose **Desert** and generate several Quick Quests.
+- [ ] Confirm missing-number prompts stay within 10.
+- [ ] Play Key Lock in Desert and confirm prompts stay within 10.
+- [ ] Confirm answer choices include the correct answer.
+- [ ] Confirm hints/explanations still reveal the missing number.
