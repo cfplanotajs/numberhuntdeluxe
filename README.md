@@ -10,18 +10,20 @@ Build a safe, ad-free, no-login companion flow:
 
 This repository intentionally focuses on a static architecture-first MVP scaffold.
 
-## MVP Scope (Current + Next)
+## MVP Scope (Active)
 
-Current commit includes:
+Current scope includes:
 - Realm hub structure and mobile-first UI shell
 - Difficulty selector
-- Shared math engine scaffold
+- Shared math engine
 - Local progress tracking with `localStorage`
-- Key Lock puzzle placeholder module
-- Guardian Quest generator placeholder module
+- Key Lock Puzzles (realm-key activity)
+- Treasure Merge (Matter.js, lazy-started, capped star rewards only)
+- Guardian Dash (lightweight DOM/CSS/vanilla JS, lazy-started, capped star rewards only)
+- Bonus Guardian Quest Generator
 - Parent Zone content section
 
-Current prototype now includes a foundational Treasure Merge game using in-browser Matter.js (CDN script include only, no npm/build tools).
+Guardian Dash and Treasure Merge award stars only (capped per run/session), do not unlock realm keys, and use no backend/framework tooling.
 
 ## Tech Constraints
 
@@ -51,12 +53,14 @@ No install needed.
 /assets/number-hunter/js/progress.js
 /assets/number-hunter/js/number-hunter-hub.js
 /assets/number-hunter/js/games/key-locks.js
+/assets/number-hunter/js/games/treasure-merge.js
+/assets/number-hunter/js/games/guardian-dash.js
 /assets/number-hunter/js/games/quest-generator.js
 ```
 
 ## Future Phases
 
-- **Phase 2:** Guardian Dash, Daily Quest, badges, certificates
+- **Phase 2:** Even/Odd Critter Sort, Daily Quest, badges, certificates, Pattern Path
 - **Phase 3:** Seasonal quests, board-play variants, optional parent-only growth features
 
 ## Notes
