@@ -131,3 +131,6 @@ h1 { margin: 0.25rem 0; }
 
 .game-idle { background:#f7fbff; border:2px dashed #bfd3f5; border-radius:10px; padding:0.9rem; text-align:center; font-weight:700; color:#2f4b73; }
 .game-idle p { margin:0.25rem 0; }
+
+.dash-goal { margin:0.25rem 0; font-weight:700; color:#2b4f84; }
+.dash-reward { margin:0.2rem 0 0.4rem; font-weight:800; color:#1f6a2f; }

@@ -224,7 +224,12 @@
       realm: getSelectedRealm(),
       difficulty: state.selectedDifficulty,
       skill: state.selectedSkill,
-      onRunComplete: () => {}
+      onRunComplete: (payload) => {
+        if (!payload || payload.source !== 'guardianDash') return;
+        if (payload.starEarned !== true) return;
+        window.Progress.awardStar();
+        refreshProgress();
+      }
     });
     state.isGuardianDashActive = true;
   }

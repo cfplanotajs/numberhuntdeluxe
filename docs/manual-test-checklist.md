@@ -247,3 +247,18 @@
 - [ ] Confirm Guardian Quest Generator still works for every realm.
 - [ ] Confirm unsupported skills are not silently converted to addition.
 - [ ] In browser console, run `MathEngine.generateProblem({ skill: "counting", difficulty: "littleHunter" })` and confirm it throws `Unsupported MathEngine skill`.
+
+
+## Guardian Dash reward cap
+- [ ] Start Guardian Dash.
+- [ ] Complete a run below the star goal and confirm no star is awarded.
+- [ ] Complete a run at/above the star goal and confirm exactly 1 star is awarded.
+- [ ] After earning a star, repeated taps or stale callbacks do not award more stars.
+- [ ] Play Again starts a new reward-eligible run.
+- [ ] Switch realm/difficulty during a run and confirm no stale reward is emitted.
+- [ ] Reset progress during a run and confirm no stale reward is emitted.
+- [ ] Start Treasure Merge while Dash is active and confirm Dash stops.
+- [ ] Confirm Guardian Dash does not unlock realm keys.
+- [ ] Confirm Cave remains key-based.
+- [ ] Confirm Treasure Merge still awards stars only.
+- [ ] Confirm reward bypass controls remain absent.

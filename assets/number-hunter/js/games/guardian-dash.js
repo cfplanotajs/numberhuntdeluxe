@@ -18,17 +18,28 @@
     let runnerStep = 0;
     let nextTimer = null;
     let questionToken = 0;
+    let runCompleteEmitted = false;
+
+    function getStarGoalForDifficulty(level) {
+      if (level === 'littleHunter') return 3;
+      if (level === 'numberAdventurer') return 4;
+      return 4;
+    }
+
+    const starGoal = getStarGoalForDifficulty(difficulty);
 
     mountEl.innerHTML = `
       <div class="dash-wrap">
         <h3>Guardian Dash</h3>
         <p class="dash-realm">Realm: ${realm.name}</p>
         <p class="dash-tip">Pick the right gate!</p>
-        <div class="dash-stats"><span id="dashCounter">Question 1 / ${total}</span><span id="dashScore">Score: 0</span></div>
+        <div class="dash-stats"><span id="dashCounter">Question 1 / ${total}</span><span id="dashScore">Score: 0 / ${total}</span></div>
+        <p id="dashGoal" class="dash-goal">Star Goal: ${starGoal} correct</p>
         <div class="dash-lane"><div id="dashRunner" class="dash-runner">🏃</div></div>
         <p id="dashPrompt" class="dash-prompt"></p>
         <div id="dashChoices" class="dash-choices"></div>
         <p id="dashFeedback" class="dash-feedback">Dash!</p>
+        <p id="dashReward" class="dash-reward">Play to earn a star.</p>
         <button id="dashPlayAgain" class="btn" type="button" style="display:none;">Play Again</button>
       </div>`;
 
@@ -37,6 +48,8 @@
     const promptEl = mountEl.querySelector('#dashPrompt');
     const choicesEl = mountEl.querySelector('#dashChoices');
     const feedbackEl = mountEl.querySelector('#dashFeedback');
+    const rewardEl = mountEl.querySelector('#dashReward');
+    const goalEl = mountEl.querySelector('#dashGoal');
     const playAgainEl = mountEl.querySelector('#dashPlayAgain');
     const runnerEl = mountEl.querySelector('#dashRunner');
 
@@ -106,9 +119,11 @@
         return;
       }
       counterEl.textContent = `Question ${questionIndex + 1} / ${total}`;
-      scoreEl.textContent = `Score: ${correct}`;
+      scoreEl.textContent = `Score: ${correct} / ${total}`;
       promptEl.textContent = currentProblem.prompt;
       feedbackEl.textContent = 'Dash!';
+      if (rewardEl) rewardEl.textContent = `Goal: ${starGoal} correct to earn a star.`;
+      if (goalEl) goalEl.textContent = `Star Goal: ${starGoal} correct`; 
       choicesEl.innerHTML = '';
 
       currentProblem.choices.forEach((choice) => {
@@ -150,16 +165,35 @@
     }
 
     function runComplete() {
+      if (isCleaned || runCompleteEmitted) return;
+      runCompleteEmitted = true;
       stopRunner();
       clearNextTimer();
       disableChoices();
+      const starEarned = correct >= starGoal;
       promptEl.textContent = 'Run Complete!';
       scoreEl.textContent = `Score: ${correct} / ${total}`;
-      if (correct === total) feedbackEl.textContent = 'Amazing dash!';
-      else if (correct >= 3) feedbackEl.textContent = 'Great run!';
-      else feedbackEl.textContent = 'Nice try — play again!';
+      if (starEarned) {
+        feedbackEl.textContent = 'Great run!';
+        if (rewardEl) rewardEl.textContent = 'You earned a star!';
+      } else if (correct + 1 >= starGoal) {
+        feedbackEl.textContent = 'You were close!';
+        if (rewardEl) rewardEl.textContent = 'Play again to earn a star.';
+      } else {
+        feedbackEl.textContent = 'Nice run — try again!';
+        if (rewardEl) rewardEl.textContent = 'Play again to earn a star.';
+      }
       playAgainEl.style.display = 'inline-block';
-      onRunComplete({ correct, total, realmId: realm.id, difficulty, skill });
+      onRunComplete({
+        correct,
+        total,
+        goal: starGoal,
+        starEarned,
+        realmId: realm.id,
+        difficulty,
+        skill,
+        source: 'guardianDash'
+      });
     }
 
     function resetRun() {
@@ -168,6 +202,7 @@
       clearNextTimer();
       questionIndex = 0;
       correct = 0;
+      runCompleteEmitted = false;
       playAgainEl.style.display = 'none';
       buildQuestion();
     }
