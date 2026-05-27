@@ -53,12 +53,13 @@
 
 
   function setSelectedActivity(activityId) {
-    state.selectedActivity = activityId;
-    const looped = ['quickQuest', 'keyLock', 'guardianQuest'];
-    if (looped.includes(activityId)) {
-      cleanupTreasureMergeToIdle();
-      cleanupGuardianDashToIdle();
+    const previousActivity = state.selectedActivity;
+    if (previousActivity && previousActivity !== activityId) {
+      if (previousActivity === 'treasureMerge' && activityId !== 'treasureMerge') cleanupTreasureMergeToIdle();
+      if (previousActivity === 'guardianDash' && activityId !== 'guardianDash') cleanupGuardianDashToIdle();
     }
+
+    state.selectedActivity = activityId;
     renderActivityCards();
     renderActivityPanels();
   }

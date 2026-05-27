@@ -277,3 +277,14 @@
 - [ ] Reset progress and confirm looped games stop.
 - [ ] Confirm Cave remains key-based.
 - [ ] Confirm no reward bypass controls are present.
+
+
+## Activity-switch loop cleanup
+- [ ] Start Treasure Merge, then select Guardian Dash activity card; confirm Treasure Merge stops and returns idle.
+- [ ] Start Guardian Dash, then select Treasure Merge activity card; confirm Guardian Dash stops and returns idle.
+- [ ] Start Guardian Dash, then select Quick Quest; confirm Dash stops and no delayed star is awarded.
+- [ ] Start Treasure Merge, then select Guardian Quest; confirm Merge stops.
+- [ ] Selecting Treasure Merge card does not auto-start the Matter loop.
+- [ ] Selecting Guardian Dash card does not auto-start the Dash timer.
+- [ ] Start buttons still work for both looped games.
+- [ ] Only one looped game can run at a time.
