@@ -321,3 +321,11 @@
 - [ ] Play Key Lock in Desert and confirm prompts stay within 10.
 - [ ] Confirm answer choices include the correct answer.
 - [ ] Confirm hints/explanations still reveal the missing number.
+
+
+## Treasure Merge shared math-rule check
+- [ ] Start Treasure Merge on Little Hunter and confirm small values (1/2/4) appear.
+- [ ] Start Treasure Merge on Number Adventurer and confirm medium values (2/4/8) appear.
+- [ ] Start Treasure Merge on Master Hunter and confirm higher values (including 16) can appear.
+- [ ] Confirm matching numbers still merge correctly.
+- [ ] Confirm score/star behavior did not change.

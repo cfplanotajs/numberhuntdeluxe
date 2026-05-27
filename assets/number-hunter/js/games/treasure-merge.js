@@ -15,10 +15,13 @@
   };
 
   function pickNextValue(difficulty) {
-    const roll = Math.random();
-    if (difficulty === 'littleHunter') return roll < 0.6 ? 1 : roll < 0.9 ? 2 : 4;
-    if (difficulty === 'numberAdventurer') return roll < 0.55 ? 2 : roll < 0.88 ? 4 : 8;
-    return roll < 0.5 ? 2 : roll < 0.82 ? 4 : roll < 0.95 ? 8 : 16;
+    if (window.MathEngine && typeof window.MathEngine.pickMergeValue === 'function') {
+      return window.MathEngine.pickMergeValue({ difficulty });
+    }
+    // Minimal safe fallback if MathEngine is unavailable
+    if (difficulty === 'littleHunter') return 1;
+    if (difficulty === 'masterHunter') return 2;
+    return 2;
   }
 
   function initTreasureMergeGame(mountEl, options) {

@@ -46,6 +46,37 @@
     return `Great work! ${prompt.replace('?', answer)}.`;
   }
 
+
+  const MERGE_VALUE_WEIGHTS = {
+    littleHunter: [
+      { value: 1, weight: 60 },
+      { value: 2, weight: 30 },
+      { value: 4, weight: 10 }
+    ],
+    numberAdventurer: [
+      { value: 2, weight: 55 },
+      { value: 4, weight: 33 },
+      { value: 8, weight: 12 }
+    ],
+    masterHunter: [
+      { value: 2, weight: 50 },
+      { value: 4, weight: 32 },
+      { value: 8, weight: 13 },
+      { value: 16, weight: 5 }
+    ]
+  };
+
+  function pickWeightedMergeValue(difficulty) {
+    const entries = MERGE_VALUE_WEIGHTS[difficulty] || MERGE_VALUE_WEIGHTS.numberAdventurer;
+    const total = entries.reduce((sum, item) => sum + item.weight, 0);
+    let roll = randInt(1, total);
+    for (let i = 0; i < entries.length; i += 1) {
+      roll -= entries[i].weight;
+      if (roll <= 0) return entries[i].value;
+    }
+    return entries[0].value;
+  }
+
   const SUPPORTED_SKILLS = [
     'additionWithin10',
     'subtractionWithin10',
@@ -61,6 +92,10 @@
     supportedSkills: SUPPORTED_SKILLS.slice(),
     isSupportedSkill(skill) {
       return SUPPORTED_SKILL_SET.has(skill);
+    },
+    pickMergeValue(options) {
+      const difficulty = options?.difficulty || 'numberAdventurer';
+      return pickWeightedMergeValue(difficulty);
     },
     generateProblem(options) {
       const skill = options?.skill || 'additionWithin10';
