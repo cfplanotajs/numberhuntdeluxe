@@ -143,3 +143,12 @@ h1 { margin: 0.25rem 0; }
 .activity-card.selected { border-color:#ff7a30; box-shadow:0 0 0 2px #ffd6bf inset; }
 .activity-panel { margin-top:0.5rem; }
 @media (min-width:700px){ .activity-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+
+.cave-key-list { list-style:none; padding:0; margin:0.5rem 0; display:grid; gap:0.3rem; }
+.cave-key-list li { padding:0.35rem 0.5rem; border-radius:8px; font-weight:700; }
+.cave-key-list li.earned { background:#d9f7df; color:#1f6a2f; }
+.cave-key-list li.missing { background:#fff3e0; color:#7a4c00; }
+.cave-reward-room { margin-top:0.5rem; }
+.certificate-block { background:#fff; border:2px solid #ffd27c; border-radius:12px; padding:0.7rem; }
+.certificate-block h3 { margin:0 0 0.35rem; }
+.cave-celebrate { font-weight:800; color:#8a4d00; }

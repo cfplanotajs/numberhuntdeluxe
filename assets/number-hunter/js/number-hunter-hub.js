@@ -203,13 +203,42 @@
     const caveOpen = p.caveUnlocked;
     const realm = getSelectedRealm();
     const realmKey = !!p.realmKeys[realm.id];
+    const checklist = el('caveKeyChecklist');
+    const rewardRoom = el('caveRewardRoom');
+    const printBtn = el('printCaveCertificateBtn');
 
     el('progressSummary').textContent = `Stars: ${p.stars} • Keys: ${keys} / ${keyTarget} • Level: ${p.selectedDifficulty}`;
     el('caveStatus').textContent = caveOpen ? 'Treasure Cave Unlocked!' : 'Treasure Cave Locked';
-    el('caveDetails').textContent = caveOpen ? 'You found every realm key! Open the Treasure!' : `Find all ${keyTarget} realm keys to open it. Keys Found: ${keys} / ${keyTarget}`;
-    el('nextHint').textContent = caveOpen ? 'The Treasure Cave is open!' : (realmKey ? 'Try Treasure Merge or Guardian Dash to earn stars.' : `Play Key Lock to earn the ${realm.name} Key.`);
+    el('caveDetails').textContent = caveOpen ? 'You found every realm key!' : `Find all ${keyTarget} realm keys to open it. Keys Found: ${keys} / ${keyTarget}`;
+    el('nextHint').textContent = caveOpen ? 'The Treasure Cave is open!' : (realmKey ? 'Try Treasure Merge or Guardian Dash to earn stars.' : `Next: Play Key Lock in ${realm.name} to earn the ${realm.name} Key.`);
+
+    if (checklist) {
+      checklist.innerHTML = window.NH_DATA.realms.map((r) => {
+        const earned = !!p.realmKeys[r.id];
+        return `<li class="${earned ? 'earned' : 'missing'}">${r.name} Key: ${earned ? 'Earned!' : 'Missing'}</li>`;
+      }).join('');
+    }
+
+    if (rewardRoom) {
+      if (caveOpen) {
+        const today = new Date().toLocaleDateString();
+        rewardRoom.innerHTML = `
+          <div class="certificate-block">
+            <h3>Number Hunter Champion</h3>
+            <p>You unlocked all 6 realm keys and opened the Treasure Cave.</p>
+            <p><strong>Total Stars:</strong> ${p.stars}</p>
+            <p><strong>Date:</strong> ${today}</p>
+            <p class="cave-celebrate">Treasure found! Great adventuring!</p>
+          </div>`;
+        if (printBtn) printBtn.style.display = 'inline-block';
+      } else {
+        rewardRoom.innerHTML = '';
+        if (printBtn) printBtn.style.display = 'none';
+      }
+    }
 
     renderRealms();
+    renderActivityCards();
   }
 
 
@@ -333,6 +362,7 @@
     });
 
     el('printQuestBtn').addEventListener('click', () => { window.print(); });
+    if (el('printCaveCertificateBtn')) el('printCaveCertificateBtn').addEventListener('click', () => { window.print(); });
   }
 
   function renderParentResources() {

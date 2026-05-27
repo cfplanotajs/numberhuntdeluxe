@@ -26,6 +26,8 @@ Current scope includes:
 
 Guardian Dash and Treasure Merge award stars only (capped per run/session), do not unlock realm keys, and use no backend/framework tooling.
 
+The Treasure Cave reward room unlocks only after all 6 realm keys are earned; stars are displayed as bonus progress only.
+
 ## Tech Constraints
 
 - Plain HTML, CSS, and vanilla JavaScript

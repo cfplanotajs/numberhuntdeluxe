@@ -288,3 +288,16 @@
 - [ ] Selecting Guardian Dash card does not auto-start the Dash timer.
 - [ ] Start buttons still work for both looped games.
 - [ ] Only one looped game can run at a time.
+
+
+## Treasure Cave reward room
+- [ ] Reset progress and confirm Cave is locked at 0 / 6 keys.
+- [ ] Confirm missing key checklist appears.
+- [ ] Unlock one realm key via Key Lock and confirm checklist updates while Cave remains locked.
+- [ ] Earn stars via Treasure Merge or Guardian Dash and confirm stars display but Cave remains locked.
+- [ ] Unlock all 6 realm keys and confirm Cave unlocks.
+- [ ] Confirm all six keys display as earned.
+- [ ] Confirm total stars display in the reward room.
+- [ ] Confirm certificate/reward message appears.
+- [ ] Confirm Cave does not award any digital progress.
+- [ ] Reset again and confirm Cave relocks.
