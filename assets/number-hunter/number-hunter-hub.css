@@ -152,3 +152,22 @@ h1 { margin: 0.25rem 0; }
 .certificate-block { background:#fff; border:2px solid #ffd27c; border-radius:12px; padding:0.7rem; }
 .certificate-block h3 { margin:0 0 0.35rem; }
 .cave-celebrate { font-weight:800; color:#8a4d00; }
+
+.btn { min-width: 44px; }
+
+@media print {
+  .hero .btn,
+  #resetProgressBtn,
+  #startTreasureMergeBtn,
+  #startGuardianDashBtn,
+  #newProblemBtn,
+  #generateQuestBtn,
+  #questStyleSillyBtn,
+  #questStyleCalmBtn,
+  #activityGrid,
+  .dash-lane,
+  .merge-controls {
+    display: none !important;
+  }
+  .parent-zone { border: 1px solid #999; }
+}

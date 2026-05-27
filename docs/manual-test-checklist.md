@@ -1,4 +1,15 @@
-# Manual Test Checklist — Commit 2+ Hotfix (Key Lock + Reset State)
+# Manual Test Checklist
+
+## MVP Readiness Quick Order
+- Smoke Test
+- Reward Rules
+- Activity Lifecycle
+- Game-by-game Checks
+- Treasure Cave
+- Reset & Storage
+- Mobile
+- No-Framework Checks
+
 
 ## Core startup
 - [ ] Open `index.html` directly in a browser.
