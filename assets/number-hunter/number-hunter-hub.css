@@ -1,0 +1,181 @@
+:root {
+  --bg: #f6fbff;
+  --text: #1f2a44;
+  --card: #ffffff;
+  --primary: #ff7a30;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+.hub { padding: 1rem; max-width: 900px; margin: 0 auto; }
+.card, .hero {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid #d9e6f7;
+}
+.hero { background: linear-gradient(135deg, #fff5d6, #e5f4ff); text-align: center; }
+.eyebrow { font-weight: 700; margin: 0; }
+h1 { margin: 0.25rem 0; }
+.btn {
+  min-height: 48px;
+  border: 0;
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: #dce9ff;
+  margin: 0.25rem;
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-ghost { background: #f1f3f8; }
+.button-grid, .realm-grid { display: grid; gap: 0.5rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.realm-card {
+  min-height: 70px;
+  text-align: left;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  padding: 0.65rem;
+  font-weight: 700;
+}
+.realm-card.selected { border-color: #1f2a44; }
+.realm-jungle { background: #d7f7dc; }
+.realm-frozen { background: #def4ff; }
+.realm-ocean { background: #d8ecff; }
+.realm-rainbow { background: #f2e3ff; }
+.realm-desert { background: #ffeccb; }
+.realm-volcano { background: #ffd9d0; }
+.quest-card { background: #f9fbff; border: 1px dashed #a8bddf; border-radius: 10px; padding: 0.75rem; min-height: 80px; }
+.choice-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
+.parent-zone { border-color: #b4a7ff; background: #f8f3ff; }
+.cave-zone { border-color: #ffc34d; background: #fff6dc; }
+@media (min-width: 700px) {
+  .button-grid, .realm-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.key-lock-game { background: #fffdf2; border: 2px solid #f2d37f; border-radius: 12px; padding: 0.8rem; }
+.key-lock-realm { margin: 0; font-weight: 700; color: #6e5400; }
+.key-lock-title { margin: 0.3rem 0; }
+.key-lock-round, .key-lock-prompt, .key-lock-feedback { margin: 0.45rem 0; }
+.key-lock-prompt { font-size: 1.2rem; font-weight: 700; }
+.key-lock-choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+.key-lock-choice { min-height: 52px; font-size: 1rem; }
+.key-lock-controls { margin-top: 0.5rem; }
+.key-lock-wrong { outline: 3px solid #ff8a8a; }
+
+
+.merge-wrap { border: 2px solid #bfd3f5; border-radius: 12px; padding: 0.75rem; background: #f7fbff; }
+.merge-realm, .merge-tip, .merge-math, .merge-next { margin: 0.35rem 0; }
+.merge-stats { display: flex; justify-content: space-between; gap: 0.5rem; font-weight: 700; flex-wrap: wrap; }
+.merge-board { min-height: 360px; border: 2px solid #d5e3ff; border-radius: 10px; overflow: hidden; background: #eef6ff; margin: 0.5rem 0; }
+.merge-controls { display: grid; gap: 0.4rem; }
+.merge-controls input[type="range"] { width: 100%; min-height: 40px; }
+.merge-fallback { padding: 0.75rem; background: #fff4e8; border: 2px dashed #ffb070; border-radius: 10px; }
+
+.merge-wrap { max-width: 440px; margin: 0 auto; }
+.merge-realm { font-weight: 700; }
+.merge-tip { font-weight: 700; color: #26456f; }
+.merge-stats span { background: #ffffff; padding: 0.3rem 0.5rem; border-radius: 8px; border: 1px solid #cddcf6; }
+.merge-next { font-size: 1.05rem; font-weight: 700; }
+.merge-board { position: relative; width: 100%; touch-action: manipulation; }
+.merge-board canvas { width: 100% !important; height: 100% !important; display: block; }
+.merge-drop-marker {
+  position: absolute;
+  top: 6px;
+  transform: translateX(-50%);
+  background: #1f2a44;
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  pointer-events: none;
+}
+.merge-controls label { font-weight: 700; }
+.merge-controls .btn { width: 100%; }
+
+.merge-star-row { display:flex; justify-content:space-between; gap:0.5rem; font-weight:700; margin:0.35rem 0; }
+.merge-star-status { margin:0.25rem 0 0.45rem; font-weight:700; color:#215a2c; }
+
+.realm-earned { border-color:#2f9e44; box-shadow: inset 0 0 0 2px #b8f2c7; }
+.realm-needed { border-color:#d9e6f7; }
+.realm-card small { font-weight:700; color:#314a71; }
+.cave-zone { border-width:3px; }
+#caveStatus { font-weight:800; font-size:1.1rem; }
+#caveDetails, #nextHint { font-weight:700; }
+
+.quest-style-row { display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap; margin-bottom:0.4rem; }
+.quest-style-row span { font-weight:700; }
+.quick-wrong { outline:3px solid #ff8a8a; }
+.quest-pack-row { display:flex; align-items:center; gap:0.5rem; margin-bottom:0.4rem; }
+.quest-pack-row select { min-height:40px; border-radius:8px; border:1px solid #bcd; padding:0.2rem 0.4rem; }
+.guardian-card { background:#fff; border:2px solid #d7e5ff; border-radius:10px; padding:0.65rem; margin-top:0.6rem; }
+.guardian-card h3 { margin:0 0 0.35rem; }
+.guardian-card p { margin:0.2rem 0; }
+.guardian-answer { font-size:0.95rem; color:#304a70; }
+.guardian-tip { font-size:0.92rem; color:#455b7b; }
+.dash-wrap { background:#fff; border:2px solid #d9e6f7; border-radius:12px; padding:0.75rem; margin-top:0.6rem; }
+.dash-realm,.dash-tip,.dash-feedback { margin:0.35rem 0; font-weight:700; }
+.dash-stats { display:flex; justify-content:space-between; gap:0.5rem; flex-wrap:wrap; font-weight:700; }
+.dash-lane { position:relative; height:18px; background:#edf3ff; border:1px solid #c9d8f5; border-radius:999px; margin:0.45rem 0; overflow:hidden; }
+.dash-runner { position:absolute; top:-6px; left:0; transition:left 0.3s linear; font-size:1rem; }
+.dash-prompt { font-size:1.15rem; font-weight:800; margin:0.4rem 0; }
+.dash-choices { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0.5rem; }
+.dash-gate { min-height:56px; }
+.dash-wrong { outline:3px solid #ff8a8a; }
+
+.game-idle { background:#f7fbff; border:2px dashed #bfd3f5; border-radius:10px; padding:0.9rem; text-align:center; font-weight:700; color:#2f4b73; }
+.game-idle p { margin:0.25rem 0; }
+
+.dash-goal { margin:0.25rem 0; font-weight:700; color:#2b4f84; }
+.dash-reward { margin:0.2rem 0 0.4rem; font-weight:800; color:#1f6a2f; }
+
+.activity-grid { display:grid; grid-template-columns:repeat(1,minmax(0,1fr)); gap:0.5rem; }
+.activity-card { text-align:left; background:#f7fbff; border:2px solid #d4e3fb; border-radius:12px; padding:0.65rem; }
+.activity-card strong { display:block; margin-bottom:0.2rem; }
+.activity-card small { display:block; color:#35557f; margin-bottom:0.25rem; }
+.activity-card span { font-weight:700; color:#1f3f69; }
+.activity-card.selected { border-color:#ff7a30; box-shadow:0 0 0 2px #ffd6bf inset; }
+.activity-panel { margin-top:0.5rem; }
+@media (min-width:700px){ .activity-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+
+.cave-key-list { list-style:none; padding:0; margin:0.5rem 0; display:grid; gap:0.3rem; }
+.cave-key-list li { padding:0.35rem 0.5rem; border-radius:8px; font-weight:700; }
+.cave-key-list li.earned { background:#d9f7df; color:#1f6a2f; }
+.cave-key-list li.missing { background:#fff3e0; color:#7a4c00; }
+.cave-reward-room { margin-top:0.5rem; }
+.certificate-block { background:#fff; border:2px solid #ffd27c; border-radius:12px; padding:0.7rem; }
+.certificate-block h3 { margin:0 0 0.35rem; }
+.cave-celebrate { font-weight:800; color:#8a4d00; }
+
+.btn { min-width: 44px; }
+
+@media print {
+  .hero .btn,
+  #resetProgressBtn,
+  #startTreasureMergeBtn,
+  #startGuardianDashBtn,
+  #newProblemBtn,
+  #generateQuestBtn,
+  #questStyleSillyBtn,
+  #questStyleCalmBtn,
+  #activityGrid,
+  .dash-lane,
+  .merge-controls {
+    display: none !important;
+  }
+  .parent-zone { border: 1px solid #999; }
+}
+
+.sort-wrap { background:#fff; border:2px solid #bfe4ff; border-radius:12px; padding:0.75rem; }
+.sort-stats { display:flex; justify-content:space-between; font-weight:700; margin:0.35rem 0; }
+.sort-token { font-size:2rem; font-weight:800; text-align:center; margin:0.5rem 0; background:#eef7ff; border-radius:10px; padding:0.5rem; }
+.sort-zones { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0.5rem; }
+.sort-zone { min-height:56px; }
+.sort-feedback { margin:0.4rem 0; font-weight:700; }
+.sort-wrong { outline:3px solid #ff8a8a; }
