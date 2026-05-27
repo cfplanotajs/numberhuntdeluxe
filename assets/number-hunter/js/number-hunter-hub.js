@@ -10,7 +10,8 @@
     questStyle: 'silly',
     guardianDashSession: null,
     isTreasureMergeActive: false,
-    isGuardianDashActive: false
+    isGuardianDashActive: false,
+    selectedActivity: 'quickQuest'
   };
 
   function el(id) { return document.getElementById(id); }
@@ -50,6 +51,46 @@
     calm.classList.toggle('btn-primary', state.questStyle === 'calm');
   }
 
+
+  function setSelectedActivity(activityId) {
+    state.selectedActivity = activityId;
+    const looped = ['quickQuest', 'keyLock', 'guardianQuest'];
+    if (looped.includes(activityId)) {
+      cleanupTreasureMergeToIdle();
+      cleanupGuardianDashToIdle();
+    }
+    renderActivityCards();
+    renderActivityPanels();
+  }
+
+  function renderActivityCards() {
+    const mount = el('activityGrid');
+    if (!mount) return;
+    const progress = window.Progress.getProgress();
+    const realm = getSelectedRealm();
+    const keyEarned = !!progress.realmKeys[realm.id];
+    mount.innerHTML = '';
+    (window.NH_DATA.activities || []).forEach((activity) => {
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = `activity-card ${state.selectedActivity === activity.id ? 'selected' : ''}`;
+      let rewardLabel = activity.rewardLabel;
+      if (activity.id === 'keyLock' && keyEarned) rewardLabel = 'Key Earned!';
+      card.innerHTML = `<strong>${activity.title}</strong><small>${activity.description}</small><span>${rewardLabel}</span>`;
+      card.addEventListener('click', () => setSelectedActivity(activity.id));
+      mount.appendChild(card);
+    });
+  }
+
+  function renderActivityPanels() {
+    const activityIds = ['quickQuest', 'keyLock', 'treasureMerge', 'guardianDash', 'guardianQuest'];
+    activityIds.forEach((id) => {
+      const panel = el(`activityPanel-${id}`);
+      if (!panel) return;
+      panel.style.display = state.selectedActivity === id ? 'block' : 'none';
+    });
+  }
+
   function renderDifficulty() {
     const mount = el('difficultyOptions');
     mount.innerHTML = '';
@@ -67,7 +108,12 @@
         mountKeyLockGame();
         cleanupTreasureMergeToIdle();
         cleanupGuardianDashToIdle();
-        refreshProgress();
+        setSelectedActivity('quickQuest');
+      refreshProgress();
+        renderActivityCards();
+        renderActivityPanels();
+        renderActivityCards();
+        renderActivityPanels();
       });
       mount.appendChild(b);
     });
@@ -160,7 +206,7 @@
     el('progressSummary').textContent = `Stars: ${p.stars} • Keys: ${keys} / ${keyTarget} • Level: ${p.selectedDifficulty}`;
     el('caveStatus').textContent = caveOpen ? 'Treasure Cave Unlocked!' : 'Treasure Cave Locked';
     el('caveDetails').textContent = caveOpen ? 'You found every realm key! Open the Treasure!' : `Find all ${keyTarget} realm keys to open it. Keys Found: ${keys} / ${keyTarget}`;
-    el('nextHint').textContent = caveOpen ? 'The Treasure Cave is open!' : (realmKey ? 'Try Treasure Merge to earn more stars.' : `Play Key Lock to earn the ${realm.name} Key.`);
+    el('nextHint').textContent = caveOpen ? 'The Treasure Cave is open!' : (realmKey ? 'Try Treasure Merge or Guardian Dash to earn stars.' : `Play Key Lock to earn the ${realm.name} Key.`);
 
     renderRealms();
   }
@@ -246,7 +292,7 @@
   }
 
   function wireActions() {
-    el('startQuestBtn').addEventListener('click', () => { renderProblem(); mountKeyLockGame(); refreshProgress(); });
+    el('startQuestBtn').addEventListener('click', () => { setSelectedActivity('quickQuest'); renderProblem(); mountKeyLockGame(); refreshProgress(); });
     el('newProblemBtn').addEventListener('click', () => { renderProblem(); refreshProgress(); });
     el('startTreasureMergeBtn').addEventListener('click', startTreasureMerge);
     el('startGuardianDashBtn').addEventListener('click', startGuardianDash);
@@ -314,6 +360,8 @@
     mountKeyLockGame();
     renderTreasureMergeIdle();
     renderGuardianDashIdle();
+    renderActivityCards();
+    renderActivityPanels();
     refreshProgress();
   }
 

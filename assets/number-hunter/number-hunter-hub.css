@@ -134,3 +134,12 @@ h1 { margin: 0.25rem 0; }
 
 .dash-goal { margin:0.25rem 0; font-weight:700; color:#2b4f84; }
 .dash-reward { margin:0.2rem 0 0.4rem; font-weight:800; color:#1f6a2f; }
+
+.activity-grid { display:grid; grid-template-columns:repeat(1,minmax(0,1fr)); gap:0.5rem; }
+.activity-card { text-align:left; background:#f7fbff; border:2px solid #d4e3fb; border-radius:12px; padding:0.65rem; }
+.activity-card strong { display:block; margin-bottom:0.2rem; }
+.activity-card small { display:block; color:#35557f; margin-bottom:0.25rem; }
+.activity-card span { font-weight:700; color:#1f3f69; }
+.activity-card.selected { border-color:#ff7a30; box-shadow:0 0 0 2px #ffd6bf inset; }
+.activity-panel { margin-top:0.5rem; }
+@media (min-width:700px){ .activity-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }

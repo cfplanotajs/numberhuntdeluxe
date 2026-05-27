@@ -22,6 +22,13 @@
       volcano: ['additionWithin20', 'subtractionWithin20']
     },
     rewards: { caveKeyTarget: 6, starLabel: 'Star', keyLabel: 'Realm Key' },
+    activities: [
+      { id: 'quickQuest', title: 'Quick Quest', rewardLabel: 'Earn Star', description: 'Answer one math challenge.', kind: 'digital' },
+      { id: 'keyLock', title: 'Key Lock', rewardLabel: 'Earn Realm Key', description: 'Open 3 locks to earn this realm key.', kind: 'digital' },
+      { id: 'treasureMerge', title: 'Treasure Merge', rewardLabel: 'Earn Stars', description: 'Merge matching numbers to earn a star.', kind: 'digital' },
+      { id: 'guardianDash', title: 'Guardian Dash', rewardLabel: 'Fast Math Run', description: 'Pick the right gates in a 5-question dash.', kind: 'digital' },
+      { id: 'guardianQuest', title: 'Bonus Guardian Quest', rewardLabel: 'Board Game Bonus', description: 'Generate a bonus challenge for the board game.', kind: 'parent-led' }
+    ],
     skillLabels: {
       additionWithin10: 'Addition', subtractionWithin10: 'Subtraction', additionWithin20: 'Addition',
       subtractionWithin20: 'Subtraction', evenOdd: 'Even or Odd', make10: 'Make 10', missingNumber: 'Missing Number'

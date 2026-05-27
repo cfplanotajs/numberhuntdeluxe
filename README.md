@@ -13,6 +13,7 @@ This repository intentionally focuses on a static architecture-first MVP scaffol
 ## MVP Scope (Active)
 
 Current scope includes:
+- Activity Cards + focused Quest Stage layout (choose activity, then play)
 - Realm hub structure and mobile-first UI shell
 - Difficulty selector
 - Shared math engine

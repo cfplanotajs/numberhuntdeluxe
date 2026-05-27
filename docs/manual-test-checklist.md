@@ -262,3 +262,18 @@
 - [ ] Confirm Cave remains key-based.
 - [ ] Confirm Treasure Merge still awards stars only.
 - [ ] Confirm reward bypass controls remain absent.
+
+## Activity navigation flow
+- [ ] Choose each realm and confirm activity cards stay visible for the selected realm.
+- [ ] Select Quick Quest and answer a question.
+- [ ] Select Key Lock and complete a key flow.
+- [ ] Select Treasure Merge and confirm it stays idle until Start.
+- [ ] Start Treasure Merge and confirm stars-only rewards.
+- [ ] Select Guardian Dash and confirm Treasure Merge stops.
+- [ ] Start Guardian Dash and confirm stars-only rewards.
+- [ ] Select Guardian Quest and confirm Dash/Merge stop.
+- [ ] Generate a quest and confirm no digital progress changes.
+- [ ] Switch realm/difficulty and confirm looped games stop.
+- [ ] Reset progress and confirm looped games stop.
+- [ ] Confirm Cave remains key-based.
+- [ ] Confirm no reward bypass controls are present.
