@@ -361,6 +361,11 @@
 
 
 ## Shopify / QR Readiness
+- [ ] Confirm hub buttons still look correct.
+- [ ] Confirm activity cards still look correct.
+- [ ] Confirm game controls still look correct.
+- [ ] Confirm generic `.btn` styles are scoped under the hub root.
+- [ ] Confirm no broad Shopify-theme-risk selectors remain unless documented.
 - [ ] Verify a clear root wrapper exists (`#numberHunterHub` / `.number-hunter-hub`).
 - [ ] Verify script order remains: data -> math-engine -> progress -> Matter.js -> game modules -> hub last.
 - [ ] Verify CSS selectors are scoped enough to avoid broad Shopify theme leakage.
