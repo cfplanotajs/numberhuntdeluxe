@@ -84,3 +84,9 @@ Before Shopify/QR production launch, upload **Matter.js 0.20.0** as a local Shop
 - Convert `index.html` body markup into a Shopify page template or custom Liquid section later.
 - Preserve current script order (data -> math-engine -> progress -> Matter.js -> game modules -> hub last).
 - Before production QR launch, upload Matter.js 0.20.0 as a local Shopify/static asset and replace the CDN script path.
+
+
+Shopify scaffold handoff files are available in `shopify/`:
+- `shopify/sections/number-hunter-quest-hub.liquid`
+- `shopify/templates/page.number-hunter-quest-hub.json`
+- `shopify/README.md`

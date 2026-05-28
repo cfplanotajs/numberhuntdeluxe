@@ -46,3 +46,9 @@
 - Confirm print buttons are utility-only and do not change progress.
 - Confirm no direct reward bypass controls are present.
 - Confirm no framework/build artifacts are introduced.
+
+
+## Scaffold handoff files
+- `shopify/sections/number-hunter-quest-hub.liquid`
+- `shopify/templates/page.number-hunter-quest-hub.json`
+- `shopify/README.md`
