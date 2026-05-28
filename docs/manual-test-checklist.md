@@ -337,17 +337,19 @@
 - [ ] Confirm difficulty affects number range.
 - [ ] Sort an even number correctly.
 - [ ] Sort an odd number correctly.
-- [ ] Wrong choice shows feedback and does not score.
-- [ ] Repeated taps after correct do not double-score.
-- [ ] Run ends after 10 items.
+- [ ] Intentionally answer one item wrong and confirm score does not increase.
+- [ ] Confirm wrong-answer item advances after feedback/explanation.
+- [ ] Confirm repeated taps after wrong/correct cannot change the resolved item.
+- [ ] Confirm run ends after 10 total attempted items.
+- [ ] Confirm final score reflects missed items.
 - [ ] Complete a run below the star goal and confirm no star is awarded.
 - [ ] Complete a run at/above star goal and confirm exactly 1 star is awarded.
 - [ ] After earning a star, repeated taps or stale callbacks do not award more stars.
-- [ ] Play Again starts a new reward-eligible run.
+- [ ] Play Again starts a fresh 10-item reward-eligible run.
 - [ ] Switch activity during feedback/run and confirm no stale UI overwrite or stale reward.
 - [ ] Switch realm/difficulty and confirm current sort session stops/resets safely with no stale reward.
 - [ ] Reset progress during a run and confirm no stale reward is emitted.
-- [ ] Confirm Even/Odd Sort does not unlock realm keys.
+- [ ] Confirm Even/Odd Sort still does not unlock realm keys.
 - [ ] Confirm Cave remains key-based.
 - [ ] Confirm reward bypass controls remain absent.
 

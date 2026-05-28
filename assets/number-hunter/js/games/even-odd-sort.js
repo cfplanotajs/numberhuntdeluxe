@@ -119,11 +119,16 @@
         const token = runToken;
         later(nextItem, 420, token);
       } else {
+        resolved = true;
+        index += 1;
+        setButtonsDisabled(true);
         wrongAttempts += 1;
-        mountEl.querySelector('#sortFeedback').textContent = wrongAttempts >= 2 ? `Try again! ${current.explanation}` : 'Try again!';
+        mountEl.querySelector('#sortScore').textContent = `Score: ${correct} / ${total}`;
+        mountEl.querySelector('#sortFeedback').textContent = `Almost! ${current.explanation} Nice try — next one!`;
         buttonEl.classList.add('sort-wrong');
         const token = runToken;
         later(() => buttonEl.classList.remove('sort-wrong'), 250, token);
+        later(nextItem, 620, token);
       }
     }
 
