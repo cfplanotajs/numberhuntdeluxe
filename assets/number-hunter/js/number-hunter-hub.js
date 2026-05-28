@@ -11,7 +11,8 @@
     guardianDashSession: null,
     isTreasureMergeActive: false,
     isGuardianDashActive: false,
-    selectedActivity: 'quickQuest'
+    selectedActivity: 'quickQuest',
+    evenOddSortSession: null
   };
 
   function el(id) { return document.getElementById(id); }
@@ -57,9 +58,11 @@
     if (previousActivity && previousActivity !== activityId) {
       if (previousActivity === 'treasureMerge' && activityId !== 'treasureMerge') cleanupTreasureMergeToIdle();
       if (previousActivity === 'guardianDash' && activityId !== 'guardianDash') cleanupGuardianDashToIdle();
+      if (previousActivity === 'evenOddSort' && activityId !== 'evenOddSort') cleanupEvenOddSort();
     }
 
     state.selectedActivity = activityId;
+    if (activityId === 'evenOddSort') { cleanupTreasureMergeToIdle(); cleanupGuardianDashToIdle(); mountEvenOddSort(); }
     renderActivityCards();
     renderActivityPanels();
   }
@@ -84,7 +87,7 @@
   }
 
   function renderActivityPanels() {
-    const activityIds = ['quickQuest', 'keyLock', 'treasureMerge', 'guardianDash', 'guardianQuest'];
+    const activityIds = ['quickQuest', 'keyLock', 'treasureMerge', 'guardianDash', 'evenOddSort', 'guardianQuest'];
     activityIds.forEach((id) => {
       const panel = el(`activityPanel-${id}`);
       if (!panel) return;
@@ -109,6 +112,7 @@
         mountKeyLockGame();
         cleanupTreasureMergeToIdle();
         cleanupGuardianDashToIdle();
+        cleanupEvenOddSort();
         setSelectedActivity('quickQuest');
       refreshProgress();
         renderActivityCards();
@@ -139,6 +143,7 @@
         mountKeyLockGame();
         cleanupTreasureMergeToIdle();
         cleanupGuardianDashToIdle();
+        cleanupEvenOddSort();
         refreshProgress();
       });
       mount.appendChild(b);
@@ -266,6 +271,7 @@
     state.guardianDashSession = null;
     state.isGuardianDashActive = false;
     renderGuardianDashIdle();
+    cleanupEvenOddSort();
   }
 
   function mountKeyLockGame() {
@@ -321,6 +327,23 @@
     mountGuardianDash();
   }
 
+
+  function cleanupEvenOddSort() {
+    if (state.evenOddSortSession && typeof state.evenOddSortSession.cleanup === 'function') state.evenOddSortSession.cleanup();
+    state.evenOddSortSession = null;
+    const mount = el('evenOddSortMount');
+    if (mount) mount.innerHTML = '<div class="game-idle"><p>Ready to sort?</p><p>Choose Even or Odd!</p></div>';
+  }
+
+  function mountEvenOddSort() {
+    cleanupEvenOddSort();
+    state.evenOddSortSession = window.initEvenOddSortGame(el('evenOddSortMount'), {
+      realm: getSelectedRealm(),
+      difficulty: state.selectedDifficulty,
+      onRunComplete: () => {}
+    });
+  }
+
   function wireActions() {
     el('startQuestBtn').addEventListener('click', () => { setSelectedActivity('quickQuest'); renderProblem(); mountKeyLockGame(); refreshProgress(); });
     el('newProblemBtn').addEventListener('click', () => { renderProblem(); refreshProgress(); });
@@ -336,6 +359,7 @@
       mountKeyLockGame();
       cleanupTreasureMergeToIdle();
       cleanupGuardianDashToIdle();
+      cleanupEvenOddSort();
       refreshProgress();
     });
 
@@ -391,6 +415,7 @@
     mountKeyLockGame();
     renderTreasureMergeIdle();
     renderGuardianDashIdle();
+    cleanupEvenOddSort();
     renderActivityCards();
     renderActivityPanels();
     refreshProgress();

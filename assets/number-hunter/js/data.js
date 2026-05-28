@@ -27,6 +27,7 @@
       { id: 'keyLock', title: 'Key Lock', rewardLabel: 'Earn Realm Key', description: 'Open 3 locks to earn this realm key.', kind: 'digital' },
       { id: 'treasureMerge', title: 'Treasure Merge', rewardLabel: 'Earn Stars', description: 'Merge matching numbers to earn a star.', kind: 'digital' },
       { id: 'guardianDash', title: 'Guardian Dash', rewardLabel: 'Fast Math Run', description: 'Pick the right gates in a 5-question dash.', kind: 'digital' },
+      { id: 'evenOddSort', title: 'Even/Odd Sort', rewardLabel: 'Local Score', description: 'Sort numbers into Even and Odd.', kind: 'digital' },
       { id: 'guardianQuest', title: 'Bonus Guardian Quest', rewardLabel: 'Board Game Bonus', description: 'Generate a bonus challenge for the board game.', kind: 'parent-led' }
     ],
     skillLabels: {

@@ -329,3 +329,20 @@
 - [ ] Start Treasure Merge on Master Hunter and confirm higher values (including 16) can appear.
 - [ ] Confirm matching numbers still merge correctly.
 - [ ] Confirm score/star behavior did not change.
+
+
+## Even/Odd Sort MVP
+- [ ] Select Even/Odd Sort activity.
+- [ ] Confirm selected realm appears.
+- [ ] Confirm difficulty affects number range.
+- [ ] Sort an even number correctly.
+- [ ] Sort an odd number correctly.
+- [ ] Wrong choice shows feedback and does not score.
+- [ ] Repeated taps after correct do not double-score.
+- [ ] Run ends after 10 items.
+- [ ] Play Again starts fresh run.
+- [ ] Switch activity during feedback and confirm no stale UI overwrite.
+- [ ] Switch realm/difficulty and confirm current sort session stops/resets safely.
+- [ ] Confirm no digital stars are awarded.
+- [ ] Confirm no realm keys are unlocked.
+- [ ] Confirm Cave progress does not change.

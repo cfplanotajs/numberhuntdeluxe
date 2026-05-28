@@ -171,3 +171,11 @@ h1 { margin: 0.25rem 0; }
   }
   .parent-zone { border: 1px solid #999; }
 }
+
+.sort-wrap { background:#fff; border:2px solid #bfe4ff; border-radius:12px; padding:0.75rem; }
+.sort-stats { display:flex; justify-content:space-between; font-weight:700; margin:0.35rem 0; }
+.sort-token { font-size:2rem; font-weight:800; text-align:center; margin:0.5rem 0; background:#eef7ff; border-radius:10px; padding:0.5rem; }
+.sort-zones { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0.5rem; }
+.sort-zone { min-height:56px; }
+.sort-feedback { margin:0.4rem 0; font-weight:700; }
+.sort-wrong { outline:3px solid #ff8a8a; }

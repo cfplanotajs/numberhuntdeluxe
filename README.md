@@ -21,6 +21,7 @@ Current scope includes:
 - Key Lock Puzzles (realm-key activity)
 - Treasure Merge (Matter.js, lazy-started, capped star rewards only)
 - Guardian Dash (lightweight DOM/CSS/vanilla JS, lazy-started, capped star rewards only)
+- Even/Odd Sort (vanilla DOM/CSS, local-score-only)
 - Bonus Guardian Quest Generator
 - Parent Zone content section
 
@@ -58,12 +59,13 @@ No install needed.
 /assets/number-hunter/js/games/key-locks.js
 /assets/number-hunter/js/games/treasure-merge.js
 /assets/number-hunter/js/games/guardian-dash.js
+/assets/number-hunter/js/games/even-odd-sort.js
 /assets/number-hunter/js/games/quest-generator.js
 ```
 
 ## Future Phases
 
-- **Phase 2:** Even/Odd Critter Sort, Daily Quest, badges, certificates, Pattern Path
+- **Phase 2:** Daily Quest, badges, certificates, Pattern Path
 - **Phase 3:** Seasonal quests, board-play variants, optional parent-only growth features
 
 ## Notes
