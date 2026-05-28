@@ -1,5 +1,5 @@
 (function () {
-  const KEY = 'numberHunterProgress';
+  const KEY = 'numberHunterDeluxeQuestProgress';
   const BASE_PROGRESS = {
     selectedDifficulty: 'littleHunter',
     stars: 0,

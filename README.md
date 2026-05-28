@@ -76,3 +76,11 @@ This project is intentionally **not** a React/Next/Vite application. It is a lig
 ## Matter.js launch TODO
 
 Before Shopify/QR production launch, upload **Matter.js 0.20.0** as a local Shopify/static asset and replace the runtime CDN script path in `index.html`.
+
+
+## Shopify deployment TODO
+
+- Keep this as static HTML/CSS/vanilla JS (no build step).
+- Convert `index.html` body markup into a Shopify page template or custom Liquid section later.
+- Preserve current script order (data -> math-engine -> progress -> Matter.js -> game modules -> hub last).
+- Before production QR launch, upload Matter.js 0.20.0 as a local Shopify/static asset and replace the CDN script path.

@@ -4,25 +4,26 @@
   --card: #ffffff;
   --primary: #ff7a30;
 }
-* { box-sizing: border-box; }
-body {
+
+.number-hunter-hub, .number-hunter-hub * { box-sizing: border-box; }
+body.number-hunter-page {
   margin: 0;
   font-family: Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
 }
-.hub { padding: 1rem; max-width: 900px; margin: 0 auto; }
-.card, .hero {
+.number-hunter-hub.hub { padding: 1rem; max-width: 900px; margin: 0 auto; }
+.number-hunter-hub .card, .number-hunter-hub .hero {
   background: var(--card);
   border-radius: 14px;
   padding: 1rem;
   margin-bottom: 1rem;
   border: 2px solid #d9e6f7;
 }
-.hero { background: linear-gradient(135deg, #fff5d6, #e5f4ff); text-align: center; }
-.eyebrow { font-weight: 700; margin: 0; }
-h1 { margin: 0.25rem 0; }
-.btn {
+.number-hunter-hub .hero { background: linear-gradient(135deg, #fff5d6, #e5f4ff); text-align: center; }
+.number-hunter-hub .eyebrow { font-weight: 700; margin: 0; }
+.number-hunter-hub h1 { margin: 0.25rem 0; }
+.number-hunter-hub .btn {
   min-height: 48px;
   border: 0;
   border-radius: 10px;
@@ -32,9 +33,9 @@ h1 { margin: 0.25rem 0; }
   background: #dce9ff;
   margin: 0.25rem;
 }
-.btn-primary { background: var(--primary); color: #fff; }
-.btn-ghost { background: #f1f3f8; }
-.button-grid, .realm-grid { display: grid; gap: 0.5rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.number-hunter-hub .btn-primary { background: var(--primary); color: #fff; }
+.number-hunter-hub .btn-ghost { background: #f1f3f8; }
+.number-hunter-hub .button-grid, .number-hunter-hub .realm-grid { display: grid; gap: 0.5rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .realm-card {
   min-height: 70px;
   text-align: left;
@@ -51,11 +52,11 @@ h1 { margin: 0.25rem 0; }
 .realm-desert { background: #ffeccb; }
 .realm-volcano { background: #ffd9d0; }
 .quest-card { background: #f9fbff; border: 1px dashed #a8bddf; border-radius: 10px; padding: 0.75rem; min-height: 80px; }
-.choice-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
-.parent-zone { border-color: #b4a7ff; background: #f8f3ff; }
-.cave-zone { border-color: #ffc34d; background: #fff6dc; }
+.number-hunter-hub .choice-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
+.number-hunter-hub .parent-zone { border-color: #b4a7ff; background: #f8f3ff; }
+.number-hunter-hub .cave-zone { border-color: #ffc34d; background: #fff6dc; }
 @media (min-width: 700px) {
-  .button-grid, .realm-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .number-hunter-hub .button-grid, .number-hunter-hub .realm-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 .key-lock-game { background: #fffdf2; border: 2px solid #f2d37f; border-radius: 12px; padding: 0.8rem; }
@@ -97,7 +98,7 @@ h1 { margin: 0.25rem 0; }
   pointer-events: none;
 }
 .merge-controls label { font-weight: 700; }
-.merge-controls .btn { width: 100%; }
+.number-hunter-hub .merge-controls .btn { width: 100%; }
 
 .merge-star-row { display:flex; justify-content:space-between; gap:0.5rem; font-weight:700; margin:0.35rem 0; }
 .merge-star-status { margin:0.25rem 0 0.45rem; font-weight:700; color:#215a2c; }
@@ -105,7 +106,7 @@ h1 { margin: 0.25rem 0; }
 .realm-earned { border-color:#2f9e44; box-shadow: inset 0 0 0 2px #b8f2c7; }
 .realm-needed { border-color:#d9e6f7; }
 .realm-card small { font-weight:700; color:#314a71; }
-.cave-zone { border-width:3px; }
+.number-hunter-hub .cave-zone { border-width:3px; }
 #caveStatus { font-weight:800; font-size:1.1rem; }
 #caveDetails, #nextHint { font-weight:700; }
 
@@ -135,14 +136,14 @@ h1 { margin: 0.25rem 0; }
 .dash-goal { margin:0.25rem 0; font-weight:700; color:#2b4f84; }
 .dash-reward { margin:0.2rem 0 0.4rem; font-weight:800; color:#1f6a2f; }
 
-.activity-grid { display:grid; grid-template-columns:repeat(1,minmax(0,1fr)); gap:0.5rem; }
-.activity-card { text-align:left; background:#f7fbff; border:2px solid #d4e3fb; border-radius:12px; padding:0.65rem; }
-.activity-card strong { display:block; margin-bottom:0.2rem; }
-.activity-card small { display:block; color:#35557f; margin-bottom:0.25rem; }
-.activity-card span { font-weight:700; color:#1f3f69; }
-.activity-card.selected { border-color:#ff7a30; box-shadow:0 0 0 2px #ffd6bf inset; }
-.activity-panel { margin-top:0.5rem; }
-@media (min-width:700px){ .activity-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+.number-hunter-hub .activity-grid { display:grid; grid-template-columns:repeat(1,minmax(0,1fr)); gap:0.5rem; }
+.number-hunter-hub .activity-card { text-align:left; background:#f7fbff; border:2px solid #d4e3fb; border-radius:12px; padding:0.65rem; }
+.number-hunter-hub .activity-card strong { display:block; margin-bottom:0.2rem; }
+.number-hunter-hub .activity-card small { display:block; color:#35557f; margin-bottom:0.25rem; }
+.number-hunter-hub .activity-card span { font-weight:700; color:#1f3f69; }
+.number-hunter-hub .activity-card.selected { border-color:#ff7a30; box-shadow:0 0 0 2px #ffd6bf inset; }
+.number-hunter-hub .activity-panel { margin-top:0.5rem; }
+@media (min-width:700px){ .number-hunter-hub .activity-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 
 .cave-key-list { list-style:none; padding:0; margin:0.5rem 0; display:grid; gap:0.3rem; }
 .cave-key-list li { padding:0.35rem 0.5rem; border-radius:8px; font-weight:700; }
@@ -153,10 +154,10 @@ h1 { margin: 0.25rem 0; }
 .certificate-block h3 { margin:0 0 0.35rem; }
 .cave-celebrate { font-weight:800; color:#8a4d00; }
 
-.btn { min-width: 44px; }
+.number-hunter-hub .btn { min-width: 44px; }
 
 @media print {
-  .hero .btn,
+  .number-hunter-hub .hero .btn,
   #resetProgressBtn,
   #startTreasureMergeBtn,
   #startGuardianDashBtn,
@@ -169,7 +170,7 @@ h1 { margin: 0.25rem 0; }
   .merge-controls {
     display: none !important;
   }
-  .parent-zone { border: 1px solid #999; }
+  .number-hunter-hub .parent-zone { border: 1px solid #999; }
 }
 
 .sort-wrap { background:#fff; border:2px solid #bfe4ff; border-radius:12px; padding:0.75rem; }
