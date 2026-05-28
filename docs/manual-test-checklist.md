@@ -354,6 +354,16 @@
 - [ ] Confirm reward bypass controls remain absent.
 
 
+## Activity context-change lifecycle
+- [ ] Select Even/Odd Sort and start playing.
+- [ ] Change realm and confirm Even/Odd Sort remains playable for the new realm.
+- [ ] Change difficulty and confirm Even/Odd Sort remains playable for the new difficulty.
+- [ ] Reset progress while Even/Odd Sort is selected and confirm the panel is not left in a dead/non-playable state.
+- [ ] Select Treasure Merge, change realm/difficulty, and confirm it stops and returns idle.
+- [ ] Select Guardian Dash, change realm/difficulty, and confirm it stops and returns idle.
+- [ ] Confirm reward rules did not change.
+
+
 ## Matter.js pre-launch deployment TODO
 - [ ] Confirm `index.html` currently references CDN Matter.js during dev.
 - [ ] Before QR launch, upload Matter.js 0.20.0 as a local Shopify/static asset.

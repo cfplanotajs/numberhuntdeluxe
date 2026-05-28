@@ -108,15 +108,8 @@
         p.selectedDifficulty = d.id;
         window.Progress.saveProgress(p);
         renderDifficulty();
-        renderProblem();
-        mountKeyLockGame();
-        cleanupTreasureMergeToIdle();
-        cleanupGuardianDashToIdle();
-        cleanupEvenOddSort();
-        setSelectedActivity('quickQuest');
-      refreshProgress();
-        renderActivityCards();
-        renderActivityPanels();
+        refreshSelectedActivityForContextChange();
+        refreshProgress();
         renderActivityCards();
         renderActivityPanels();
       });
@@ -139,11 +132,7 @@
         state.selectedSkill = chooseSkillForRealm(realm.id);
         el('selectedRealmLabel').textContent = `Realm: ${realm.name}`;
         renderRealms();
-        renderProblem();
-        mountKeyLockGame();
-        cleanupTreasureMergeToIdle();
-        cleanupGuardianDashToIdle();
-        cleanupEvenOddSort();
+        refreshSelectedActivityForContextChange();
         refreshProgress();
       });
       mount.appendChild(b);
@@ -271,7 +260,6 @@
     state.guardianDashSession = null;
     state.isGuardianDashActive = false;
     renderGuardianDashIdle();
-    cleanupEvenOddSort();
   }
 
   function mountKeyLockGame() {
@@ -348,6 +336,27 @@
     });
   }
 
+  function refreshSelectedActivityForContextChange() {
+    cleanupTreasureMergeToIdle();
+    cleanupGuardianDashToIdle();
+
+    if (state.selectedActivity === 'evenOddSort') {
+      mountEvenOddSort();
+      return;
+    }
+
+    cleanupEvenOddSort();
+
+    if (state.selectedActivity === 'keyLock') {
+      mountKeyLockGame();
+      return;
+    }
+
+    if (state.selectedActivity === 'quickQuest') {
+      renderProblem();
+    }
+  }
+
   function wireActions() {
     el('startQuestBtn').addEventListener('click', () => { setSelectedActivity('quickQuest'); renderProblem(); mountKeyLockGame(); refreshProgress(); });
     el('newProblemBtn').addEventListener('click', () => { renderProblem(); refreshProgress(); });
@@ -359,11 +368,7 @@
       const resetState = window.Progress.resetProgress();
       state.selectedDifficulty = resetState.selectedDifficulty;
       renderDifficulty();
-      renderProblem();
-      mountKeyLockGame();
-      cleanupTreasureMergeToIdle();
-      cleanupGuardianDashToIdle();
-      cleanupEvenOddSort();
+      refreshSelectedActivityForContextChange();
       refreshProgress();
     });
 
