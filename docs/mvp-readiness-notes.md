@@ -2,7 +2,7 @@
 
 ## Current MVP Scope
 - Realm map, difficulty, activity cards, focused quest stage
-- Quick Quest, Key Lock, Treasure Merge, Guardian Dash, Bonus Guardian Quest
+- Quick Quest, Key Lock, Treasure Merge, Guardian Dash, Even/Odd Sort, Bonus Guardian Quest
 - Treasure Cave reward room
 - localStorage progress only
 
@@ -19,10 +19,11 @@
 - No account sync/backups (local browser storage only)
 
 ## Recommended Next Candidates
-- Even/Odd Critter Sort
 - Daily Quest
 - Pattern Path
 - Badge collection (after reward audits)
 
 ## Production Blockers
 - None critical found in this pass; continue manual cross-device verification before release.
+
+- Matter.js is still loaded from CDN in `index.html`; before Shopify/QR production launch, upload Matter.js 0.20.0 as a local static asset and switch the script path.

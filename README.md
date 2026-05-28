@@ -71,3 +71,8 @@ No install needed.
 ## Notes
 
 This project is intentionally **not** a React/Next/Vite application. It is a lightweight static prototype aligned to Shopify-friendly constraints.
+
+
+## Matter.js launch TODO
+
+Before Shopify/QR production launch, upload **Matter.js 0.20.0** as a local Shopify/static asset and replace the runtime CDN script path in `index.html`.

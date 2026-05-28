@@ -179,3 +179,6 @@ h1 { margin: 0.25rem 0; }
 .sort-zone { min-height:56px; }
 .sort-feedback { margin:0.4rem 0; font-weight:700; }
 .sort-wrong { outline:3px solid #ff8a8a; }
+
+.sort-goal { font-weight:700; margin:0.25rem 0; color:#0b4f7a; }
+.sort-earned-star { color:#0f7a25; }

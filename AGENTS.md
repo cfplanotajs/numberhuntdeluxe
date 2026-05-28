@@ -94,6 +94,7 @@ Prefer:
   games/
     treasure-merge.js
     guardian-dash.js
+    even-odd-sort.js
     key-locks.js
     quest-generator.js
 ```
@@ -213,9 +214,10 @@ The MVP should include:
 3. Treasure Merge game
 4. Key Lock Puzzles game
 5. Guardian Dash game
-6. Bonus Guardian Quest Generator
-7. Parent Resources page
-8. Local progress tracking with `localStorage`
+6. Even/Odd Critter Sort game
+7. Bonus Guardian Quest Generator
+8. Parent Resources page
+9. Local progress tracking with `localStorage`
 
 Do not build more than this for the MVP unless requested.
 
@@ -223,13 +225,12 @@ Do not build more than this for the MVP unless requested.
 
 After MVP stability:
 
-1. Even/Odd Critter Sort
-2. Daily Quest
-3. Badge collection
-4. Printable certificate
-5. More realm skins
-6. Pattern Path
-7. More quest packs
+1. Daily Quest
+2. Badge collection
+3. Printable certificate
+4. More realm skins
+5. Pattern Path
+6. More quest packs
 
 ### Phase 3 candidates
 
@@ -928,6 +929,7 @@ MVP is done when:
 - user can play Treasure Merge,
 - user can play Key Lock Puzzles,
 - user can play Guardian Dash,
+- user can play Even/Odd Critter Sort,
 - user can generate a Bonus Guardian Quest,
 - progress saves locally,
 - the Cave/Treasure area unlocks after defined progress,

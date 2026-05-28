@@ -340,7 +340,11 @@
     state.evenOddSortSession = window.initEvenOddSortGame(el('evenOddSortMount'), {
       realm: getSelectedRealm(),
       difficulty: state.selectedDifficulty,
-      onRunComplete: () => {}
+      onRunComplete: (payload) => {
+        if (!payload || payload.source !== 'evenOddSort' || payload.starEarned !== true) return;
+        window.Progress.awardStar();
+        refreshProgress();
+      }
     });
   }
 

@@ -340,9 +340,19 @@
 - [ ] Wrong choice shows feedback and does not score.
 - [ ] Repeated taps after correct do not double-score.
 - [ ] Run ends after 10 items.
-- [ ] Play Again starts fresh run.
-- [ ] Switch activity during feedback and confirm no stale UI overwrite.
-- [ ] Switch realm/difficulty and confirm current sort session stops/resets safely.
-- [ ] Confirm no digital stars are awarded.
-- [ ] Confirm no realm keys are unlocked.
-- [ ] Confirm Cave progress does not change.
+- [ ] Complete a run below the star goal and confirm no star is awarded.
+- [ ] Complete a run at/above star goal and confirm exactly 1 star is awarded.
+- [ ] After earning a star, repeated taps or stale callbacks do not award more stars.
+- [ ] Play Again starts a new reward-eligible run.
+- [ ] Switch activity during feedback/run and confirm no stale UI overwrite or stale reward.
+- [ ] Switch realm/difficulty and confirm current sort session stops/resets safely with no stale reward.
+- [ ] Reset progress during a run and confirm no stale reward is emitted.
+- [ ] Confirm Even/Odd Sort does not unlock realm keys.
+- [ ] Confirm Cave remains key-based.
+- [ ] Confirm reward bypass controls remain absent.
+
+
+## Matter.js pre-launch deployment TODO
+- [ ] Confirm `index.html` currently references CDN Matter.js during dev.
+- [ ] Before QR launch, upload Matter.js 0.20.0 as a local Shopify/static asset.
+- [ ] Replace CDN script path with local asset path for production release.
