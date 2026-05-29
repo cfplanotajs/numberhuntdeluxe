@@ -1,0 +1,144 @@
+{{ 'number-hunter-hub.css' | asset_url | stylesheet_tag }}
+
+<main class="number-hunter-hub hub" id="numberHunterHub">
+  <section class="hero child-zone">
+    <p class="eyebrow">Number Hunter Deluxe</p>
+    <h1>{{ section.settings.heading | default: 'Quest Hub' }}</h1>
+    <p class="hero-copy">{{ section.settings.subheading | default: 'Choose a Realm. Play a Quest. Earn Stars!' }}</p>
+    <button id="startQuestBtn" class="btn btn-primary" type="button">Start Quest</button>
+  </section>
+
+  <section class="card child-zone" aria-label="Difficulty selector">
+    <h2>Choose Level</h2>
+    <div id="difficultyOptions" class="button-grid"></div>
+  </section>
+
+  <section class="card child-zone" aria-label="Realm map">
+    <h2>Choose a Realm</h2>
+    <div id="realmGrid" class="realm-grid"></div>
+  </section>
+
+  <section class="card child-zone" aria-label="Activity cards">
+    <h2>Pick a Quest</h2>
+    <div id="activityGrid" class="activity-grid"></div>
+  </section>
+
+  <section class="card child-zone" aria-label="Quest stage">
+    <h2>Play Quest</h2>
+    <p id="selectedRealmLabel">Realm: Not selected</p>
+
+    <section id="activityPanel-quickQuest" class="activity-panel" aria-label="Quick quest">
+      <h3>Quick Quest</h3>
+      <p id="problemPrompt">Choose an answer to earn a Star.</p>
+      <div id="problemChoices" class="choice-row"></div>
+      <button id="newProblemBtn" class="btn" type="button">New Quest</button>
+    </section>
+
+    <section id="activityPanel-keyLock" class="activity-panel" aria-label="Key lock game">
+      <h3>Key Lock</h3>
+      <div id="keyLocksMount"></div>
+    </section>
+
+    <section id="activityPanel-treasureMerge" class="activity-panel" aria-label="Treasure merge game">
+      <h3>Treasure Merge</h3>
+      <p>Merge matching numbers. Reach the Star Goal!</p>
+      <button id="startTreasureMergeBtn" class="btn btn-primary" type="button">Start Merge</button>
+      <div id="treasureMergeMount"></div>
+    </section>
+
+    <section id="activityPanel-guardianDash" class="activity-panel" aria-label="Guardian dash game">
+      <h3>Guardian Dash</h3>
+      <p>Pick the right gates. Reach the Star Goal!</p>
+      <button id="startGuardianDashBtn" class="btn btn-primary" type="button">Start Dash</button>
+      <div id="guardianDashMount"></div>
+    </section>
+
+    <section id="activityPanel-evenOddSort" class="activity-panel" aria-label="Even odd sort game">
+      <h3>Even/Odd Critter Sort</h3>
+      <p>Sort each number. Reach the Star Goal!</p>
+      <div id="evenOddSortMount"></div>
+    </section>
+
+    <section id="activityPanel-guardianQuest" class="activity-panel" aria-label="Guardian quest generator">
+      <h3>Bonus Board Quest</h3>
+      <div class="quest-style-row" aria-label="Quest style">
+        <span>Style:</span>
+        <button id="questStyleSillyBtn" class="btn btn-primary" type="button">Silly</button>
+        <button id="questStyleCalmBtn" class="btn" type="button">Calm</button>
+      </div>
+      <div class="quest-pack-row"><label for="questPackSize">Pack:</label><select id="questPackSize"><option value="1">1 Quest</option><option value="3">3 Quest Pack</option></select></div>
+      <button id="generateQuestBtn" class="btn" type="button">Make Quest</button>
+      <button id="printQuestBtn" class="btn" type="button">Parent: Print / Save</button>
+      <div id="generatedQuest" class="quest-card"></div>
+    </section>
+  </section>
+
+  <section class="card child-zone cave-zone" aria-label="Treasure cave reward zone">
+    <h2>Treasure Cave</h2>
+    <p id="caveStatus">Treasure Cave Locked</p>
+    <p id="caveDetails">Find all 6 Realm Keys to open it.</p>
+    <ul id="caveKeyChecklist" class="cave-key-list"></ul>
+    <div id="caveRewardRoom" class="cave-reward-room"></div>
+    <button id="printCaveCertificateBtn" class="btn" type="button" style="display:none;">Parent: Print / Save Certificate</button>
+    <p id="nextHint">Play Key Lock to earn a Realm Key.</p>
+  </section>
+
+  <section class="card child-zone" aria-label="Progress">
+    <h2>Your Progress</h2>
+    <p id="progressSummary"></p>
+    <button id="resetProgressBtn" class="btn btn-ghost" type="button">Reset Progress</button>
+  </section>
+
+  <section class="card parent-zone" aria-label="Parent zone">
+    <h2>Parent Zone</h2>
+    <p>{{ section.settings.trust_note | default: 'Quick math practice. No login, no ads, no downloads.' }}</p>
+    <ul id="parentResources"></ul>
+  </section>
+</main>
+
+<script src="{{ 'number-hunter-data.js' | asset_url }}" defer></script>
+<script src="{{ 'number-hunter-math-engine.js' | asset_url }}" defer></script>
+<script src="{{ 'number-hunter-progress.js' | asset_url }}" defer></script>
+{% comment %}
+  PRODUCTION TODO:
+  Upload Matter.js 0.20.0 as a local Shopify asset named matter.min.js before QR launch.
+  Do not rely on third-party CDN runtime loading in production.
+{% endcomment %}
+<script src="{{ 'matter.min.js' | asset_url }}" defer></script>
+<script src="{{ 'number-hunter-key-locks.js' | asset_url }}" defer></script>
+<script src="{{ 'number-hunter-treasure-merge.js' | asset_url }}" defer></script>
+<script src="{{ 'number-hunter-guardian-dash.js' | asset_url }}" defer></script>
+<script src="{{ 'number-hunter-even-odd-sort.js' | asset_url }}" defer></script>
+<script src="{{ 'number-hunter-quest-generator.js' | asset_url }}" defer></script>
+<script src="{{ 'number-hunter-hub.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Number Hunter Quest Hub",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Quest Hub"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Choose a Realm. Play a Quest. Earn Stars!"
+    },
+    {
+      "type": "textarea",
+      "id": "trust_note",
+      "label": "Trust note",
+      "default": "Quick math practice. No login, no ads, no downloads."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Number Hunter Quest Hub"
+    }
+  ]
+}
+{% endschema %}
