@@ -59,3 +59,8 @@
 - Static `index.html` auto-initializes after DOM readiness.
 - Shopify theme editor section load/unload events are supported defensively for the Quest Hub root.
 - Use `destroy(root)` before removing/replacing the section to stop active game sessions.
+
+## Shopify asset handoff bundle
+- `shopify/assets/` contains flattened copies of the current Quest Hub CSS and JavaScript files using the filenames referenced by the Liquid section.
+- Development source remains `assets/number-hunter/`; refresh `shopify/assets/` copies whenever source assets change.
+- `matter.min.js` is intentionally absent and must be supplied as a local Shopify/static asset before production QR launch.

@@ -66,3 +66,9 @@ Use the JSON template on a dedicated page and avoid duplicating this section mul
 - Static pages auto-initialize on `DOMContentLoaded`.
 - Shopify theme editor `shopify:section:load` and `shopify:section:unload` events are handled defensively so preview reloads can init/destroy the section.
 - Calling `init(root)` twice for the same root is safe and returns the existing instance.
+
+## Shopify asset bundle
+- `shopify/assets/` contains flattened copies of the current static source files for Shopify theme upload.
+- Source-of-truth during development remains `assets/number-hunter/`; after changing those source files, refresh the copied files in `shopify/assets/`.
+- `matter.min.js` is intentionally **not included** in this handoff bundle; upload Matter.js 0.20.0 manually before QR launch.
+- Keep script order unchanged: data, math engine, progress, Matter.js, game modules, hub bootstrap last.
