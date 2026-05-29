@@ -62,6 +62,7 @@
     }
 
     state.selectedActivity = activityId;
+    if (activityId === 'keyLock') { cleanupTreasureMergeToIdle(); cleanupGuardianDashToIdle(); cleanupEvenOddSort(); mountKeyLockGame(); }
     if (activityId === 'evenOddSort') { cleanupTreasureMergeToIdle(); cleanupGuardianDashToIdle(); mountEvenOddSort(); }
     renderActivityCards();
     renderActivityPanels();

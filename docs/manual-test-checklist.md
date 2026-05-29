@@ -364,6 +364,17 @@
 - [ ] Confirm reward rules did not change.
 
 
+## Key Lock activity selection lifecycle
+- [ ] Select Jungle, then switch to another activity.
+- [ ] Select Frozen Land, then select Key Lock.
+- [ ] Complete Key Lock and confirm Frozen Land key unlocks, not Jungle.
+- [ ] Repeat the realm-switch-to-Key-Lock flow for another realm.
+- [ ] Change difficulty, select Key Lock, and confirm the new difficulty is reflected.
+- [ ] Confirm Treasure Merge stops when Key Lock is selected.
+- [ ] Confirm Guardian Dash stops when Key Lock is selected.
+- [ ] Confirm reward rules did not change.
+
+
 ## Matter.js pre-launch deployment TODO
 - [ ] Confirm `index.html` currently references CDN Matter.js during dev.
 - [ ] Before QR launch, upload Matter.js 0.20.0 as a local Shopify/static asset.
