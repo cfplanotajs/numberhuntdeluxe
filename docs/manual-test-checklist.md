@@ -422,3 +422,10 @@
 - [ ] Verify reward rules: Key Lock keys only; Treasure Merge, Guardian Dash, Even/Odd Sort capped stars only; Cave unlock key-based only.
 - [ ] Verify `NumberHunterQuestHub.init(root)` / `destroy(root)` still work for section-safe lifecycle checks.
 - [ ] Verify no React/Next/Vite/TypeScript/package.json/build artifacts were added.
+
+## Kid-facing UX polish
+- [ ] Confirm hero copy is short and invites: choose Realm, play Quest, earn Stars.
+- [ ] Confirm selected Realm and selected Quest are obvious without relying on color alone.
+- [ ] Confirm activity cards explain what to do and whether the activity earns a Star, Realm Key, or board-game bonus.
+- [ ] Confirm Quest Stage panels use short child-facing instructions and strong feedback messages.
+- [ ] Confirm Parent Zone remains compact with no login, no ads, no downloads, and quick math practice copy.

@@ -107,7 +107,7 @@
       if (tooHigh && dynamic.length > 8) {
         active = false;
         if (dropEl) dropEl.disabled = true;
-        if (mathEl) mathEl.textContent = 'Treasure pile is full!';
+        if (mathEl) mathEl.textContent = 'Treasure pile is full! Play Again?';
         onGameEnd({ score, bestMerge, realm: realm.id });
       }
     }
@@ -119,7 +119,7 @@
       lastDropAt = now;
       Matter.World.add(engine.world, makeBall(dropX, 26, nextValue));
       nextValue = pickNextValue(difficulty);
-      updateHud('Drop a treasure!');
+      updateHud('Drop treasure!');
       setTimeout(checkGameOver, 650);
     }
 
@@ -138,12 +138,12 @@
         <div class="merge-wrap merge-${realm.id}">
           <h3>Treasure Merge</h3>
           <p class="merge-realm">Realm: ${realm.name}</p>
-          <p class="merge-tip">Match the same numbers!</p>
+          <p class="merge-tip">Match numbers. Make treasure!</p>
           <div class="merge-stats">
             <span id="mergeScore">Score: 0</span>
             <span id="mergeBest">Best Merge: 0</span>
           </div>
-          <p id="mergeMath" class="merge-math">Drop a treasure!</p>
+          <p id="mergeMath" class="merge-math">Drop treasure!</p>
           <p id="mergeNext" class="merge-next">Next ${skin.label}: ${nextValue}</p>
           <div class="merge-star-row">
             <span id="mergeStarGoal">Star Goal: ${starGoal}</span>
@@ -154,7 +154,7 @@
             <div id="mergeDropMarker" class="merge-drop-marker">↓ ${nextValue}</div>
           </div>
           <div class="merge-controls">
-            <label for="mergeX">Choose drop spot</label>
+            <label for="mergeX">Pick drop spot</label>
             <input id="mergeX" type="range" min="22" max="${Math.max(22, width - 22)}" value="${Math.round(dropX)}" />
             <button id="mergeDrop" class="btn btn-primary" type="button">Drop</button>
             <button id="mergeRestart" class="btn" type="button">Play Again</button>
@@ -263,7 +263,7 @@
       tearDownWorld(false);
       renderShell();
       setupWorld();
-      updateHud('Drop a treasure!');
+      updateHud('Drop treasure!');
     }
 
     function cleanup() {
@@ -275,7 +275,7 @@
 
     renderShell();
     setupWorld();
-    updateHud('Drop a treasure!');
+    updateHud('Drop treasure!');
 
     return { cleanup };
   }

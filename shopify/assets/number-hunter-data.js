@@ -24,11 +24,11 @@
     rewards: { caveKeyTarget: 6, starLabel: 'Star', keyLabel: 'Realm Key' },
     activities: [
       { id: 'quickQuest', title: 'Quick Quest', rewardLabel: 'Earn Star', description: 'Answer one math challenge.', kind: 'digital' },
-      { id: 'keyLock', title: 'Key Lock', rewardLabel: 'Earn Realm Key', description: 'Open 3 locks to earn this realm key.', kind: 'digital' },
-      { id: 'treasureMerge', title: 'Treasure Merge', rewardLabel: 'Earn Stars', description: 'Merge matching numbers to earn a star.', kind: 'digital' },
-      { id: 'guardianDash', title: 'Guardian Dash', rewardLabel: 'Fast Math Run', description: 'Pick the right gates in a 5-question dash.', kind: 'digital' },
-      { id: 'evenOddSort', title: 'Even/Odd Sort', rewardLabel: 'Local Score', description: 'Sort numbers into Even and Odd.', kind: 'digital' },
-      { id: 'guardianQuest', title: 'Bonus Guardian Quest', rewardLabel: 'Board Game Bonus', description: 'Generate a bonus challenge for the board game.', kind: 'parent-led' }
+      { id: 'keyLock', title: 'Key Lock', rewardLabel: 'Earn Realm Key', description: 'Open 3 locks for this Realm Key.', kind: 'digital' },
+      { id: 'treasureMerge', title: 'Treasure Merge', rewardLabel: 'Earn Star', description: 'Merge matching numbers to earn a Star.', kind: 'digital' },
+      { id: 'guardianDash', title: 'Guardian Dash', rewardLabel: 'Earn Star', description: 'Pick the right gates in a 5-question dash.', kind: 'digital' },
+      { id: 'evenOddSort', title: 'Even/Odd Sort', rewardLabel: 'Earn Star', description: 'Sort numbers into Even and Odd.', kind: 'digital' },
+      { id: 'guardianQuest', title: 'Bonus Board Quest', rewardLabel: 'Board Game Bonus', description: 'Make a board-game challenge.', kind: 'parent-led' }
     ],
     skillLabels: {
       additionWithin10: 'Addition', subtractionWithin10: 'Subtraction', additionWithin20: 'Addition',
@@ -49,9 +49,9 @@
       '{{realm}} Guardian Quest: Answer {{prompt}}. Next, {{action}}. Then {{reward}}.'
     ],
     parentResources: [
-      'Pick one 5-minute realm quest after each board game round.',
-      'Use Little Hunter for gentle practice and confidence.',
-      'Ask your child to explain why an answer is even or odd.'
+      'Play one 5-minute Realm quest between board game rounds.',
+      'Pick Little Hunter for gentle practice.',
+      'Ask: How did you know?'
     ],
     actionPrompts: {
       silly: ['roar like a tiny tiger', 'wiggle like a jellyfish', 'stomp like a volcano giant', 'bounce like a happy monkey'],

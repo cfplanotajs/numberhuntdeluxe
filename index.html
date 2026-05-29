@@ -11,12 +11,12 @@
       <section class="hero child-zone">
         <p class="eyebrow">Number Hunter Deluxe</p>
         <h1>Quest Hub</h1>
-        <p class="hero-copy">Pick a Realm. Pick an Activity. Play!</p>
+        <p class="hero-copy">Choose a Realm. Play a Quest. Earn Stars!</p>
         <button id="startQuestBtn" class="btn btn-primary" type="button">Start Quest</button>
       </section>
 
       <section class="card child-zone" aria-label="Difficulty selector">
-        <h2>Pick Level</h2>
+        <h2>Choose Level</h2>
         <div id="difficultyOptions" class="button-grid"></div>
       </section>
 
@@ -26,56 +26,56 @@
       </section>
 
       <section class="card child-zone" aria-label="Activity cards">
-        <h2>Choose Activity</h2>
+        <h2>Pick a Quest</h2>
         <div id="activityGrid" class="activity-grid"></div>
       </section>
 
       <section class="card child-zone" aria-label="Quest stage">
-        <h2>Quest Stage</h2>
+        <h2>Play Quest</h2>
         <p id="selectedRealmLabel">Realm: Not selected</p>
 
         <section id="activityPanel-quickQuest" class="activity-panel" aria-label="Quick quest">
           <h3>Quick Quest</h3>
-          <p id="problemPrompt">Tap Start Quest to see a challenge.</p>
+          <p id="problemPrompt">Choose an answer to earn a Star.</p>
           <div id="problemChoices" class="choice-row"></div>
-          <button id="newProblemBtn" class="btn" type="button">New Problem</button>
+          <button id="newProblemBtn" class="btn" type="button">New Quest</button>
         </section>
 
         <section id="activityPanel-keyLock" class="activity-panel" aria-label="Key lock game">
-          <h3>Key Lock Puzzle</h3>
+          <h3>Key Lock</h3>
           <div id="keyLocksMount"></div>
         </section>
 
         <section id="activityPanel-treasureMerge" class="activity-panel" aria-label="Treasure merge game">
           <h3>Treasure Merge</h3>
-          <p>Merge matching numbers to earn a star.</p>
-          <button id="startTreasureMergeBtn" class="btn btn-primary" type="button">Start Treasure Merge</button>
+          <p>Merge matching numbers. Reach the Star Goal!</p>
+          <button id="startTreasureMergeBtn" class="btn btn-primary" type="button">Start Merge</button>
           <div id="treasureMergeMount"></div>
         </section>
 
         <section id="activityPanel-guardianDash" class="activity-panel" aria-label="Guardian dash game">
           <h3>Guardian Dash</h3>
-          <p>Pick the right gates in a 5-question dash.</p>
-          <button id="startGuardianDashBtn" class="btn btn-primary" type="button">Start Guardian Dash</button>
+          <p>Pick the right gates. Reach the Star Goal!</p>
+          <button id="startGuardianDashBtn" class="btn btn-primary" type="button">Start Dash</button>
           <div id="guardianDashMount"></div>
         </section>
 
         <section id="activityPanel-evenOddSort" class="activity-panel" aria-label="Even odd sort game">
           <h3>Even/Odd Critter Sort</h3>
-          <p>Sort numbers into Even and Odd.</p>
+          <p>Sort each number. Reach the Star Goal!</p>
           <div id="evenOddSortMount"></div>
         </section>
 
         <section id="activityPanel-guardianQuest" class="activity-panel" aria-label="Guardian quest generator">
-          <h3>Bonus Guardian Quest</h3>
+          <h3>Bonus Board Quest</h3>
           <div class="quest-style-row" aria-label="Quest style">
             <span>Style:</span>
             <button id="questStyleSillyBtn" class="btn btn-primary" type="button">Silly</button>
             <button id="questStyleCalmBtn" class="btn" type="button">Calm</button>
           </div>
           <div class="quest-pack-row"><label for="questPackSize">Pack:</label><select id="questPackSize"><option value="1">1 Quest</option><option value="3">3 Quest Pack</option></select></div>
-          <button id="generateQuestBtn" class="btn" type="button">Generate Quest</button>
-          <button id="printQuestBtn" class="btn" type="button">Print / Save (Parent)</button>
+          <button id="generateQuestBtn" class="btn" type="button">Make Quest</button>
+          <button id="printQuestBtn" class="btn" type="button">Parent: Print / Save</button>
           <div id="generatedQuest" class="quest-card"></div>
         </section>
       </section>
@@ -83,11 +83,11 @@
       <section class="card child-zone cave-zone" aria-label="Treasure cave reward zone">
         <h2>Treasure Cave</h2>
         <p id="caveStatus">Treasure Cave Locked</p>
-        <p id="caveDetails">Find all 6 realm keys to open it.</p>
+        <p id="caveDetails">Find all 6 Realm Keys to open it.</p>
         <ul id="caveKeyChecklist" class="cave-key-list"></ul>
         <div id="caveRewardRoom" class="cave-reward-room"></div>
-        <button id="printCaveCertificateBtn" class="btn" type="button" style="display:none;">Print / Save (Parent) Certificate</button>
-        <p id="nextHint">Play Key Lock to earn a key.</p>
+        <button id="printCaveCertificateBtn" class="btn" type="button" style="display:none;">Parent: Print / Save Certificate</button>
+        <p id="nextHint">Play Key Lock to earn a Realm Key.</p>
       </section>
 
       <section class="card child-zone" aria-label="Progress">
@@ -98,7 +98,7 @@
 
       <section class="card parent-zone" aria-label="Parent zone">
         <h2>Parent Zone</h2>
-        <p>Use these quick quests for 5-minute math practice between board game sessions. No login, no ads, no downloads.</p>
+        <p>Quick math practice. No login, no ads, no downloads.</p>
         <ul id="parentResources"></ul>
       </section>
     </main>

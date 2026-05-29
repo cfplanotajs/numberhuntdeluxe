@@ -38,8 +38,8 @@
         <div class="dash-lane"><div id="dashRunner" class="dash-runner">🏃</div></div>
         <p id="dashPrompt" class="dash-prompt"></p>
         <div id="dashChoices" class="dash-choices"></div>
-        <p id="dashFeedback" class="dash-feedback">Dash!</p>
-        <p id="dashReward" class="dash-reward">Play to earn a star.</p>
+        <p id="dashFeedback" class="dash-feedback">Go!</p>
+        <p id="dashReward" class="dash-reward">Reach the Star Goal!</p>
         <button id="dashPlayAgain" class="btn" type="button" style="display:none;">Play Again</button>
       </div>`;
 
@@ -82,7 +82,7 @@
       solved = true;
       stopRunner();
       disableChoices();
-      feedbackEl.textContent = `Gate missed! Try the next one. ${currentProblem.explanation}`;
+      feedbackEl.textContent = `Almost! Try the next gate. ${currentProblem.explanation}`;
       queueNextQuestion(700);
     }
 
@@ -121,7 +121,7 @@
       counterEl.textContent = `Question ${questionIndex + 1} / ${total}`;
       scoreEl.textContent = `Score: ${correct} / ${total}`;
       promptEl.textContent = currentProblem.prompt;
-      feedbackEl.textContent = 'Dash!';
+      feedbackEl.textContent = 'Go!';
       if (rewardEl) rewardEl.textContent = `Goal: ${starGoal} correct to earn a star.`;
       if (goalEl) goalEl.textContent = `Star Goal: ${starGoal} correct`; 
       choicesEl.innerHTML = '';
@@ -136,7 +136,7 @@
           if (choice === currentProblem.answer) {
             solved = true;
             correct += 1;
-            feedbackEl.textContent = 'Great job!';
+            feedbackEl.textContent = 'Great gate!';
             stopRunner();
             disableChoices();
             queueNextQuestion(500);
@@ -174,13 +174,13 @@
       promptEl.textContent = 'Run Complete!';
       scoreEl.textContent = `Score: ${correct} / ${total}`;
       if (starEarned) {
-        feedbackEl.textContent = 'Great run!';
+        feedbackEl.textContent = 'Great dash!';
         if (rewardEl) rewardEl.textContent = 'You earned a star!';
       } else if (correct + 1 >= starGoal) {
         feedbackEl.textContent = 'You were close!';
         if (rewardEl) rewardEl.textContent = 'Play again to earn a star.';
       } else {
-        feedbackEl.textContent = 'Nice run — try again!';
+        feedbackEl.textContent = 'Nice dash — try again!';
         if (rewardEl) rewardEl.textContent = 'Play again to earn a star.';
       }
       playAgainEl.style.display = 'inline-block';

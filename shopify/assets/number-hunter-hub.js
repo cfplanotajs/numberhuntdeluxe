@@ -102,10 +102,12 @@
     (window.NH_DATA.activities || []).forEach((activity) => {
       const card = document.createElement('button');
       card.type = 'button';
-      card.className = `activity-card ${state.selectedActivity === activity.id ? 'selected' : ''}`;
+      const isSelected = state.selectedActivity === activity.id;
+      card.className = `activity-card ${isSelected ? 'selected' : ''}`;
+      card.setAttribute('aria-pressed', String(isSelected));
       let rewardLabel = activity.rewardLabel;
       if (activity.id === 'keyLock' && keyEarned) rewardLabel = 'Key Earned!';
-      card.innerHTML = `<strong>${activity.title}</strong><small>${activity.description}</small><span>${rewardLabel}</span>`;
+      card.innerHTML = `<strong>${activity.title}${isSelected ? ' • Selected' : ''}</strong><small>${activity.description}</small><span>${rewardLabel}</span>`;
       addHubListener(card, 'click', () => setSelectedActivity(activity.id));
       mount.appendChild(card);
     });
@@ -125,8 +127,10 @@
     mount.innerHTML = '';
     window.NH_DATA.difficulties.forEach((d) => {
       const b = document.createElement('button');
-      b.className = `btn ${state.selectedDifficulty === d.id ? 'btn-primary' : ''}`;
-      b.textContent = d.name;
+      const isSelected = state.selectedDifficulty === d.id;
+      b.className = `btn ${isSelected ? 'btn-primary' : ''}`;
+      b.setAttribute('aria-pressed', String(isSelected));
+      b.textContent = isSelected ? `${d.name} ✓` : d.name;
       addHubListener(b, 'click', () => {
         state.selectedDifficulty = d.id;
         const p = window.Progress.getProgress();
@@ -150,8 +154,10 @@
       const keyEarned = !!progress.realmKeys[realm.id];
       const skill = (window.NH_DATA.realmSkillMap[realm.id] || realm.skillFocus)[0];
       const b = document.createElement('button');
-      b.className = `realm-card realm-${realm.id} ${state.selectedRealmId === realm.id ? 'selected' : ''} ${keyEarned ? 'realm-earned' : 'realm-needed'}`;
-      b.innerHTML = `<strong>${realm.name}</strong><br><small>${getSkillLabel(skill)}</small><br><small>${keyEarned ? 'Key Earned!' : 'Key Needed'}</small>`;
+      const isSelected = state.selectedRealmId === realm.id;
+      b.className = `realm-card realm-${realm.id} ${isSelected ? 'selected' : ''} ${keyEarned ? 'realm-earned' : 'realm-needed'}`;
+      b.setAttribute('aria-pressed', String(isSelected));
+      b.innerHTML = `<strong>${realm.name}${isSelected ? ' ✓' : ''}</strong><br><small>${getSkillLabel(skill)}</small><br><small>${keyEarned ? 'Key Earned!' : 'Find Realm Key'}</small>`;
       addHubListener(b, 'click', () => {
         state.selectedRealmId = realm.id;
         state.selectedSkill = chooseSkillForRealm(realm.id);
@@ -202,7 +208,7 @@
           disableAllChoices();
           b.classList.remove('btn-ghost');
           b.classList.add('btn-primary');
-          el('problemPrompt').textContent = `${p.prompt} ✓ Great Job!`;
+          el('problemPrompt').textContent = `${p.prompt} ✓ Star earned!`;
           refreshProgress();
         } else {
           wrongAttempts += 1;
@@ -226,15 +232,15 @@
     const rewardRoom = el('caveRewardRoom');
     const printBtn = el('printCaveCertificateBtn');
 
-    el('progressSummary').textContent = `Stars: ${p.stars} • Keys: ${keys} / ${keyTarget} • Level: ${p.selectedDifficulty}`;
-    el('caveStatus').textContent = caveOpen ? 'Treasure Cave Unlocked!' : 'Treasure Cave Locked';
-    el('caveDetails').textContent = caveOpen ? 'You found every realm key!' : `Find all ${keyTarget} realm keys to open it. Keys Found: ${keys} / ${keyTarget}`;
-    el('nextHint').textContent = caveOpen ? 'The Treasure Cave is open!' : (realmKey ? 'Try Treasure Merge or Guardian Dash to earn stars.' : `Next: Play Key Lock in ${realm.name} to earn the ${realm.name} Key.`);
+    el('progressSummary').textContent = `Stars: ${p.stars} • Realm Keys: ${keys} / ${keyTarget} • Level: ${p.selectedDifficulty}`;
+    el('caveStatus').textContent = caveOpen ? 'Treasure Cave Open!' : 'Treasure Cave Locked';
+    el('caveDetails').textContent = caveOpen ? 'You found every Realm Key!' : `Find all ${keyTarget} Realm Keys. Keys Found: ${keys} / ${keyTarget}`;
+    el('nextHint').textContent = caveOpen ? 'The Treasure Cave is open!' : (realmKey ? 'Try a Star quest next!' : `Next: Play Key Lock for the ${realm.name} Key.`);
 
     if (checklist) {
       checklist.innerHTML = window.NH_DATA.realms.map((r) => {
         const earned = !!p.realmKeys[r.id];
-        return `<li class="${earned ? 'earned' : 'missing'}">${r.name} Key: ${earned ? 'Earned!' : 'Missing'}</li>`;
+        return `<li class="${earned ? 'earned' : 'missing'}">${r.name} Key: ${earned ? 'Key Earned!' : 'Still hidden'}</li>`;
       }).join('');
     }
 
@@ -244,10 +250,10 @@
         rewardRoom.innerHTML = `
           <div class="certificate-block">
             <h3>Number Hunter Champion</h3>
-            <p>You unlocked all 6 realm keys and opened the Treasure Cave.</p>
+            <p>You found all 6 Realm Keys and opened the Treasure Cave.</p>
             <p><strong>Total Stars:</strong> ${p.stars}</p>
             <p><strong>Date:</strong> ${today}</p>
-            <p class="cave-celebrate">Treasure found! Great adventuring!</p>
+            <p class="cave-celebrate">Treasure found! Great questing!</p>
           </div>`;
         if (printBtn) printBtn.style.display = 'inline-block';
       } else {
@@ -264,13 +270,13 @@
   function renderTreasureMergeIdle() {
     const mount = el('treasureMergeMount');
     if (!mount) return;
-    mount.innerHTML = `<div class="game-idle"><p>Ready to merge treasures?</p><p>Pick a realm, then press Start.</p></div>`;
+    mount.innerHTML = `<div class="game-idle"><p>Ready to merge?</p><p>Press Start Merge.</p></div>`;
   }
 
   function renderGuardianDashIdle() {
     const mount = el('guardianDashMount');
     if (!mount) return;
-    mount.innerHTML = `<div class="game-idle"><p>Ready to dash through answer gates?</p><p>Press Start when you're ready.</p></div>`;
+    mount.innerHTML = `<div class="game-idle"><p>Ready to dash?</p><p>Press Start Dash.</p></div>`;
   }
 
   function cleanupTreasureMergeToIdle() {
@@ -417,7 +423,7 @@
           <p><strong>Skill:</strong> ${card.skillLabel}</p>
           <p><strong>Solve:</strong> ${card.mathPrompt}</p>
           <p><strong>Action:</strong> ${card.action}</p>
-          <p><strong>Board Reward:</strong> ${card.boardReward}</p>
+          <p><strong>Board Bonus:</strong> ${card.boardReward}</p>
           <p class="guardian-answer"><strong>Answer:</strong> ${card.answer}</p>
           <p class="guardian-tip"><strong>Parent Tip:</strong> ${card.parentTip}</p>
         </article>

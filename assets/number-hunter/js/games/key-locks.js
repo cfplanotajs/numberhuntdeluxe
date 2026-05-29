@@ -41,11 +41,11 @@
       mountEl.innerHTML = `
         <div class="key-lock-game">
           <p class="key-lock-realm">${realm.name} Lock</p>
-          <h3 class="key-lock-title">Unlock the Key</h3>
+          <h3 class="key-lock-title">Earn the Realm Key</h3>
           <p class="key-lock-round" id="keyLockRound"></p>
           <p class="key-lock-prompt" id="keyLockPrompt"></p>
           <div class="key-lock-choices" id="keyLockChoices"></div>
-          <p class="key-lock-feedback" id="keyLockFeedback">Tap the right answer to open the lock.</p>
+          <p class="key-lock-feedback" id="keyLockFeedback">Tap an answer to open each lock.</p>
           <div class="key-lock-controls">
             <button class="btn" type="button" id="keyLockNextBtn" style="display:none;">Next Lock</button>
             <button class="btn btn-primary" type="button" id="keyLockRestartBtn" style="display:none;">Play Again</button>
@@ -64,10 +64,10 @@
       if (!roundEl || !promptEl || !choicesEl || !feedbackEl || !nextBtn || !restartBtn) return;
 
       if (session.complete) {
-        roundEl.textContent = `Success! ${roundsToWin}/${roundsToWin} locks opened`;
-        promptEl.textContent = 'Great Job! Realm key unlocked.';
+        roundEl.textContent = `Key Earned!`;
+        promptEl.textContent = 'Realm Key unlocked!';
         choicesEl.innerHTML = '';
-        feedbackEl.textContent = 'You earned stars and unlocked this realm key.';
+        feedbackEl.textContent = 'Stars earned. Realm Key found!';
         nextBtn.style.display = 'none';
         restartBtn.style.display = 'inline-block';
         return;
@@ -85,9 +85,9 @@
       }
       session.attempt = 0;
 
-      roundEl.textContent = `Lock ${session.round} of ${roundsToWin} • Correct ${session.correctCount}/${roundsToWin}`;
+      roundEl.textContent = `Lock ${session.round} of ${roundsToWin} • Open ${session.correctCount}/${roundsToWin}`;
       promptEl.textContent = session.problem.prompt;
-      feedbackEl.textContent = 'Tap the right answer to open the lock.';
+      feedbackEl.textContent = 'Tap an answer to open each lock.';
       choicesEl.innerHTML = '';
       nextBtn.style.display = 'none';
       restartBtn.style.display = 'none';
@@ -106,7 +106,7 @@
           if (choice === session.problem.answer) {
             session.correctCount += 1;
             session.round += 1;
-            feedbackEl.textContent = 'Great Job! Lock opened!';
+            feedbackEl.textContent = 'Great job! Lock opened!';
             window.Progress.awardStar();
             onProgress(window.Progress.getProgress());
             disableChoices();
@@ -121,7 +121,7 @@
             }
           } else {
             session.attempt += 1;
-            feedbackEl.textContent = session.attempt >= 2 ? `Try Again! ${session.problem.explanation}` : 'Try Again!';
+            feedbackEl.textContent = session.attempt >= 2 ? `Try again! ${session.problem.explanation}` : 'Try again!';
             btn.classList.add('key-lock-wrong');
             safeTimeout(() => btn.classList.remove('key-lock-wrong'), 280);
           }
