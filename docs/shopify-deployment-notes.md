@@ -52,3 +52,10 @@
 - `shopify/sections/number-hunter-quest-hub.liquid`
 - `shopify/templates/page.number-hunter-quest-hub.json`
 - `shopify/README.md`
+
+
+## Section-safe initialization
+- Runtime exposes `window.NumberHunterQuestHub.init(root)` and `window.NumberHunterQuestHub.destroy(root)`.
+- Static `index.html` auto-initializes after DOM readiness.
+- Shopify theme editor section load/unload events are supported defensively for the Quest Hub root.
+- Use `destroy(root)` before removing/replacing the section to stop active game sessions.

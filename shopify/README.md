@@ -59,3 +59,10 @@ Keep parent-facing trust note visible:
 
 ## Theme editor caveat
 Use the JSON template on a dedicated page and avoid duplicating this section multiple times on the same page to prevent duplicate IDs/event bindings.
+
+
+## Section-safe JavaScript API
+- The hub exposes `window.NumberHunterQuestHub.init(root)` and `window.NumberHunterQuestHub.destroy(root)`.
+- Static pages auto-initialize on `DOMContentLoaded`.
+- Shopify theme editor `shopify:section:load` and `shopify:section:unload` events are handled defensively so preview reloads can init/destroy the section.
+- Calling `init(root)` twice for the same root is safe and returns the existing instance.

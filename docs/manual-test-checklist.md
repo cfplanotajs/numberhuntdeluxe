@@ -381,6 +381,15 @@
 - [ ] Replace CDN script path with local asset path for production release.
 
 
+## Section-safe initialization
+- [ ] In console, run `const root = document.getElementById("numberHunterHub")`.
+- [ ] Call `NumberHunterQuestHub.init(root)` twice and confirm no duplicate behavior.
+- [ ] Start Treasure Merge, call `NumberHunterQuestHub.destroy(root)`, and confirm Matter loop/canvas stops.
+- [ ] Start Guardian Dash, call `NumberHunterQuestHub.destroy(root)`, and confirm the timer stops.
+- [ ] Call `NumberHunterQuestHub.init(root)` again and confirm the hub works.
+- [ ] Confirm rewards still work after re-init.
+
+
 ## Shopify / QR Readiness
 - [ ] Confirm hub buttons still look correct.
 - [ ] Confirm activity cards still look correct.

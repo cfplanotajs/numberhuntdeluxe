@@ -1,4 +1,7 @@
 (function () {
+  let activeRoot = null;
+  const listenerCleanups = [];
+
   const state = {
     selectedRealmId: 'jungle',
     selectedDifficulty: 'littleHunter',
@@ -15,7 +18,28 @@
     evenOddSortSession: null
   };
 
-  function el(id) { return document.getElementById(id); }
+  function el(id) {
+    return (activeRoot && activeRoot.querySelector(`#${id}`)) || document.getElementById(id);
+  }
+
+  function findHubRoot(root) {
+    if (root && root.id === 'numberHunterHub') return root;
+    if (root && typeof root.querySelector === 'function') return root.querySelector('#numberHunterHub');
+    return document.getElementById('numberHunterHub');
+  }
+
+  function addHubListener(target, eventName, handler) {
+    if (!target) return;
+    target.addEventListener(eventName, handler);
+    listenerCleanups.push(() => target.removeEventListener(eventName, handler));
+  }
+
+  function cleanupHubListeners() {
+    while (listenerCleanups.length) {
+      const cleanup = listenerCleanups.pop();
+      cleanup();
+    }
+  }
 
   function getSelectedRealm() {
     return window.NH_DATA.realms.find((r) => r.id === state.selectedRealmId) || window.NH_DATA.realms[0];
@@ -82,7 +106,7 @@
       let rewardLabel = activity.rewardLabel;
       if (activity.id === 'keyLock' && keyEarned) rewardLabel = 'Key Earned!';
       card.innerHTML = `<strong>${activity.title}</strong><small>${activity.description}</small><span>${rewardLabel}</span>`;
-      card.addEventListener('click', () => setSelectedActivity(activity.id));
+      addHubListener(card, 'click', () => setSelectedActivity(activity.id));
       mount.appendChild(card);
     });
   }
@@ -103,7 +127,7 @@
       const b = document.createElement('button');
       b.className = `btn ${state.selectedDifficulty === d.id ? 'btn-primary' : ''}`;
       b.textContent = d.name;
-      b.addEventListener('click', () => {
+      addHubListener(b, 'click', () => {
         state.selectedDifficulty = d.id;
         const p = window.Progress.getProgress();
         p.selectedDifficulty = d.id;
@@ -128,7 +152,7 @@
       const b = document.createElement('button');
       b.className = `realm-card realm-${realm.id} ${state.selectedRealmId === realm.id ? 'selected' : ''} ${keyEarned ? 'realm-earned' : 'realm-needed'}`;
       b.innerHTML = `<strong>${realm.name}</strong><br><small>${getSkillLabel(skill)}</small><br><small>${keyEarned ? 'Key Earned!' : 'Key Needed'}</small>`;
-      b.addEventListener('click', () => {
+      addHubListener(b, 'click', () => {
         state.selectedRealmId = realm.id;
         state.selectedSkill = chooseSkillForRealm(realm.id);
         el('selectedRealmLabel').textContent = `Realm: ${realm.name}`;
@@ -170,7 +194,7 @@
       const b = document.createElement('button');
       b.className = 'btn';
       b.textContent = c;
-      b.addEventListener('click', () => {
+      addHubListener(b, 'click', () => {
         if (!state.currentQuickQuest || state.currentQuickQuest.solved) return;
         if (c === p.answer) {
           state.currentQuickQuest.solved = true;
@@ -263,9 +287,14 @@
     renderGuardianDashIdle();
   }
 
+  function cleanupKeyLock() {
+    if (state.keyLockSession && typeof state.keyLockSession.cleanup === 'function') state.keyLockSession.cleanup();
+    state.keyLockSession = null;
+  }
+
   function mountKeyLockGame() {
     const realm = getSelectedRealm();
-    if (state.keyLockSession && typeof state.keyLockSession.cleanup === 'function') state.keyLockSession.cleanup();
+    cleanupKeyLock();
     state.keyLockSession = window.initKeyLocksGame(el('keyLocksMount'), {
       realm,
       difficulty: state.selectedDifficulty,
@@ -359,13 +388,13 @@
   }
 
   function wireActions() {
-    el('startQuestBtn').addEventListener('click', () => { setSelectedActivity('quickQuest'); renderProblem(); mountKeyLockGame(); refreshProgress(); });
-    el('newProblemBtn').addEventListener('click', () => { renderProblem(); refreshProgress(); });
-    el('startTreasureMergeBtn').addEventListener('click', startTreasureMerge);
-    el('startGuardianDashBtn').addEventListener('click', startGuardianDash);
-    el('questStyleSillyBtn').addEventListener('click', () => { state.questStyle = 'silly'; renderQuestStyleButtons(); });
-    el('questStyleCalmBtn').addEventListener('click', () => { state.questStyle = 'calm'; renderQuestStyleButtons(); });
-    el('resetProgressBtn').addEventListener('click', () => {
+    addHubListener(el('startQuestBtn'), 'click', () => { setSelectedActivity('quickQuest'); renderProblem(); mountKeyLockGame(); refreshProgress(); });
+    addHubListener(el('newProblemBtn'), 'click', () => { renderProblem(); refreshProgress(); });
+    addHubListener(el('startTreasureMergeBtn'), 'click', startTreasureMerge);
+    addHubListener(el('startGuardianDashBtn'), 'click', startGuardianDash);
+    addHubListener(el('questStyleSillyBtn'), 'click', () => { state.questStyle = 'silly'; renderQuestStyleButtons(); });
+    addHubListener(el('questStyleCalmBtn'), 'click', () => { state.questStyle = 'calm'; renderQuestStyleButtons(); });
+    addHubListener(el('resetProgressBtn'), 'click', () => {
       const resetState = window.Progress.resetProgress();
       state.selectedDifficulty = resetState.selectedDifficulty;
       renderDifficulty();
@@ -373,7 +402,7 @@
       refreshProgress();
     });
 
-    el('generateQuestBtn').addEventListener('click', () => {
+    addHubListener(el('generateQuestBtn'), 'click', () => {
       const realm = getSelectedRealm();
       const packSize = Number(el('questPackSize')?.value || 1);
       const cards = [];
@@ -395,8 +424,8 @@
       `).join('');
     });
 
-    el('printQuestBtn').addEventListener('click', () => { window.print(); });
-    if (el('printCaveCertificateBtn')) el('printCaveCertificateBtn').addEventListener('click', () => { window.print(); });
+    addHubListener(el('printQuestBtn'), 'click', () => { window.print(); });
+    addHubListener(el('printCaveCertificateBtn'), 'click', () => { window.print(); });
   }
 
   function renderParentResources() {
@@ -431,5 +460,46 @@
     refreshProgress();
   }
 
-  document.addEventListener('DOMContentLoaded', init);
+  function destroyHub(root) {
+    const hubRoot = findHubRoot(root);
+    if (!hubRoot || !hubRoot.__numberHunterHubInstance) return;
+    cleanupTreasureMergeToIdle();
+    cleanupGuardianDashToIdle();
+    cleanupEvenOddSort();
+    cleanupKeyLock();
+    cleanupHubListeners();
+    delete hubRoot.__numberHunterHubInstance;
+    if (activeRoot === hubRoot) activeRoot = null;
+  }
+
+  function initHub(root) {
+    const hubRoot = findHubRoot(root);
+    if (!hubRoot) return null;
+    if (hubRoot.__numberHunterHubInstance) return hubRoot.__numberHunterHubInstance;
+    activeRoot = hubRoot;
+    const instance = { destroy: () => destroyHub(hubRoot) };
+    hubRoot.__numberHunterHubInstance = instance;
+    init();
+    return instance;
+  }
+
+  window.NumberHunterQuestHub = {
+    init: initHub,
+    destroy: destroyHub
+  };
+
+  function autoInit() {
+    window.NumberHunterQuestHub.init(document.getElementById('numberHunterHub'));
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', autoInit, { once: true });
+  else autoInit();
+
+  document.addEventListener('shopify:section:load', (event) => {
+    window.NumberHunterQuestHub.init(event.target);
+  });
+
+  document.addEventListener('shopify:section:unload', (event) => {
+    window.NumberHunterQuestHub.destroy(event.target);
+  });
 })();
