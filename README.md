@@ -21,11 +21,11 @@ Current scope includes:
 - Key Lock Puzzles (realm-key activity)
 - Treasure Merge (Matter.js, lazy-started, capped star rewards only)
 - Guardian Dash (lightweight DOM/CSS/vanilla JS, lazy-started, capped star rewards only)
-- Even/Odd Sort (vanilla DOM/CSS, local-score-only)
+- Even/Odd Sort (vanilla DOM/CSS, capped star rewards only)
 - Bonus Guardian Quest Generator
 - Parent Zone content section
 
-Guardian Dash and Treasure Merge award stars only (capped per run/session), do not unlock realm keys, and use no backend/framework tooling.
+Guardian Dash, Treasure Merge, and Even/Odd Sort award stars only (capped per run/session), do not unlock realm keys, and use no backend/framework tooling.
 
 The Treasure Cave reward room unlocks only after all 6 realm keys are earned; stars are displayed as bonus progress only.
 
@@ -73,9 +73,9 @@ No install needed.
 This project is intentionally **not** a React/Next/Vite application. It is a lightweight static prototype aligned to Shopify-friendly constraints.
 
 
-## Matter.js launch TODO
+## Matter.js launch blocker
 
-Before Shopify/QR production launch, upload **Matter.js 0.20.0** as a local Shopify/static asset and replace the runtime CDN script path in `index.html`.
+`shopify/assets/matter.min.js` is missing from this workspace and remains a Shopify QR launch blocker. The static prototype can continue using the current CDN setup for development review, but Shopify production launch requires manually adding **Matter.js 0.20.0** as the local theme asset referenced by the Shopify section. Do not use a placeholder or stub.
 
 
 ## Shopify deployment TODO
@@ -83,10 +83,14 @@ Before Shopify/QR production launch, upload **Matter.js 0.20.0** as a local Shop
 - Keep this as static HTML/CSS/vanilla JS (no build step).
 - Convert `index.html` body markup into a Shopify page template or custom Liquid section later.
 - Preserve current script order (data -> math-engine -> progress -> Matter.js -> game modules -> hub last).
-- Before production QR launch, upload Matter.js 0.20.0 as a local Shopify/static asset and replace the CDN script path.
+- Before production QR launch, manually add Matter.js 0.20.0 as the local Shopify asset `matter.min.js`; this file is currently missing from the workspace and blocks Shopify Treasure Merge.
 
 
 Shopify scaffold handoff files are available in `shopify/`:
 - `shopify/sections/number-hunter-quest-hub.liquid`
 - `shopify/templates/page.number-hunter-quest-hub.json`
 - `shopify/README.md`
+
+## Release candidate audit
+
+See `docs/release-candidate-audit.md` for the current release-candidate status, reward-rule audit, lifecycle audit, and the missing Shopify Matter.js launch blocker.

@@ -34,8 +34,8 @@ This folder is an **additive scaffold** to help move the static Quest Hub into a
 5. game modules
 6. hub bootstrap last
 
-## Matter.js production TODO
-Before QR production launch, upload **Matter.js 0.20.0** as local `matter.min.js` and keep Treasure Merge dependent on this local asset only.
+## Matter.js launch blocker
+`shopify/assets/matter.min.js` is missing from this workspace. Before QR production launch, manually add the real **Matter.js 0.20.0** asset as `matter.min.js` and keep Treasure Merge dependent on this local asset only. Do not use a placeholder or stub.
 
 ## localStorage and privacy note
 - Progress uses local browser storage only (`numberHunterDeluxeQuestProgress`).
@@ -52,7 +52,7 @@ Keep parent-facing trust note visible:
 ## Manual QA before QR launch
 - Confirm section renders with root wrapper `#numberHunterHub.number-hunter-hub`.
 - Confirm script order is preserved.
-- Confirm Matter local asset is uploaded and loads.
+- Confirm the real local Matter asset has been supplied and loads; until then, Shopify Treasure Merge is blocked.
 - Confirm print actions do not modify progress.
 - Confirm no reward bypass controls exist.
 - Confirm no framework/build tooling files are introduced.
@@ -70,7 +70,7 @@ Use the JSON template on a dedicated page and avoid duplicating this section mul
 ## Shopify asset bundle
 - `shopify/assets/` contains flattened copies of the current static source files for Shopify theme upload.
 - Source-of-truth during development remains `assets/number-hunter/`; after changing those source files, refresh the copied files in `shopify/assets/`.
-- `matter.min.js` is intentionally **not included** in this handoff bundle; upload Matter.js 0.20.0 manually before QR launch.
+- `matter.min.js` is intentionally **missing in this workspace** and remains a QR launch blocker; manually supply Matter.js 0.20.0 before Shopify launch.
 - Keep script order unchanged: data, math engine, progress, Matter.js, game modules, hub bootstrap last.
 
 ## Keeping Shopify assets in sync
@@ -82,4 +82,4 @@ node scripts/sync-shopify-assets.js
 node scripts/check-shopify-asset-sync.js
 ```
 
-The sync scripts use only Node built-ins and intentionally do not create or require `shopify/assets/matter.min.js`.
+The sync scripts use only Node built-ins and intentionally do not create, overwrite, or require `shopify/assets/matter.min.js`; Matter.js remains a separately supplied launch asset.

@@ -12,7 +12,7 @@
 - `assets/number-hunter/js/progress.js` -> theme asset JS file.
 - `assets/number-hunter/js/number-hunter-hub.js` -> theme asset JS file (load last).
 - `assets/number-hunter/js/games/*.js` -> theme asset JS files.
-- Matter.js 0.20.0 -> upload as local Shopify/static asset before production launch (replace CDN).
+- Matter.js 0.20.0 -> missing from this workspace; manually upload as local Shopify/static asset before production launch.
 
 ## Script order (must preserve)
 1. `data.js`
@@ -35,14 +35,16 @@
 - Progress is local-browser only via key: `numberHunterDeluxeQuestProgress`.
 - Clearing browser storage or switching devices will reset progress.
 
-## Matter.js production TODO
+## Matter.js launch blocker
 - Current dev build still references CDN Matter.js.
-- Before Shopify/QR launch, upload Matter.js 0.20.0 as a local asset and update script path.
+- `shopify/assets/matter.min.js` is missing from this workspace.
+- Before Shopify/QR launch, manually add Matter.js 0.20.0 as the local `matter.min.js` asset referenced by the Shopify section.
+- Do not use a placeholder or stub; Treasure Merge in Shopify remains blocked until the real asset exists.
 
 ## Pre-QR launch checks
 - Confirm wrapper/root exists and styles are scoped to hub root.
 - Confirm script order is preserved in template output.
-- Confirm local Matter.js asset path replaces CDN in production template.
+- Confirm the local Matter.js asset exists as `matter.min.js` before Shopify QR launch.
 - Confirm print buttons are utility-only and do not change progress.
 - Confirm no direct reward bypass controls are present.
 - Confirm no framework/build artifacts are introduced.
@@ -63,7 +65,7 @@
 ## Shopify asset handoff bundle
 - `shopify/assets/` contains flattened copies of the current Quest Hub CSS and JavaScript files using the filenames referenced by the Liquid section.
 - Development source remains `assets/number-hunter/`; refresh `shopify/assets/` copies whenever source assets change.
-- `matter.min.js` is intentionally absent and must be supplied as a local Shopify/static asset before production QR launch.
+- `matter.min.js` is intentionally absent in this workspace and must be supplied as a local Shopify/static asset before production QR launch.
 
 ## Asset sync helpers
 After changing source files in `assets/number-hunter/`, refresh and verify the Shopify handoff copies with:
@@ -73,4 +75,8 @@ node scripts/sync-shopify-assets.js
 node scripts/check-shopify-asset-sync.js
 ```
 
-These manual helpers use only Node built-ins. Matter.js remains intentionally excluded until supplied as a launch asset.
+These manual helpers use only Node built-ins. Matter.js remains intentionally excluded from source-to-Shopify sync and must be supplied separately as a launch asset.
+
+## Release candidate audit
+
+See `docs/release-candidate-audit.md` for the current feature-complete MVP status and the Shopify QR launch blocker for missing `shopify/assets/matter.min.js`.

@@ -12,6 +12,6 @@
 | `assets/number-hunter/js/games/even-odd-sort.js` | `number-hunter-even-odd-sort.js` | Yes | Even/Odd Sort game |
 | `assets/number-hunter/js/games/quest-generator.js` | `number-hunter-quest-generator.js` | Yes | Guardian Quest generator |
 | `assets/number-hunter/js/number-hunter-hub.js` | `number-hunter-hub.js` | Yes | Hub bootstrap, load last |
-| Matter.js 0.20.0 | `matter.min.js` | Yes | Intentionally not included; upload before QR launch |
+| Matter.js 0.20.0 | `matter.min.js` | Yes | Missing from this workspace; manually supply the real asset before QR launch |
 
-The mappings above are enforced by `scripts/sync-shopify-assets.js` and `scripts/check-shopify-asset-sync.js`. Matter.js remains excluded from those helpers until supplied manually before launch.
+The mappings above are enforced by `scripts/sync-shopify-assets.js` and `scripts/check-shopify-asset-sync.js`. Matter.js is intentionally excluded from the source-to-Shopify copy map and remains a manual launch blocker until the real `matter.min.js` asset is supplied.

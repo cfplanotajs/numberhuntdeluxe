@@ -375,10 +375,12 @@
 - [ ] Confirm reward rules did not change.
 
 
-## Matter.js pre-launch deployment TODO
+## Matter.js pre-launch deployment blocker
 - [ ] Confirm `index.html` currently references CDN Matter.js during dev.
-- [ ] Before QR launch, upload Matter.js 0.20.0 as a local Shopify/static asset.
-- [ ] Replace CDN script path with local asset path for production release.
+- [ ] Confirm `shopify/assets/matter.min.js` is missing in this workspace unless the real launch asset has been supplied.
+- [ ] If `matter.min.js` is missing, mark Shopify Treasure Merge as blocked.
+- [ ] Before QR launch, manually supply the real Matter.js 0.20.0 local Shopify/static asset.
+- [ ] Do not use a placeholder or stub for Matter.js.
 
 
 ## Section-safe initialization
@@ -400,7 +402,7 @@
 - [ ] Verify script order remains: data -> math-engine -> progress -> Matter.js -> game modules -> hub last.
 - [ ] Verify CSS selectors are scoped enough to avoid broad Shopify theme leakage.
 - [ ] Verify localStorage key is product-specific (`numberHunterDeluxeQuestProgress`).
-- [ ] Verify Matter.js production TODO remains visible in docs/README.
+- [ ] Verify the Matter.js Shopify launch blocker remains visible in docs/README until the real local asset is supplied.
 - [ ] Verify print actions do not change progress.
 - [ ] Verify no direct reward bypass controls exist.
 - [ ] Verify no framework/build artifacts were added.
@@ -408,5 +410,15 @@
 ## Shopify asset sync helpers
 - [ ] Run `node scripts/sync-shopify-assets.js` after source asset edits.
 - [ ] Run `node scripts/check-shopify-asset-sync.js` and confirm all mapped files match.
-- [ ] Confirm `shopify/assets/matter.min.js` is still absent until manually supplied before launch.
+- [ ] Confirm `shopify/assets/matter.min.js` is missing unless the real Matter.js 0.20.0 launch asset has been manually supplied.
 - [ ] Confirm sync helper scripts do not require package.json, npm, or dependencies.
+
+
+## Release Candidate / Launch Blocker
+- [ ] Run `node scripts/check-shopify-asset-sync.js` and verify all non-Matter Shopify assets are synced.
+- [ ] Check whether `shopify/assets/matter.min.js` is missing or present for launch status.
+- [ ] If `shopify/assets/matter.min.js` is missing, mark Shopify Treasure Merge as blocked for QR launch.
+- [ ] Verify the static prototype still functions with the current development Matter.js setup.
+- [ ] Verify reward rules: Key Lock keys only; Treasure Merge, Guardian Dash, Even/Odd Sort capped stars only; Cave unlock key-based only.
+- [ ] Verify `NumberHunterQuestHub.init(root)` / `destroy(root)` still work for section-safe lifecycle checks.
+- [ ] Verify no React/Next/Vite/TypeScript/package.json/build artifacts were added.

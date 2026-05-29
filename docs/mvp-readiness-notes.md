@@ -10,7 +10,10 @@
 - Key Lock unlocks realm keys
 - Treasure Merge awards capped stars only
 - Guardian Dash awards capped stars only
+- Even/Odd Sort awards capped stars only
+- Quick Quest awards stars
 - Guardian Quest generation changes no digital progress
+- Treasure Cave awards no progress
 - Treasure Cave unlock is key-based only
 
 ## Known Limitations
@@ -24,6 +27,6 @@
 - Badge collection (after reward audits)
 
 ## Production Blockers
-- None critical found in this pass; continue manual cross-device verification before release.
-
-- Matter.js is still loaded from CDN in `index.html`; before Shopify/QR production launch, upload Matter.js 0.20.0 as a local static asset and switch the script path.
+- Shopify QR launch is blocked until the real Matter.js 0.20.0 asset is manually supplied as `shopify/assets/matter.min.js` or an equivalent Shopify theme asset referenced by the Liquid section.
+- The static prototype can still use its current CDN Matter.js setup for development review.
+- Do not use a placeholder or stub for Matter.js.
