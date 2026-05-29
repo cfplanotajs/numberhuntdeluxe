@@ -13,3 +13,5 @@
 | `assets/number-hunter/js/games/quest-generator.js` | `number-hunter-quest-generator.js` | Yes | Guardian Quest generator |
 | `assets/number-hunter/js/number-hunter-hub.js` | `number-hunter-hub.js` | Yes | Hub bootstrap, load last |
 | Matter.js 0.20.0 | `matter.min.js` | Yes | Intentionally not included; upload before QR launch |
+
+The mappings above are enforced by `scripts/sync-shopify-assets.js` and `scripts/check-shopify-asset-sync.js`. Matter.js remains excluded from those helpers until supplied manually before launch.

@@ -64,3 +64,13 @@
 - `shopify/assets/` contains flattened copies of the current Quest Hub CSS and JavaScript files using the filenames referenced by the Liquid section.
 - Development source remains `assets/number-hunter/`; refresh `shopify/assets/` copies whenever source assets change.
 - `matter.min.js` is intentionally absent and must be supplied as a local Shopify/static asset before production QR launch.
+
+## Asset sync helpers
+After changing source files in `assets/number-hunter/`, refresh and verify the Shopify handoff copies with:
+
+```sh
+node scripts/sync-shopify-assets.js
+node scripts/check-shopify-asset-sync.js
+```
+
+These manual helpers use only Node built-ins. Matter.js remains intentionally excluded until supplied as a launch asset.

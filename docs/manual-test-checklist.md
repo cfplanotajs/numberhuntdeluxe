@@ -404,3 +404,9 @@
 - [ ] Verify print actions do not change progress.
 - [ ] Verify no direct reward bypass controls exist.
 - [ ] Verify no framework/build artifacts were added.
+
+## Shopify asset sync helpers
+- [ ] Run `node scripts/sync-shopify-assets.js` after source asset edits.
+- [ ] Run `node scripts/check-shopify-asset-sync.js` and confirm all mapped files match.
+- [ ] Confirm `shopify/assets/matter.min.js` is still absent until manually supplied before launch.
+- [ ] Confirm sync helper scripts do not require package.json, npm, or dependencies.

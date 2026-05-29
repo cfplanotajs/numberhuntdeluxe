@@ -72,3 +72,14 @@ Use the JSON template on a dedicated page and avoid duplicating this section mul
 - Source-of-truth during development remains `assets/number-hunter/`; after changing those source files, refresh the copied files in `shopify/assets/`.
 - `matter.min.js` is intentionally **not included** in this handoff bundle; upload Matter.js 0.20.0 manually before QR launch.
 - Keep script order unchanged: data, math engine, progress, Matter.js, game modules, hub bootstrap last.
+
+## Keeping Shopify assets in sync
+Development source remains in `assets/number-hunter/`; Shopify handoff copies live in `shopify/assets/`.
+After changing source assets, run these manual no-dependency helpers:
+
+```sh
+node scripts/sync-shopify-assets.js
+node scripts/check-shopify-asset-sync.js
+```
+
+The sync scripts use only Node built-ins and intentionally do not create or require `shopify/assets/matter.min.js`.
