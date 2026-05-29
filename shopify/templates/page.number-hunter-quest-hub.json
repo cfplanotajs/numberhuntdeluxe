@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "number-hunter-quest-hub",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
